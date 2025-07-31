@@ -6,17 +6,18 @@ import Image from "next/image";
 
 export default function Home() {
 
-  function button1() {
-    alert("click");
-  }
-
   return (
     <div className="home-page-full w-screen h-screen md:px-[15%] lg:px-[30%] flex flex-col items-center">
-      <div className="home-content-full w-full h-screen flex flex-col items-center border">
+      <div className="home-content-full w-full h-screen flex flex-col items-center ">
 
         <HomeHeader />
 
-        <StaticSketchedButton vectorFile={"sharpButton0.svg"} label="SIGN UP" width={200} href="/sign-up" />
+        <section className="flex flex-col gap-24 md:gap-18">
+          <StaticSketchedButton vectorFile={"sharpButton0.svg"} label="SIGN UP" width={200} href="/sign-up" />
+
+          <StaticSketchedButton vectorFile={"sharpButton1.svg"} label="SCHEDULE" width={200} href="/schedule" />
+        </section>
+
 
 
       </div>
