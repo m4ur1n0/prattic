@@ -1,6 +1,5 @@
 import { google } from "googleapis";
-import path from 'path'
-import { readFileSync } from "fs";
+
 
 
 export async function POST(req) {

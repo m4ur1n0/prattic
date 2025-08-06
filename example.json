@@ -1,0 +1,90 @@
+{
+    "success": true,
+    "body": {
+        "size": 0,
+        "data": {
+            "spreadsheetId": "1EZterrRxT5opuyu5eyyik9gW6kf7pqzcNk5uAn3qNYY",
+            "valueRanges": [
+                {
+                    "range": "schedule!A1:Z1000",
+                    "majorDimension": "ROWS",
+                    "values": [
+                        [
+                            "Sign-Up Date",
+                            "Performance Date",
+                            "Name",
+                            "Email",
+                            "Phone",
+                            "Notes"
+                        ],
+                        [
+                            "",
+                            "Mon Aug 4 2025 21:00 GMT-0500 (Central Daylight Time)",
+                            "Theo Maurino",
+                            "thjmaurino@gmail.com",
+                            "(413) 717-8751",
+                            "No notes today!! :)"
+                        ],
+                        [
+                            "Wed Jul 30 2025 20:20:00 GMT-0500 (Central Daylight Time)",
+                            "Mon Aug 4 2025 21:00 GMT-0500 (Central Daylight Time)",
+                            "Theo Maurino",
+                            "thjmaurino@gmail.com",
+                            "(413) 717-8751",
+                            "No notes today!! :)"
+                        ],
+                        [
+                            "",
+                            "Mon Aug 4 2025 21:00 GMT-0500 (Central Daylight Time)",
+                            "Theo Maurino",
+                            "thjmaurino@gmail.com",
+                            "(413) 717-8751",
+                            "No notes today!! :)"
+                        ],
+                        [
+                            "Wed Jul 30 2025",
+                            "Mon Aug 4 2025 21:00 GMT-0500 (Central Daylight Time)",
+                            "Theo Maurino",
+                            "thjmaurino@gmail.com",
+                            "(413) 717-8751",
+                            "No notes today!! :)"
+                        ],
+                        [
+                            "8:31:49 PM",
+                            "Mon Aug 4 2025 21:00 GMT-0500 (Central Daylight Time)",
+                            "Theo Maurino",
+                            "thjmaurino@gmail.com",
+                            "(413) 717-8751",
+                            "No notes today!! :)"
+                        ],
+                        [
+                            "7/30/2025, 8:32:13 PM",
+                            "Mon Aug 4 2025 21:00 GMT-0500 (Central Daylight Time)",
+                            "Theo Maurino",
+                            "thjmaurino@gmail.com",
+                            "(413) 717-8751",
+                            "No notes today!! :)"
+                        ]
+                    ]
+                }
+            ]
+        },
+        "config": {
+            "url": "https://sheets.googleapis.com/v4/spreadsheets/1EZterrRxT5opuyu5eyyik9gW6kf7pqzcNk5uAn3qNYY/values:batchGet?ranges=schedule%21A1%3AZ",
+            "method": "GET",
+            "apiVersion": "",
+            "userAgentDirectives": [
+                {
+                    "product": "google-api-nodejs-client",
+                    "version": "8.0.0",
+                    "comment": "gzip"
+                }
+            ],
+            "headers": {},
+            "params": { "ranges": ["schedule!A1:Z"] },
+            "retry": true,
+            "responseType": "unknown"
+        },
+        "headers": {}
+    }
+}

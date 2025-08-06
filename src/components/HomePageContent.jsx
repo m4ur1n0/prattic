@@ -1,0 +1,96 @@
+"use client"
+
+import React, { useEffect, useState } from 'react'
+import HomeHeader from "@/components/HomeHeader";
+import StaticSketchedButton from "@/components/StaticSketchedButton";
+import { AnimatePresence, motion } from "framer-motion";
+
+const HomePageContent = () => {
+
+//   const {homePageVisited, setHomePageVisited} = useAnimationC();
+    const [homePageVisited, setHomePageVisited] = useState(false);
+
+
+    useEffect(() => {
+
+        const hasVisited = sessionStorage.getItem("hasSeenIntro") === "true";
+    
+        if (!hasVisited) {
+            sessionStorage.setItem("hasSeenIntro", "true");
+            const timer = setTimeout(() => {
+                setHomePageVisited(true);
+            }, 1500);
+        
+            return () => clearTimeout(timer);
+
+        } else {
+            setHomePageVisited(true);
+        }
+
+    }, []);   
+
+    // useEffect(() => {
+
+    //     if (!homePageVisited) {
+    //         const timer = setTimeout(() => {
+    //             setHomePageVisited(true);
+    //             sessionStorage.setItem("hasSeenIntro", "true");
+    //         }, 1500);
+
+    //         return () => clearTimeout(timer);
+
+    //     }
+    // }, [])
+
+
+
+  return (
+    <motion.div className="home-content-full w-full h-screen flex flex-col items-center justify-center"  
+        layout
+        transition={{duration: 0.8, ease: "easeInOut"}}
+      >
+
+        {/* ANIMATE HEADER */}
+        
+        <motion.div
+          layout
+          initial={{scale : 0.8}}
+          animate={{
+            scale : homePageVisited ? 1 : 0.8,
+          }}
+          transition={{duration : 0.8, ease : "easeInOut"}}
+          className="z-10"
+        >
+          <HomeHeader />
+        </motion.div>
+
+        {/* Animate presence allows us to animate the introduction of new DOM trees */}
+        <AnimatePresence>
+
+          {homePageVisited && (
+            <motion.section
+              key="forward-buttons-section"
+              layout
+              initial={{opacity : 0, y : 20}}
+              animate={{opacity : 1, y : 0}}
+              exit={{opacity : 0, y: -20}}
+              transition={{duration : 0.6, delay : 0.8}}
+              className="flex flex-col gap-12 md:gap-10 mt-5 h-full"
+            >
+
+              <StaticSketchedButton vectorFile={"sharpButton0.svg"} label="SIGN UP" width={200} href="/sign-up" />
+              <StaticSketchedButton vectorFile={"sharpButton1.svg"} label="SCHEDULE" width={200} href="/schedule" />
+
+            </motion.section>
+
+          )}
+
+        </AnimatePresence>
+
+
+
+      </motion.div>
+  )
+}
+
+export default HomePageContent
