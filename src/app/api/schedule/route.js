@@ -1,3 +1,4 @@
+import { getCreds } from "@/app/lib/GoogleSheets";
 import { google } from "googleapis";
 
 
@@ -10,25 +11,8 @@ export async function POST(req) {
         // const {name, post_time, performance_date, email, phone, notes} = body;
         const {post_time, performance_date, name, email, phone, notes } = body;
 
-        const sheetId = process.env.SHEET_ID;
+        const {sheetId, credentials} = getCreds();
 
-        // service account credentials
-        const base64creds = process.env.GOOGLE_SERVICE_ACCOUNT;
-
-        if (!sheetId || !base64creds) {
-            return new Response(
-                JSON.stringify({
-                    error : "MISSING ENV VARS."
-                }),
-                {
-                    status : 500
-                }
-            );
-        }
-
-        // decode credentials
-        const decoded = Buffer.from(base64creds, 'base64').toString('utf8');
-        const credentials = JSON.parse(decoded);
 
         // console.log(JSON.stringify(credentials));
 
@@ -44,7 +28,7 @@ export async function POST(req) {
             // likewise, this is assuming the signups tab will always be called just 'signups'
                 // have to check with the prattic men for this
 
-        const range = 'signups!A1:Z'; // just grab all cols 
+        const range = 'signup!A1:Z'; // just grab all cols 
 
         await sheets.spreadsheets.values.append({
             spreadsheetId : sheetId,
@@ -90,22 +74,7 @@ export async function GET() {
 
     try {
 
-        const sheetId = process.env.SHEET_ID;
-        const base64creds = process.env.GOOGLE_SERVICE_ACCOUNT;
-
-        if (!sheetId || !base64creds) {
-            return new Response(
-                JSON.stringify({
-                    error : "MISSING ENV VALUES."
-                }),
-                {
-                    status : 500
-                }
-            );
-        }
-
-        const decoded = Buffer.from(base64creds, 'base64').toString('utf8');
-        const credentials = JSON.parse(decoded);
+        const {sheetId, credentials} = getCreds();
 
         const auth = new google.auth.GoogleAuth({
             credentials,
