@@ -35,6 +35,7 @@ const HomePageContent = () => {
         {/* ANIMATE HEADER */}
         
         <motion.div
+          layout
           initial={shouldAnimate ? {scale : 0.8} : false}
           animate={shouldAnimate ? {scale : 1} : false}
           transition={{duration : 0.8, ease : "easeInOut", delay : (shouldAnimate ? 1.5 : 0)}}
@@ -49,6 +50,7 @@ const HomePageContent = () => {
 
           {animationComplete && (
             <motion.section
+              layout
               key="forward-buttons-section"
               initial={{opacity : 0, y : 20}}
               animate={{opacity : 1, y : 0}}
