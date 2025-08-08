@@ -98,7 +98,7 @@ const HomePageContent = () => {
               initial={homePageVisited ? false : {opacity : 0, y : 20}}
               animate={{opacity : 1, y : 0}}
               exit={{opacity : 0, y: -20}}
-              transition={{duration : 0.6, delay : 1.2}}
+              transition={{duration : 0.6, delay : 3}}
               className="flex flex-col gap-12 md:gap-10 mt-5 h-full"
             >
 
