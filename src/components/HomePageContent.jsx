@@ -9,7 +9,7 @@ const HomePageContent = () => {
 
     // const {homePageVisited, setHomePageVisited} = useAnimationC();
     // const {homePageVisited, setHomePageVisited} = useAnimationC();
-    const [shouldAnimate, setShouldAnimate] = useState(false);
+    const [shouldAnimate, setShouldAnimate] = useState(null);
     const [animationComplete, setAnimationComplete] = useState(false);
 
     useEffect(() => {
@@ -19,10 +19,15 @@ const HomePageContent = () => {
         sessionStorage.setItem("hasAnimated", true);
         setShouldAnimate(true);
       } else {
+        setShouldAnimate(false);
         setAnimationComplete(true);
       }
 
     }, [])
+
+    if (shouldAnimate === null) {
+      return null;
+    }
 
 
 
