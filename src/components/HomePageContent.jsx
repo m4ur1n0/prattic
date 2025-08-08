@@ -4,35 +4,66 @@ import React, { useEffect, useState } from 'react'
 import HomeHeader from "@/components/HomeHeader";
 import StaticSketchedButton from "@/components/StaticSketchedButton";
 import { AnimatePresence, motion } from "framer-motion";
+import { useAnimationC } from '@/app/context/AnimationContext';
 
 const HomePageContent = () => {
 
 //   const {homePageVisited, setHomePageVisited} = useAnimationC();
-    const [homePageVisited, setHomePageVisited] = useState(null);
+    const {homePageVisited, setHomePageVisited} = useAnimationC();
+    const [hasMounted, setHasMounted ] = useState(false);
 
+    useEffect(() => {
+      setHasMounted(true);
+    }, [])
+
+
+    // useEffect(() => {
+
+    //   // COULD STORE A TIMESTAMP IN SESSION STORAGE SO THAT AFTER X MINUTES WE MAKE THE ANIMATION PLAY AGAIN.
+
+    //   const hasVisited = sessionStorage.getItem("hasSeenIntro") === "true";
+    
+    //   if (!hasVisited) {
+    //       sessionStorage.setItem("hasSeenIntro", "true");
+    //       const timer = setTimeout(() => {
+    //           setHomePageVisited(true);
+    //       }, 1500);
+      
+    //       return () => clearTimeout(timer);
+
+    //   } else {
+    //     setHomePageVisited(true);
+    //   }
+
+    // }, []);   
+
+    // if (homePageVisited === null) {
+    //   return null; // could return a loader here
+    // }
 
     useEffect(() => {
 
-      // COULD STORE A TIMESTAMP IN SESSION STORAGE SO THAT AFTER X MINUTES WE MAKE THE ANIMATION PLAY AGAIN.
+      if (hasMounted && !homePageVisited) {
+        const timer = setTimeout(() => {
+            setHomePageVisited(true);
+        }, 1500);
 
-      const hasVisited = sessionStorage.getItem("hasSeenIntro") === "true";
-    
-      if (!hasVisited) {
-          sessionStorage.setItem("hasSeenIntro", "true");
-          const timer = setTimeout(() => {
-              setHomePageVisited(true);
-          }, 1500);
-      
-          return () => clearTimeout(timer);
-
-      } else {
-        setHomePageVisited(true);
+        return () => clearTimeout(timer);
       }
 
-    }, []);   
+    }, [hasMounted, homePageVisited, setHomePageVisited])
 
-    if (homePageVisited === null) {
-      return null; // could return a loader here
+    if (!hasMounted) {
+      // Render a server-safe version that matches SSR output
+      return (
+        // <div className="home-content-full w-full h-screen flex flex-col items-center justify-center">
+        //   <div className="z-10">
+        //     <HomeHeader />
+        //   </div>
+        // </div>
+
+        null
+      );
     }
 
 
@@ -67,7 +98,7 @@ const HomePageContent = () => {
               initial={homePageVisited ? false : {opacity : 0, y : 20}}
               animate={{opacity : 1, y : 0}}
               exit={{opacity : 0, y: -20}}
-              transition={{duration : 0.6, delay : 0.8}}
+              transition={{duration : 0.6, delay : 1.2}}
               className="flex flex-col gap-12 md:gap-10 mt-5 h-full"
             >
 

@@ -1,6 +1,8 @@
 // import { Geist, Geist_Mono } from "next/font/google";
+
 import "./globals.css";
 import { Amatic_SC } from 'next/font/google'
+import AnimationProvider from "./context/AnimationContext";
 
 
 const amatic = Amatic_SC({
@@ -20,7 +22,9 @@ export default function RootLayout({ children }) {
       <body
         className={`${amatic.variable} ${amatic.variable} antialiased`}
       >
-        {children}
+        <AnimationProvider>
+          {children}
+        </AnimationProvider>
       </body>
     </html>
   );
