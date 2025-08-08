@@ -1,11 +1,23 @@
 import React from 'react'
 import ScheduleHeader from './ScheduleHeader'
+import ScheduleTable from './ScheduleTable'
 
 const ScheduleContent = () => {
+
+
+
   return (
-    <div className='schedule-content-full w-full h-screen flex flex-col items-center border '>
+    <div className='relative schedule-content-full w-full h-screen flex flex-col items-center border '>
+
+        <a href="/" className='absolute top-5 left-5 w-[40px] h-[40px] p-1 border border-gray-300 rounded-md hover:bg-gray-100 transition-color duration-50 smooth'>
+          <img src="/vectors/prattic-house-v1.svg" alt="Prattic House Logo Vectorized" />
+        </a>
 
         <ScheduleHeader />
+
+        <section className='schedule-table w-full px-16 mt-14'>
+          <ScheduleTable />
+        </section>
 
       
     </div> 

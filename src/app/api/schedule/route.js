@@ -9,7 +9,7 @@ export async function POST(req) {
     try {
         const body = await req.json();
         // const {name, post_time, performance_date, email, phone, notes} = body;
-        const {post_time, performance_date, name, email, phone, notes } = body;
+        const {post_time, performance_date, name, email, phone, notes, sheetName } = body;
 
         const {sheetId, credentials} = getCreds();
 
@@ -28,7 +28,7 @@ export async function POST(req) {
             // likewise, this is assuming the signups tab will always be called just 'signups'
                 // have to check with the prattic men for this
 
-        const range = 'signup!A1:Z'; // just grab all cols 
+        const range = `${sheetName}!A1:Z`; // just grab all cols 
 
         await sheets.spreadsheets.values.append({
             spreadsheetId : sheetId,
@@ -70,9 +70,12 @@ export async function POST(req) {
 }
 
 
-export async function GET() {
+export async function GET(req) {
 
     try {
+        // need to pass the sheetName as the body of the request
+        const body = await req.json();
+        const {sheetName} = body;
 
         const {sheetId, credentials} = getCreds();
 

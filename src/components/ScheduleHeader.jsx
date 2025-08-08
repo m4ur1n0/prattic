@@ -1,27 +1,10 @@
 "use client"
-import { getNextShow } from '@/app/lib/GetInfo'
+import { useShow } from '@/app/context/ShowContext'
 import React, { useState, useEffect } from 'react'
 
 const ScheduleHeader = () => {
 
-  const [nextShowData, setNextShowData] = useState({
-      next_date : "",
-      next_time : "",
-      date_obj : null,
-      finalized : false
-  });
-
-  useEffect(() => {
-
-    async function loadUp() {
-      const next = await getNextShow();
-      console.log(`received ${JSON.stringify(next)}`)
-      setNextShowData(next);
-    }
-
-    loadUp();
-    
-  }, [])
+  const {nextShowData, setNextShowData} = useShow();
   
 
   return (

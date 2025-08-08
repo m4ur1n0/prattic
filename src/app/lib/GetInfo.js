@@ -69,7 +69,8 @@ export async function getNextShow() {
             "next_date" : ps[1],
             "next_time" : String(nextKnown.getHours()) + ":" + String(nextKnown.getMinutes()),
             "date_obj" : nextKnown,
-            "finalized" : ps[0].toLowerCase() === "schedule" ? true : false
+            "finalized" : (ps[0].toLowerCase() === "schedule"),
+            "sheetName" : ps.join('_')
         }
 
 
@@ -80,7 +81,8 @@ export async function getNextShow() {
             "next_date" : "",
             "next_time" : "",
             "date_obj" : new Date(),
-            "finalized" : false
+            "finalized" : false,
+            "sheet_name" : ""
         }
     }
 
