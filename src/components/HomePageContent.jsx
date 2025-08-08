@@ -61,7 +61,7 @@ const HomePageContent = () => {
                 animate={{opacity : 1, y : 0}}
                 exit={{opacity : 0, y: -20}}
                 transition={{duration : 0.6, delay : 2.5}}
-                className="flex flex-col gap-12 md:gap-10 mt-5 h-full"
+                className="flex flex-col gap-8 md:gap-12 md:gap-10 mt-5 h-full"
               >
 
                 <StaticSketchedButton vectorFile={"sharpButton0.svg"} label="SIGN UP" width={200} href="/sign-up" />
@@ -80,7 +80,7 @@ const HomePageContent = () => {
       <div className="home-content-full w-full h-screen flex flex-col items-center justify-center">
         <HomeHeader />
 
-        <section className="flex flex-col gap-12 md:gap-10 mt-5 h-full">
+        <section className="flex flex-col gap-8 md:gap-12 md:gap-10 mt-5 h-full">
           <StaticSketchedButton vectorFile={"sharpButton0.svg"} label="SIGN UP" width={200} href="/sign-up" />
           <StaticSketchedButton vectorFile={"sharpButton1.svg"} label="SCHEDULE" width={200} href="/schedule" />
         </section>
