@@ -1,5 +1,7 @@
 import { getCreds } from "@/app/lib/GoogleSheets";
 import { google } from "googleapis";
+import { parseUrl } from "next/dist/shared/lib/router/utils/parse-url";
+
 
 
 
@@ -74,8 +76,10 @@ export async function GET(req) {
 
     try {
         // need to pass the sheetName as the body of the request
-        const body = await req.json();
-        const {sheetName} = body;
+        const {searchParams} = new URL(req.url);
+        const sheetName = decodeURIComponent(searchParams.get("sheetName"));
+
+        console.log("SHEET NAME : ", sheetName);
 
         const {sheetId, credentials} = getCreds();
 
@@ -92,7 +96,7 @@ export async function GET(req) {
             // likewise, this is assuming the signups tab will always be called just 'signups'
                 // have to check with the prattic men for this
         
-        const ranges = ["schedule!A1:Z"];
+        const ranges = [`${sheetName}!A1:Z`];
 
         const vals = await sheets.spreadsheets.values.batchGet({
             spreadsheetId : sheetId,
@@ -100,6 +104,8 @@ export async function GET(req) {
         });
 
         if (vals) {
+
+            console.log(JSON.stringify(vals));
 
             return new Response(
                 JSON.stringify({

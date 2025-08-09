@@ -6,7 +6,7 @@
             "spreadsheetId": "1EZterrRxT5opuyu5eyyik9gW6kf7pqzcNk5uAn3qNYY",
             "valueRanges": [
                 {
-                    "range": "schedule!A1:Z1000",
+                    "range": "'schedule_08/31/2025'!A1:Z1000",
                     "majorDimension": "ROWS",
                     "values": [
                         [
@@ -70,7 +70,7 @@
             ]
         },
         "config": {
-            "url": "https://sheets.googleapis.com/v4/spreadsheets/1EZterrRxT5opuyu5eyyik9gW6kf7pqzcNk5uAn3qNYY/values:batchGet?ranges=schedule%21A1%3AZ",
+            "url": "https://sheets.googleapis.com/v4/spreadsheets/1EZterrRxT5opuyu5eyyik9gW6kf7pqzcNk5uAn3qNYY/values:batchGet?ranges=schedule_08%2F31%2F2025%21A1%3AZ",
             "method": "GET",
             "apiVersion": "",
             "userAgentDirectives": [
@@ -81,7 +81,7 @@
                 }
             ],
             "headers": {},
-            "params": { "ranges": ["schedule!A1:Z"] },
+            "params": { "ranges": ["schedule_08/31/2025!A1:Z"] },
             "retry": true,
             "responseType": "unknown"
         },

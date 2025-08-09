@@ -29,7 +29,7 @@ export async function getNextShow() {
 
         let nextKnown;
 
-        console.log(pages);
+        // console.log(pages);
         for (let p of pages) {
             let parts = p.split('_');
 
@@ -65,6 +65,13 @@ export async function getNextShow() {
         // now we have MM:DD:YYYY:HH:mm
         // we return as string, along with date object
 
+        if (pages.includes(["schedule", ps[1]].join("_"))) {
+            // then there is a 'schedule' version, which is official.
+            // IF WE DECIDE THAT THEY WILL JUST RENAME THE PAGE FROM SIGNUP_XXX TO SCHEDULE_XXX THIS PART CAN BE DELETED
+                // this would be better for the 'finalized' variable
+            ps = ["schedule", ps[1]]; // all else stays the same
+        }
+
         return {
             "next_date" : ps[1],
             "next_time" : String(nextKnown.getHours()) + ":" + String(nextKnown.getMinutes()),
@@ -86,4 +93,48 @@ export async function getNextShow() {
         }
     }
 
+}
+
+export async function getNextShowData(sheetName) {
+
+    try {
+
+        let res = await fetch(`../api/schedule?sheetName=${sheetName}`, {
+            method : "GET",
+            headers : {'Content-Type': 'application/json'},
+
+        });
+
+        console.log(JSON.stringify(res));
+        
+
+        const sheetData = await res.json();
+
+
+        if (!sheetData["success"]) {
+            throw new Error(`Getting data from sheet named ${sheetName} failed.`)
+        }
+
+        console.log(JSON.stringify(sheetData))
+
+        // ok then this should work.
+        const performersInOrder = [];
+        // CAN ADD TIME COL HERE TOO IF WE WANT IT
+        const idxOfName = sheetData["body"]["data"]["valueRanges"][0]["values"][0].indexOf("Name");
+
+        for (let row of sheetData["body"]["data"]["valueRanges"][0]["values"]) {
+            performersInOrder.push(row[idxOfName]);
+        }
+
+        return {
+            performers : performersInOrder
+        };
+
+        
+
+
+    } catch (e) {
+        console.error("Failed to get performers for next show: ", e);
+        return {};
+    }
 }

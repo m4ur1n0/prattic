@@ -1,7 +1,7 @@
 // theo maurino
 
 import { createContext, useContext, useState, useEffect } from "react"
-import { getNextShow } from "../lib/GetInfo";
+import { getNextShow, getNextShowData } from "../lib/GetInfo";
 
 const ShowContext = createContext({});
 
@@ -16,13 +16,18 @@ const ShowProvider = ({children}) => {
         finalized : false,
         sheetName : "",
     });
+    const [performersInOrder, setPerformersInOrder] = useState([]);
   
     useEffect(() => {
   
       async function loadUp() {
         const next = await getNextShow();
-        console.log(`received ${JSON.stringify(next)}`)
-        setNextShowData(next);
+        if (next) {
+            const {performers} = await getNextShowData(next.sheetName)
+            console.log(`received ${JSON.stringify(next)}`)
+            setNextShowData(next);
+            setPerformersInOrder(performers);
+        }
       }
   
       loadUp();
@@ -33,6 +38,8 @@ const ShowProvider = ({children}) => {
     const val = {
         nextShowData,
         setNextShowData,
+        performersInOrder,
+        setPerformersInOrder
     };
 
 

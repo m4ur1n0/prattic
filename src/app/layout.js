@@ -3,6 +3,7 @@
 import "./globals.css";
 import { Amatic_SC } from 'next/font/google'
 import AnimationProvider from "./context/AnimationContext";
+import Head from "next/head";
 
 
 const amatic = Amatic_SC({
@@ -19,6 +20,9 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
+      <Head>
+        <link rel="icon" href="/vectors/prattic-house-v1.svg" sizes="any" />
+      </Head>
       <body
         className={`${amatic.variable} ${amatic.variable} antialiased`}
       >

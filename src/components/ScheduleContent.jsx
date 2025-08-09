@@ -7,10 +7,10 @@ const ScheduleContent = () => {
 
 
   return (
-    <div className='relative schedule-content-full w-full h-screen flex flex-col items-center border '>
+    <div className='relative schedule-content-full w-full h-screen flex flex-col items-center '>
 
-        <a href="/" className='absolute top-5 left-5 w-[40px] h-[40px] p-1 border border-gray-300 rounded-md hover:bg-gray-100 transition-color duration-50 smooth'>
-          <img src="/vectors/prattic-house-v1.svg" alt="Prattic House Logo Vectorized" />
+        <a href="/" className='absolute top-2 md:top-5 left-5 w-[35px] h-[35px] p-1 border border-gray-300 rounded-md hover:bg-gray-100 transition-color duration-50 smooth'>
+          <img src="/vectors/back.svg" alt="Prattic House Logo Vectorized" />
         </a>
 
         <ScheduleHeader />
