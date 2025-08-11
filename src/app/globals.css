@@ -139,3 +139,7 @@ body {
 hr {
   border-color : var(--app-black)
 }
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}

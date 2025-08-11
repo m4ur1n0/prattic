@@ -15,7 +15,7 @@ const ScheduleContent = () => {
 
         <ScheduleHeader />
 
-        <section className='schedule-table w-full px-16 mt-14'>
+        <section className='schedule-table w-full px-16 mt-10'>
           <ScheduleTable />
         </section>
 

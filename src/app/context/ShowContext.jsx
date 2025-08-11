@@ -16,7 +16,7 @@ const ShowProvider = ({children}) => {
         finalized : false,
         sheetName : "",
     });
-    const [performersInOrder, setPerformersInOrder] = useState([]);
+    const [nextPerformersInOrder, setNextPerformersInOrder] = useState([]);
   
     useEffect(() => {
   
@@ -24,9 +24,9 @@ const ShowProvider = ({children}) => {
         const next = await getNextShow();
         if (next) {
             const {performers} = await getNextShowData(next.sheetName)
-            console.log(`received ${JSON.stringify(next)}`)
+            // console.log(`received ${JSON.stringify(next)}`)
             setNextShowData(next);
-            setPerformersInOrder(performers);
+            setNextPerformersInOrder(performers);
         }
       }
   
@@ -38,8 +38,8 @@ const ShowProvider = ({children}) => {
     const val = {
         nextShowData,
         setNextShowData,
-        performersInOrder,
-        setPerformersInOrder
+        nextPerformersInOrder,
+        setNextPerformersInOrder
     };
 
 

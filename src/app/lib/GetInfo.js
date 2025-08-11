@@ -123,7 +123,11 @@ export async function getNextShowData(sheetName) {
         const idxOfName = sheetData["body"]["data"]["valueRanges"][0]["values"][0].indexOf("Name");
 
         for (let row of sheetData["body"]["data"]["valueRanges"][0]["values"]) {
-            performersInOrder.push(row[idxOfName]);
+            // as object we can include time too if different
+            // LATER
+            performersInOrder.push({
+                name : row[idxOfName],
+            });
         }
 
         return {
