@@ -15,7 +15,7 @@ function timeFromIndex(i) {
     let mins = 9 * 60 + 10 + i * ESTIMATED_SET_LENGTH;
     let h = Math.floor(mins / 60) % 24;
     let m = mins % 60;
-    return `${h}:${m.toString().padStart(2, '0')}`;
+    return `${h}:${m.toString().padStart(2, '0')} PM`;
 }
 
 const ScheduleTable = () => {
