@@ -7,9 +7,9 @@ const HomeHeader = () => {
         {/* <img src="https://placehold.co/200x200" alt="The Prattic Logo" className='' /> */}
         <img src="/images/prattic-line-drawing-v1-opt.png" alt="The Prattic House" className='w-[250px] h-[250px]' />
 
-        <h1 className='text-8xl font-bold scale-y-[80%] scale-x-[110%] md:scale-x-[140%]'>THE PRATTIC</h1>
+        <h1 className='text-8xl font-bold scale-y-[80%] scale-x-[110%] md:scale-x-[140%] no-select'>THE PRATTIC</h1>
 
-        <p className='text-lg mb-1'>Est. 2024</p>
+        <p className='text-lg mb-1 no-select'>Est. 2024</p>
 
         <hr className='w-[60%]' />
       

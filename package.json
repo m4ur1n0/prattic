@@ -20,7 +20,8 @@
     "react-dom": "^19.0.0",
     "roughjs": "^4.6.6",
     "shadcn": "^2.10.0",
-    "tailwind-merge": "^3.3.1"
+    "tailwind-merge": "^3.3.1",
+    "use-scramble": "^2.2.15"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",

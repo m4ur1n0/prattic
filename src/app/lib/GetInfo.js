@@ -33,7 +33,7 @@ export async function getNextShow() {
         for (let p of pages) {
             let parts = p.split('_');
 
-
+            // the thing about times is garbage and should never exist...
             let d = (parts.length === 2) ? parts[1] : parts[2]; // expects type_date OR type_date_time and NOTHING else.
 
             if (convertMmDdYyyyToDate(d) > today) {
@@ -141,4 +141,53 @@ export async function getNextShowData(sheetName) {
         console.error("Failed to get performers for next show: ", e);
         return {};
     }
+}
+
+export async function getAllFutureShows() {
+
+    try {
+
+        const res = await fetch('../api/sheet-pages', {
+            method : "GET",
+            headers : {'Content-Type' : 'application/json'}
+        });
+
+        const data = await res.json();
+
+        const pages = data["pages"];
+        const today = new Date();
+
+        // we are looking for all possible 'signup' pages in the FUTURE
+
+        let futures = pages.map((page) => {
+            if (page.startsWith("signup")) {
+                // for every existing SIGNUP page, allow the chance to signup
+                let parts = p.split('_');
+
+                // the thing about times is garbage and should never exist...
+                let d = (parts.length === 2) ? parts[1] : parts[2]; // expects type_date OR type_date_time and NOTHING else.
+
+                if (convertMmDdYyyyToDate(d) > today) {
+                    // return page;
+                    // LATER --- RETURN FULL PAGE NAME IF NOT JUST A STANDUP NIGHT
+                    return d;
+                }
+                
+            }
+        });
+
+        // now futures contains all future signup pages
+            // for right now we're just gonna give the dates. might add a 'showname' field later.
+            // LATER -- ADD SHOWNAME FIELD
+        
+            // right now futures === a list of dates
+        return futures;
+
+
+
+    } catch (e) {
+        console.error("AN ERROR OCURRED WHILE TRYING TO ACCESS ALL NEXT SHOWS : ", e)
+        return {}
+    }
+
 }

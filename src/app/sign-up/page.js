@@ -1,5 +1,7 @@
 "use client"
 
+import SignUpFutureShowsList from '@/components/SignUpFutureShowsList';
+import SignUpHeader from '@/components/SignUpHeader';
 import React from 'react'
 
 const page = () => {
@@ -27,28 +29,14 @@ const page = () => {
 
   }
 
-
-  async function testGet() {
-    const res = await fetch('../api/schedule', {
-      method : "GET",
-      headers : {'Content-Type': 'application/json'}
-    });
-
-    const data = await res.json();
-
-    console.log(JSON.stringify(data));
-  }
-
   return (
-    <div className="home-page-full w-screen h-screen md:px-[15%] lg:px-[30%] flex flex-col items-center">
-      xxx
+    <main className='signup-page-full w-screen h-screen md:px-[15%] lg:px-[30%] flex flex-col items-center overflow-hidden'>
 
-      <button className='border' onClick={testPost}>Click</button>
+      <SignUpHeader />
 
-      <button className='border' onClick={testGet}>Click</button>
+      <SignUpFutureShowsList />
 
-
-    </div>
+    </main>
   )
 }
 

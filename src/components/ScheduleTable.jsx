@@ -1,4 +1,5 @@
-import React from 'react'
+"use client"
+import React, {useState, useEffect} from 'react'
 import {
     Table,
     TableBody,
@@ -8,6 +9,9 @@ import {
     TableRow,
   } from "@/components/ui/table"
 import { useShow } from '@/app/context/ShowContext'
+import { useScramble } from 'use-scramble';
+
+const NUM_SCRAMBLE_ROWS = 6;
 
 
 function timeFromIndex(i) {
@@ -18,47 +22,121 @@ function timeFromIndex(i) {
     return `${h}:${m.toString().padStart(2, '0')} PM`;
 }
 
+// function ScrambleCell({ finalText}) {
+//     const {ref} = useScramble({
+//         text : finalText || "XXXXXXXXXXXXXX",
+//         speed : 0.5,
+//         tick : 1,
+//         seed : 1,
+//         overdrive : !finalText
+//     })
+
+//     return <span ref={ref} />
+// }
+  
+  function ScrambleCell({
+    finalText,
+    length = 30,
+    chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()-_=+[]{}<>?/|',
+  }) {
+    const [displayText, setDisplayText] = useState('');
+  
+    useEffect(() => {
+      if (finalText) {
+        setDisplayText(finalText);
+        return; // stop scrambling
+      }
+  
+      let animationFrame;
+      const scramble = () => {
+        const scrambled = Array.from({ length })
+          .map(() => chars[Math.floor(Math.random() * chars.length)])
+          .join('');
+        setDisplayText(scrambled);
+        animationFrame = requestAnimationFrame(scramble);
+      };
+  
+      scramble();
+  
+      return () => cancelAnimationFrame(animationFrame);
+    }, [finalText, length, chars]);
+  
+    return <span className='overflow-hidden'>{displayText}</span>;
+  }
+
 const ScheduleTable = () => {
 
     const {nextShowData, nextPerformersInOrder} = useShow();
+
+    const loading = !nextPerformersInOrder || nextPerformersInOrder.length === 0;
+
+    const [stoppedRows, setStoppedRows] = useState([]);
+
+
+    useEffect(() => {
+
+        if (!loading) {
+            setStoppedRows([]);
+            return;
+        }
+
+        const timers = [];
+
+        for (let i = 0; i < NUM_SCRAMBLE_ROWS; i++) {
+
+            timers.push(setTimeout(() => {
+                setStoppedRows(prev => [...prev, i]);
+            }, 700));
+
+        }
+
+        return () => timers.forEach(clearTimeout);
+
+    }, [loading])
 
   return (
     <div className='flex flex-col '>
 
         {/* ACTUAL TABLE OF PERFORMERS */}
         <div className='relative max-h-[250px] overflow-y-auto no-scrollbar'>
-            <Table className="">
+            <Table className="table-fixed">
                 <TableHeader className="sticky !bg-background top-0 z-10">
                     <TableRow className="" >
                         <TableHead className=" font-bold text-xl">Estimated Time</TableHead>
-                        <TableHead className=" font-bold text-xl">Name</TableHead>
+                        <TableHead className=" font-bold text-xl md:min-w-[200px] ">Name</TableHead>
                     </TableRow>
                 </TableHeader>
                 <TableBody >
                     {
-                        nextPerformersInOrder ? (
+                        loading ? (
 
-                            nextPerformersInOrder.slice(1).map((performer, i) => (
+                            // show scramble
+                            Array.from({length : NUM_SCRAMBLE_ROWS}).map((_, i) => (
                                 <TableRow key={i}>
-                                    <TableCell className='text-xl'>
-                                        {i === 0 ? "Opener" : timeFromIndex(i)}
+                                    <TableCell className="text-xl">
+                                        <ScrambleCell finalText={stoppedRows.includes(i) ? `${i === 0 ? "Opener" : timeFromIndex(i)}` : undefined} />
                                     </TableCell>
-                                    <TableCell className='text-xl'>
-                                        {performer["name"]}
+
+                                    <TableCell className="text-xl md:min-w-[300px] whitespace-nowrap overflow-hidden text-ellipsis">
+                                        <ScrambleCell finalText={stoppedRows.includes(i) ? nextPerformersInOrder["name"] : undefined} />
+                                        
                                     </TableCell>
                                 </TableRow>
                             ))
 
                         ) : (
-                            <TableRow>
-                                <TableCell className='text-xl'>
-                                    XXX
-                                </TableCell>
-
-                                <TableCell className='text-xl'>
-                                    YYY
-                                </TableCell>
-                            </TableRow>
+                            // data is ready -- show actual data
+                            nextPerformersInOrder.slice(1).map((performer, i) => (
+                                <TableRow key={i}>
+                                    <TableCell className='text-xl'
+                                    >
+                                        {i === 0 ? "Opener" : timeFromIndex(i)}
+                                    </TableCell>
+                                    <TableCell className='text-xl md:min-w-[300px] whitespace-nowrap overflow-hidden text-ellipsis'>
+                                        {performer["name"]}
+                                    </TableCell>
+                                </TableRow>
+                            ))
                         )
                         
                     }

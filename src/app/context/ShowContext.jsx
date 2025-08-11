@@ -9,13 +9,7 @@ const ShowProvider = ({children}) => {
 
     // gives information about all the shows known to us via the spreadsheet.
 
-    const [nextShowData, setNextShowData] = useState({
-        next_date : "",
-        next_time : "",
-        date_obj : null,
-        finalized : false,
-        sheetName : "",
-    });
+    const [nextShowData, setNextShowData] = useState({});
     const [nextPerformersInOrder, setNextPerformersInOrder] = useState([]);
   
     useEffect(() => {
