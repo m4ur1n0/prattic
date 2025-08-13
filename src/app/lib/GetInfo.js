@@ -1,6 +1,6 @@
 // theo maurino
 
-function convertMmDdYyyyToDate(dateStr) {
+export function convertMmDdYyyyToDate(dateStr) {
     const parts = dateStr.split('/');
 
     // month is 0 indexed
@@ -159,10 +159,10 @@ export async function getAllFutureShows() {
 
         // we are looking for all possible 'signup' pages in the FUTURE
 
-        let futures = pages.map((page) => {
+        let futures = pages.filter((page) => {
             if (page.startsWith("signup")) {
                 // for every existing SIGNUP page, allow the chance to signup
-                let parts = p.split('_');
+                let parts = page.split('_');
 
                 // the thing about times is garbage and should never exist...
                 let d = (parts.length === 2) ? parts[1] : parts[2]; // expects type_date OR type_date_time and NOTHING else.
@@ -181,13 +181,15 @@ export async function getAllFutureShows() {
             // LATER -- ADD SHOWNAME FIELD
         
             // right now futures === a list of dates
+
+        console.log(`RETURNING ${futures}`)
         return futures;
 
 
 
     } catch (e) {
         console.error("AN ERROR OCURRED WHILE TRYING TO ACCESS ALL NEXT SHOWS : ", e)
-        return {}
+        return []
     }
 
 }

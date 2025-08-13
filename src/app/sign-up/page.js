@@ -3,6 +3,7 @@
 import SignUpFutureShowsList from '@/components/SignUpFutureShowsList';
 import SignUpHeader from '@/components/SignUpHeader';
 import React from 'react'
+import ShowProvider from '../context/ShowContext';
 
 const page = () => {
 
@@ -34,7 +35,9 @@ const page = () => {
 
       <SignUpHeader />
 
-      <SignUpFutureShowsList />
+      <ShowProvider>
+        <SignUpFutureShowsList />
+      </ShowProvider>
 
     </main>
   )

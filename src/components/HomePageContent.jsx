@@ -34,7 +34,7 @@ const HomePageContent = () => {
 
   return (shouldAnimate ? (
       <motion.div className="home-content-full w-full h-screen flex flex-col items-center justify-center"  
-          transition={{duration: 0.8, ease: "easeInOut"}} // maybe delete
+          transition={{duration: 0.5, ease: "easeInOut"}} // maybe delete
         >
 
           {/* ANIMATE HEADER */}
@@ -43,7 +43,7 @@ const HomePageContent = () => {
             layout
             initial={{scale : 0.8}}
             animate={{scale : 1}}
-            transition={{duration : 0.8, ease : "easeInOut", delay : 1.5}}
+            transition={{duration : 0.8, ease : "easeInOut", delay : 0.5}}
             className="z-10"
             onAnimationComplete={() => setAnimationComplete(true)}
           >
@@ -60,8 +60,8 @@ const HomePageContent = () => {
                 initial={{opacity : 0, y : 20}}
                 animate={{opacity : 1, y : 0}}
                 exit={{opacity : 0, y: -20}}
-                transition={{duration : 0.6, delay : 2.5}}
-                className="flex flex-col gap-8 md:gap-12 md:gap-10 mt-5 h-full"
+                transition={{duration : 0.5, delay : 1.5}}
+                className="flex flex-col gap-8  md:gap-8 mt-5 h-full"
               >
 
                 <StaticSketchedButton vectorFile={"sharpButton0.svg"} label="SIGN UP" width={200} href="/sign-up" />
@@ -80,7 +80,7 @@ const HomePageContent = () => {
       <div className="home-content-full w-full h-screen flex flex-col items-center justify-center">
         <HomeHeader />
 
-        <section className="flex flex-col gap-8 md:gap-12 md:gap-10 mt-5 h-full">
+        <section className="flex flex-col gap-8 md:gap-8 mt-5 h-full">
           <StaticSketchedButton vectorFile={"sharpButton0.svg"} label="SIGN UP" width={200} href="/sign-up" />
           <StaticSketchedButton vectorFile={"sharpButton1.svg"} label="SCHEDULE" width={200} href="/schedule" />
         </section>
