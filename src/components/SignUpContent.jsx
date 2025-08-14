@@ -28,3 +28,4 @@ const SignUpContent = () => {
 }
 
 export default SignUpContent
+

@@ -1,7 +1,7 @@
 "use client"
 
 import React, { useEffect, useState } from 'react'
-import HomeHeader from "@/components/HomeHeader";
+import HomeHeader from "@/components/Home/HomeHeader";
 import StaticSketchedButton from "@/components/StaticSketchedButton";
 import { AnimatePresence, motion } from "framer-motion";
 
@@ -61,7 +61,7 @@ const HomePageContent = () => {
                 animate={{opacity : 1, y : 0}}
                 exit={{opacity : 0, y: -20}}
                 transition={{duration : 0.5, delay : 1.5}}
-                className="flex flex-col gap-8  md:gap-8 mt-5 h-full"
+                className="flex flex-col gap-8 md:gap-8 mt-5 h-full"
               >
 
                 <StaticSketchedButton vectorFile={"sharpButton0.svg"} label="SIGN UP" width={200} href="/sign-up" />
