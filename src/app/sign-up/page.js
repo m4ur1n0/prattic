@@ -1,9 +1,7 @@
-"use client"
+import SignUpContent from '@/components/SignUpContent';
 
-import SignUpFutureShowsList from '@/components/SignUpFutureShowsList';
-import SignUpHeader from '@/components/SignUpHeader';
+// import StaticSketchedButton from '@/components/StaticSketchedButton';
 import React from 'react'
-import ShowProvider from '../context/ShowContext';
 
 const page = () => {
 
@@ -31,13 +29,9 @@ const page = () => {
   }
 
   return (
-    <main className='signup-page-full w-screen h-screen md:px-[15%] lg:px-[30%] flex flex-col items-center overflow-hidden'>
+    <main className='signup-page-full relative w-screen h-screen md:px-[15%] lg:px-[30%] flex flex-col items-center overflow-hidden'>
 
-      <SignUpHeader />
-
-      <ShowProvider>
-        <SignUpFutureShowsList />
-      </ShowProvider>
+      <SignUpContent />
 
     </main>
   )

@@ -14,9 +14,9 @@ import { useScramble } from 'use-scramble';
 const NUM_SCRAMBLE_ROWS = 6;
 
 
-function timeFromIndex(i) {
+function timeFromIndex(i, startHour=9) {
     const ESTIMATED_SET_LENGTH = 4
-    let mins = 9 * 60 + 10 + i * ESTIMATED_SET_LENGTH;
+    let mins = startHour * 60 + 10 + i * ESTIMATED_SET_LENGTH;
     let h = Math.floor(mins / 60) % 24;
     let m = mins % 60;
     return `${h}:${m.toString().padStart(2, '0')} PM`;
@@ -34,35 +34,35 @@ function timeFromIndex(i) {
 //     return <span ref={ref} />
 // }
   
-  function ScrambleCell({
-    finalText,
-    length = 30,
-    chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()-_=+[]{}<>?/|',
-  }) {
-    const [displayText, setDisplayText] = useState('');
-  
-    useEffect(() => {
-      if (finalText) {
-        setDisplayText(finalText);
-        return; // stop scrambling
-      }
-  
-      let animationFrame;
-      const scramble = () => {
-        const scrambled = Array.from({ length })
-          .map(() => chars[Math.floor(Math.random() * chars.length)])
-          .join('');
-        setDisplayText(scrambled);
-        animationFrame = requestAnimationFrame(scramble);
-      };
-  
-      scramble();
-  
-      return () => cancelAnimationFrame(animationFrame);
-    }, [finalText, length, chars]);
-  
-    return <span className='overflow-hidden'>{displayText}</span>;
-  }
+function ScrambleCell({
+finalText,
+length = 30,
+chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()-_=+[]{}<>?/|',
+}) {
+const [displayText, setDisplayText] = useState('');
+
+useEffect(() => {
+    if (finalText) {
+    setDisplayText(finalText);
+    return; // stop scrambling
+    }
+
+    let animationFrame;
+    const scramble = () => {
+    const scrambled = Array.from({ length })
+        .map(() => chars[Math.floor(Math.random() * chars.length)])
+        .join('');
+    setDisplayText(scrambled);
+    animationFrame = requestAnimationFrame(scramble);
+    };
+
+    scramble();
+
+    return () => cancelAnimationFrame(animationFrame);
+}, [finalText, length, chars]);
+
+return <span className='overflow-hidden'>{displayText}</span>;
+}
 
 const ScheduleTable = () => {
 
@@ -99,7 +99,7 @@ const ScheduleTable = () => {
 
         {/* ACTUAL TABLE OF PERFORMERS */}
         <div className='relative max-h-[250px] overflow-y-auto no-scrollbar'>
-            <Table className="table-fixed">
+            <Table className="table-fixed ">
                 <TableHeader className="sticky !bg-background top-0 z-10">
                     <TableRow className="" >
                         <TableHead className=" font-bold text-xl">Estimated Time</TableHead>

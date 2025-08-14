@@ -11,7 +11,7 @@ const ScheduleHeader = () => {
     <div className='schedule-header flex flex-col items-center mt-8'>
 
         <header className='w-4/5 flex flex-col items-center'>
-          <h1 className='text-center text-8xl font-bold scale-y-[80%] scale-x-[140%] no-select'>
+          <h1 className='text-center text-8xl font-bold scale-y-[80%] scale-x-[130%] md:scale-x-[140%] no-select'>
               WHO'S ON FIRST?
           </h1>
 

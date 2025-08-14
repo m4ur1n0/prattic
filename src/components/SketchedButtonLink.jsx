@@ -4,7 +4,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import rough from 'roughjs/bin/rough'
 import { useRouter } from 'next/navigation'
 
-const SketchedButtonLink = ({href, label}) => {
+const SketchedButtonLink = ({href, label, width, height}) => {
 
     // const svgRef = useRef<SVGSVGElement>(null);
     const svgRef = useRef(null);
@@ -23,7 +23,7 @@ const SketchedButtonLink = ({href, label}) => {
         // -----------------------------------------------------------
         // WORKING -- BUTTON BODY WITH SHARP CORNERS
 
-        const node = rc.rectangle(0, 0, 200, 60, {
+        const node = rc.rectangle(0, 0, width, height, {
             roughness : 1.5,
             stroke : "#000",
             strokeWidth: 4,
@@ -68,8 +68,8 @@ const SketchedButtonLink = ({href, label}) => {
     <div className=''
         onClick={()=> router.push(href)}
         style={{
-            width : "200px",
-            height : '60px',
+            width : `${width}px`,
+            height : `${height}px`,
             cursor : 'pointer',
             userSelect : 'none',
             display : 'inline-block',
@@ -80,8 +80,8 @@ const SketchedButtonLink = ({href, label}) => {
 
         <svg
             ref={svgRef}
-            width={200}
-            height={60}
+            width={width}
+            height={height}
             style={{
                 position : 'absolute',
                 top : 0,
@@ -93,8 +93,8 @@ const SketchedButtonLink = ({href, label}) => {
                 position : 'absolute',
                 top : 0,
                 left : 0,
-                width : '200px',
-                height : '60px',
+                width : `${width}px`,
+                height : `${height}px`,
                 display : 'flex',
                 alignItems : 'center',
                 justifyContent : 'center',
