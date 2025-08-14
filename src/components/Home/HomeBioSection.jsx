@@ -40,7 +40,7 @@ const HomeBioSection = () => {
             {
                 prattic_bios_info.map((person, i) => (
                     // eventually <PratticBioCard>
-                    <div className='flex flex-col'>
+                    <div className='flex flex-col' key={i}>
                         <img src={person.image} className='' alt={`Image of Prattic oficionado ${person.name}`} />
                         <h3>{person.name}</h3>
                         <p className=''>

@@ -10,16 +10,19 @@ export default function Home() {
   
 
   return (
-    <main className="home-page-full w-screen md:px-[15%] lg:px-[30%] flex flex-col items-center overflow-hidden">
+    // REMOVED OVERFLOW-HIDDEN
+    <main className="home-page-full w-screen md:px-[15%] lg:px-[30%] flex flex-col items-center ">
 
       {/* <HomePageContent /> */}
 
-      {
+      {/* {
         isMobile ?
         <HomeMobile />
         :
         <HomeDesktop />
-      }
+      } */}
+
+      <HomeDesktop />
       
     </main>
   );
