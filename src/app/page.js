@@ -11,7 +11,7 @@ export default function Home() {
 
   return (
     // REMOVED OVERFLOW-HIDDEN
-    <main className="home-page-full w-screen md:px-[15%] lg:px-[30%] flex flex-col items-center ">
+    <main className="home-page-full w-screen md:px-[15%] lg:px-[30%] flex flex-col items-center">
 
       {/* <HomePageContent /> */}
 

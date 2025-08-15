@@ -12,7 +12,9 @@ const HomeHeader = () => {
 
         <p className='text-lg mb-1 no-select'>Est. 2024</p>
 
-        <hr className='w-[60%]' />
+        {/* <hr className='w-[60%]' /> */}
+
+        <hr className='w-[250px]' />
       
     </header>
   )
