@@ -22,47 +22,54 @@ function timeFromIndex(i, startHour=9) {
     return `${h}:${m.toString().padStart(2, '0')} PM`;
 }
 
-// function ScrambleCell({ finalText}) {
-//     const {ref} = useScramble({
-//         text : finalText || "XXXXXXXXXXXXXX",
-//         speed : 0.5,
-//         tick : 1,
-//         seed : 1,
-//         overdrive : !finalText
-//     })
+function ScrambleCell({ finalText}) {
+    const {ref, replay} = useScramble({
+        text : finalText ?? "XXXXXXX",
+        speed : 0.5,
+        tick : 1,
+        step : 1,
+        seed : 1,
+        overdrive : false
+    })
 
-//     return <span ref={ref} />
-// }
-  
-function ScrambleCell({
-finalText,
-length = 30,
-chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()-_=+[]{}<>?/|',
-}) {
-const [displayText, setDisplayText] = useState('');
+    useEffect(() => {
+        if (finalText) {
+            replay();
+        }
+    }, [finalText, replay]);
 
-useEffect(() => {
-    if (finalText) {
-    setDisplayText(finalText);
-    return; // stop scrambling
-    }
-
-    let animationFrame;
-    const scramble = () => {
-    const scrambled = Array.from({ length })
-        .map(() => chars[Math.floor(Math.random() * chars.length)])
-        .join('');
-    setDisplayText(scrambled);
-    animationFrame = requestAnimationFrame(scramble);
-    };
-
-    scramble();
-
-    return () => cancelAnimationFrame(animationFrame);
-}, [finalText, length, chars]);
-
-return <span className='overflow-hidden'>{displayText}</span>;
+    return <span ref={ref} />
 }
+  
+// function ScrambleCell({
+//     finalText,
+//     length = 30,
+//     chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()-_=+[]{}<>?/|',
+// }) {
+//     const [displayText, setDisplayText] = useState('');
+
+//     useEffect(() => {
+//         if (finalText) {
+//         setDisplayText(finalText);
+//         return; // stop scrambling
+//         }
+
+//         let animationFrame;
+//         const scramble = () => {
+//             const scrambled = Array.from({ length })
+//                 .map(() => chars[Math.floor(Math.random() * chars.length)])
+//                 .join('');
+//             setDisplayText(scrambled);
+//             animationFrame = requestAnimationFrame(scramble);
+//         };
+
+//         scramble();
+
+//         return () => cancelAnimationFrame(animationFrame);
+//     }, [finalText, length, chars]);
+
+//     return <span className='overflow-hidden'>{displayText}</span>;
+// }
 
 const ScheduleTable = () => {
 
@@ -118,7 +125,7 @@ const ScheduleTable = () => {
                                     </TableCell>
 
                                     <TableCell className="text-xl md:min-w-[300px] whitespace-nowrap overflow-hidden text-ellipsis">
-                                        <ScrambleCell finalText={stoppedRows.includes(i) ? nextPerformersInOrder["name"] : undefined} />
+                                        <ScrambleCell finalText={stoppedRows.includes(i) ? (nextPerformersInOrder[i] ? nextPerformersInOrder[i]["name"] : "") : ""} />
                                         
                                     </TableCell>
                                 </TableRow>

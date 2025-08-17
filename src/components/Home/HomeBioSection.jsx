@@ -22,7 +22,7 @@ const HomeBioSection = () => {
 
 
   return (
-    <section className='home-bio-section flex flex-col items-center overflow-y-scroll gap-10'>
+    <section className='home-bio-section w-[60%] flex flex-col items-center overflow-y-scroll gap-10'>
 
         <div className='about-prattic '>
             <h2>

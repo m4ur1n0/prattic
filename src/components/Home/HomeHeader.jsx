@@ -3,7 +3,7 @@ import React from 'react'
 
 const HomeHeader = () => {
   return (
-    <header className='home-page-icon mt-8 md:mt-12 mb-5 w-full flex flex-col items-center'>
+    <header className='home-page-icon md:w-[450px] mb-5 flex flex-col items-center'>
 
         {/* <img src="https://placehold.co/200x200" alt="The Prattic Logo" className='' /> */}
         <Image src="/images/prattic-line-drawing-v1-opt.png" alt="The Prattic House" className='w-[250px] h-[250px] no-select' width={250} height={250} />

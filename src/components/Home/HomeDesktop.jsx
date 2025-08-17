@@ -18,6 +18,7 @@ const HomeDesktop = () => {
     const rawHeaderScale = useTransform(scrollY, [0, 200], [1, 0.7]);
     const rawHeaderX = useTransform(scrollY, [0, 200], ["0%", "-200%"]);
     const rawButtonsOpacity = useTransform(scrollY, [0, 100], [1, 0]);
+    const rawBioOpacity = useTransform(scrollY, [50, 200], [0, 1]);
 
     const headerScale = animationComplete ? rawHeaderScale : 1;
     const headerX = animationComplete ? rawHeaderX : "0%";
@@ -71,8 +72,10 @@ const HomeDesktop = () => {
 
     return (
             
-        <motion.main className="relative home-page-full-container flex w-screen min-h-[200vh] md:px-[40%] border border-4 border-black"
+        <motion.main className="relative home-page-full-container flex justify-center w-screen min-h-[200vh] md:px-[20%] border border-4 border-black"
             layout
+            transition={{duration: 1, ease: "easeInOut"}} // maybe delete
+
         >
             {/* <motion.div className="" */}
             <HomeDesktopMainLanding animationComplete={animationComplete} shouldAnimate={shouldAnimate} rawButtonsOpacity={rawButtonsOpacity} renderButtons={renderButtons} setAnimationComplete={setAnimationComplete} bioSectionPresent={bioSectionPresent} />

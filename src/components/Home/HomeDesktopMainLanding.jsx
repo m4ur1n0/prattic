@@ -13,7 +13,8 @@ const HomeDesktopMainLanding = ({ animationComplete, shouldAnimate, setAnimation
     
 
   return (shouldAnimate ? (
-    <motion.div className="relative home-content-full w-full  border flex flex-col items-center "  
+    <motion.div className="relative home-content-full border flex flex-col items-center justify-center max-h-screen"  
+
         transition={{duration: 0.5, ease: "easeInOut"}} // maybe delete
       >
 
@@ -54,15 +55,25 @@ const HomeDesktopMainLanding = ({ animationComplete, shouldAnimate, setAnimation
 
       </motion.div>
   ) : (
-    <div className="home-content-full w-full h-screen flex flex-col items-center justify-center">
-      <HomeHeader />
+    <div className="home-content-full  flex flex-col items-center justify-center max-h-screen">
+        <div className=''
+          style={{
+            position : bioSectionPresent ? "fixed" : "relative",
+            top : '0%',
+            width : "100%",
+          }}
+        >
+          <HomeHeader />
+        </div>
 
-      {/* <section className="flex flex-col gap-8 md:gap-8 mt-5 h-full">
-        <StaticSketchedButton vectorFile={"sharpButton0.svg"} label="SIGN UP" width={200} href="/sign-up" />
-        <StaticSketchedButton vectorFile={"sharpButton1.svg"} label="SCHEDULE" width={200} href="/schedule" />
-      </section> */}
-      {/* <HomeButtonSection /> */}
-      <StaticHomeButtonSection />
+
+      <AnimatePresence>
+        { renderButtons &&
+          (<motion.div style={{opacity : rawButtonsOpacity}} exit={{opacity : 0}}>
+            <StaticHomeButtonSection />
+          </motion.div>)
+        }
+      </AnimatePresence>
 
     </div>
   )
