@@ -1,98 +1,87 @@
 "use client"
 import { AnimatePresence, useScroll, useTransform, motion, delay } from "framer-motion";
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import HomeButtonSection from "./HomeButtonSection";
 import HomeHeader from "./HomeHeader";
 import HomeBioSection from "./HomeBioSection";
-import StaticHomeButtonSection from "../StaticHomeButtonSection";
+import StaticHomeButtonSection from "./StaticHomeButtonSection";
 import HomeDesktopMainLanding from "./HomeDesktopMainLanding";
 
 const HomeDesktop = () => {
+    // Animation state
     const [shouldAnimate, setShouldAnimate] = useState(null);
-    const [animationComplete, setAnimationComplete] = useState(false);
-
-    //   const scrollRef = useRef(null);
-    const { scrollY } = useScroll();
-
-    // Always call these hooks
-    const rawHeaderScale = useTransform(scrollY, [0, 200], [1, 0.7]);
-    const rawHeaderX = useTransform(scrollY, [0, 200], ["0%", "-200%"]);
-    const rawButtonsOpacity = useTransform(scrollY, [0, 100], [1, 0]);
-
-    const headerScale = animationComplete ? rawHeaderScale : 1;
-    const headerX = animationComplete ? rawHeaderX : "0%";
-    // const buttonsOpacity = animationComplete ? rawButtonsOpacity : 1;
-    const scrollButtonsPresent = animationComplete ? rawButtonsOpacity : 1;
+    const [bioSectionPresent, setBioSectionPresent] = useState(false);
+    const [headerMoved, setHeaderMoved] = useState(false);
     const [renderButtons, setRenderButtons] = useState(true);
 
-    const [bioSectionPresent, setBioSectionPresent] = useState(false);
+    // Scroll hooks
+    const { scrollY } = useScroll();
+    const headerScale = useTransform(scrollY, [0, 200], [1, 0.7]);
+    const headerX = useTransform(scrollY, [0, 200], ["0%", "-200%"]);
+    const rawButtonsOpacity = useTransform(scrollY, [0, 100], [1, 0]);
+
+    // Track when header finishes moving (scrollY >= 200)
+    useEffect(() => {
+        const unsubscribe = scrollY.on("change", (latest) => {
+            if (latest >= 200 && !headerMoved) {
+                setHeaderMoved(true);
+                setTimeout(() => {
+                    setBioSectionPresent(true);
+                }, 1000); // 1s delay after header finishes moving
+            }
+            if (latest < 200 && headerMoved) {
+                setHeaderMoved(false);
+                setBioSectionPresent(false);
+            }
+            // Buttons fade out as you scroll
+            if (latest >= 100 && renderButtons) {
+                setRenderButtons(false);
+            }
+            if (latest < 100 && !renderButtons) {
+                setRenderButtons(true);
+            }
+        });
+        return () => unsubscribe();
+    }, [scrollY, headerMoved, renderButtons]);
 
     useEffect(() => {
         const hasAnimated = sessionStorage.getItem("hasAnimated") === "true";
         if (!hasAnimated) {
-        sessionStorage.setItem("hasAnimated", "true");
-        setShouldAnimate(true);
+            sessionStorage.setItem("hasAnimated", "true");
+            setShouldAnimate(true);
         } else {
-        setShouldAnimate(false);
-        setAnimationComplete(true);
+            setShouldAnimate(false);
         }
     }, []);
 
-    useEffect(() => {
-        const unsubscribe = rawButtonsOpacity.on("change", (latest) => {
-            if (latest <= 0) {
-                // we've hit breakpoin
-                setRenderButtons(false);
-
-                delay(1000);
-
-                setBioSectionPresent(true);
-
-            }
-
-            if (latest > 0 && !renderButtons) {
-
-                setBioSectionPresent(false);
-
-                delay(200);
-
-                setRenderButtons(true);
-
-
-            }
-        });
-        return () => unsubscribe();
-    }, [rawButtonsOpacity, renderButtons]);
-
-    
-
     if (shouldAnimate === null) return null;
 
-
     return (
-            
-        <motion.main className="relative home-page-full-container flex w-screen min-h-[200vh] md:px-[40%] border border-4 border-black"
-            layout
-        >
-            {/* <motion.div className="" */}
-            <HomeDesktopMainLanding animationComplete={animationComplete} shouldAnimate={shouldAnimate} rawButtonsOpacity={rawButtonsOpacity} renderButtons={renderButtons} setAnimationComplete={setAnimationComplete} bioSectionPresent={bioSectionPresent} />
-
-            <AnimatePresence className=''
-            
-            >
-
-                {
-                    (bioSectionPresent) && (
+        <motion.main className="relative home-page-full-container flex w-screen min-h-[200vh] md:px-[40%] border border-4 border-black" layout>
+            <HomeDesktopMainLanding
+                shouldAnimate={shouldAnimate}
+                headerScale={headerScale}
+                headerX={headerX}
+                rawButtonsOpacity={rawButtonsOpacity}
+                renderButtons={renderButtons}
+                headerMoved={headerMoved}
+                bioSectionPresent={bioSectionPresent}
+            />
+            <AnimatePresence>
+                {bioSectionPresent && (
+                    <motion.div
+                        initial={{ opacity: 0, x: 100 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        exit={{ opacity: 0, x: 100 }}
+                        transition={{ duration: 0.8 }}
+                        className="absolute right-0 top-0 h-full w-[40vw] flex items-center"
+                    >
                         <HomeBioSection />
-                    )
-                }
-
+                    </motion.div>
+                )}
             </AnimatePresence>
-
         </motion.main>
-
-    )
-
+    );
 };
 
 export default HomeDesktop;

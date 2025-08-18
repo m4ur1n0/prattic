@@ -1,5 +1,5 @@
 import React from 'react'
-import StaticSketchedButton from './StaticSketchedButton'
+import StaticSketchedButton from '../StaticSketchedButton'
 
 const StaticHomeButtonSection = () => {
   return (

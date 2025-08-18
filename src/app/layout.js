@@ -3,7 +3,6 @@
 import "./globals.css";
 import { Amatic_SC } from 'next/font/google'
 import AnimationProvider from "./context/AnimationContext";
-import Head from "next/head";
 // import PratticFooter from "@/components/PratticFooter";
 
 
