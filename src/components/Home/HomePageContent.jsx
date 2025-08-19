@@ -1,7 +1,7 @@
 "use client"
 
 import React, { useEffect, useState } from 'react'
-import HomeHeader from "@/components/HomeHeader";
+import HomeHeader from "@/components/Home/HomeHeader";
 import StaticSketchedButton from "@/components/StaticSketchedButton";
 import { AnimatePresence, motion } from "framer-motion";
 
