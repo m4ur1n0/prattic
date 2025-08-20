@@ -87,10 +87,20 @@ body {
   font-size: xx-large;
 }
 
+.font-merri {
+    font-family : var(--font-merri);
+    color :rgb(53, 53, 53);
+    font-weight: 300;
+}
+
 .button-shadow {
   box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.2);
   /* box-shadow: 0px 4px 8px rgba(193, 40, 40, 0.2); */
 
+}
+
+img {
+    user-select: none;
 }
 
 .dark {
