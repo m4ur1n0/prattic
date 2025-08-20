@@ -1,5 +1,6 @@
 
-import HomePageDesktop from "@/components/Home/HomePageDesktop";
+import DesktopHome from "@/components/Home/DesktopHome";
+// import HomePageDesktop from "@/components/Home/HomePageDesktop";
 // import HomePageContent from "@/components/HomePageContent";
 // import { useEffect, useState } from "react";
 
@@ -13,6 +14,8 @@ export default function Home() {
       
     // </main>
 
-    <HomePageDesktop />
+    // <HomePageDesktop />
+
+    <DesktopHome />
   );
 }
