@@ -1,21 +1,26 @@
+"use client"
+
 
 import DesktopHome from "@/components/Home/DesktopHome";
-// import HomePageDesktop from "@/components/Home/HomePageDesktop";
-// import HomePageContent from "@/components/HomePageContent";
-// import { useEffect, useState } from "react";
+import DesktopMobile from "@/components/Home/DesktopMobile";
+import { useMediaQuery } from "@react-hook/media-query";
 
 export default function Home() {
+
+    const isMobile = useMediaQuery("(max-width: 768px)");
   
 
-  return (
-    // <main className="home-page-full w-screen h-screen md:px-[15%] lg:px-[30%] flex flex-col items-center overflow-hidden">
+    return (
+        // <main className="home-page-full w-screen h-screen md:px-[15%] lg:px-[30%] flex flex-col items-center overflow-hidden">
 
-    //   <HomePageContent />
-      
-    // </main>
+        //   <HomePageContent />
+        
+        // </main>
 
-    // <HomePageDesktop />
-
-    <DesktopHome />
-  );
+        // <HomePageDesktop />
+        isMobile ?
+        <DesktopMobile />
+        :
+        <DesktopHome />
+    );
 }

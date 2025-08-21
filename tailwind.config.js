@@ -13,6 +13,10 @@ export default {
             fontFamily: {
                 amatic : ['var(--font-amatic)', 'cursive'],
             },
+            colors : {
+                app_black : 'var(--app-black)',
+                background : 'var(--background)'
+            }
         },
     },
     plugins : [],

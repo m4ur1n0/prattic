@@ -45,22 +45,23 @@ const StaticSketchedButton = ({ vectorFile, width, href, label, height = 60 }) =
   const nav = useRouter()
 
   return (
-    <div
+    <button
       onClick={() => nav.push(href)}
-      className="static-render-sketch-button relative cursor-pointer button-shadow hover:bg-black/5 transition-colors duration-200 ease-in-out"
+      className="static-render-sketch-button relative cursor-pointer button-shadow hover:bg-black/5 transition-colors duration-200 ease-in-out focus:outline-2 focus:outline-offset-2 focus:outline-app-black"
       style={{
         width: `${width}px`,
         height: `${height}px`
       }}
     >
-      {/* Background sketch image */}
+      {/* bg sketch image */}
       <img
         src={`vectors/${vectorFile}`}
         alt="rough sketch button with label"
         className="absolute inset-0 w-full h-full object-cover"
+        loading='eager'
       />
 
-      {/* Centered label */}
+      {/* label - stay centered */}
       <p
         className="absolute inset-0 flex items-center justify-center font-bold text-center leading-none"
         style={{
@@ -70,7 +71,7 @@ const StaticSketchedButton = ({ vectorFile, width, href, label, height = 60 }) =
       >
         {label}
       </p>
-    </div>
+    </button>
   )
 }
 

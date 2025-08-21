@@ -1,6 +1,6 @@
 "use client"
 
-import React from 'react'
+import React, { useState } from 'react'
 import { motion, useAnimation, useScroll, useTransform, useMotionValueEvent } from "framer-motion";
 import { useEffect} from "react";
 import HomeHeader from './HomeHeader';
@@ -24,6 +24,12 @@ const HomePageDesktopNoIntro = () => {
     const bioOpacityDistance = 0.05;
     const scrollingBuffer = 0.02;
 
+    // store aria-hidden states
+    const [socialsHidden, setSocialsHidden] = useState(true);
+    const [headerButtonsHidden, setHeaderButtonsHidden] = useState(false);
+
+
+
 
 
     // init controls for diff parts of the page
@@ -36,7 +42,7 @@ const HomePageDesktopNoIntro = () => {
 
     const headerDefaultY = "-80%";
     const headerX = useTransform(scrollYProgress, [headerScrollBreakpoint, headerScrollBreakpoint + headerScrollDistance], ["-50%", "-200%"]);
-    const headerY = useTransform(scrollYProgress, [headerScrollBreakpoint, headerScrollBreakpoint + headerScrollDistance], [headerDefaultY, "-70%"]);
+    const headerY = useTransform(scrollYProgress, [headerScrollBreakpoint, headerScrollBreakpoint + headerScrollDistance], [headerDefaultY, "-90%"]);
     const headerScale = useTransform(scrollYProgress, [headerScrollBreakpoint, headerScrollBreakpoint + headerScrollDistance], [1, 0.7]);
     const titleScale = useTransform(scrollYProgress, [headerScrollBreakpoint, headerScrollBreakpoint + headerScrollDistance], [1.4, 1.1]);
 
@@ -52,39 +58,6 @@ const HomePageDesktopNoIntro = () => {
         window.scrollTo({top : 0, behavior : "auto"});
 
     }, []);
-
-    
-    // INTRO ANIMATION
-    // useEffect(() => {
-    //     async function runIntro() {
-    //         // start with only header visible, centered
-    //         await headerControls.start({
-    //             scale : 0.8,
-    //             opacity : 1,
-    //             x : "-50%",
-    //             y : "-50%",
-    //             transition : {duration : 0}
-    //         });
-
-    //         // grow header to full size
-    //         await headerControls.start({
-    //             scale : 1,
-    //             y : headerDefaultY,
-    //             transition : {duration : 0.8, ease : "easeInOut", delay : 0.5}
-    //         });
-
-
-    //         // fade buttons in
-    //         await buttonControls.start({
-    //             scale : 1,
-    //             y : "110%",
-    //             opacity : 1,
-    //             pointerEvents : "auto",
-    //             transition : {duration : 0.6}
-    //         });
-    //     }
-
-    // }, [headerControls]);
 
     
     // hard code the scrolling behavior
@@ -111,14 +84,15 @@ const HomePageDesktopNoIntro = () => {
             socialsControls.start({
                 opacity : 1,
                 transition : { duration : 0.3 },
-                pointerEvents : "auto"
+                pointerEvents : "auto",
+
             });
 
         } else {
             socialsControls.start({
                 opacity : 0,
                 transition : {duration : 0.1},
-                pointerEvents : "none"
+                pointerEvents : "none",
 
             });
 
@@ -157,9 +131,10 @@ const HomePageDesktopNoIntro = () => {
                 </div>
 
                 <motion.div
-                    initial={{opacity : 0}}
+                    initial={{opacity : 0,  }}
                     animate={socialsControls}
-                    className="text-gray-700 mt-8 w-full text-center text-2xl"
+                    ariaHidden={socialsControls}
+                    className="text-gray-700 mt-5 w-full text-center text-2xl"
                     style={{
                         position : "absolute",
                         top : "100%"
@@ -179,13 +154,13 @@ const HomePageDesktopNoIntro = () => {
                 pointerEvents : "auto",
             }}
             animate={buttonControls}
-            className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 transform-gpu will-change-transform z-30"
+            className="fixed flex flex-col items-center   top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 transform-gpu will-change-transform z-30"
         >
             <HomeButtonsSection />
         </motion.div>
 
         {/* MAIN CONTENT AFTER SCROLL -- BIO SECTION */}
-        <section className="absolute top-0 left-0 w-full flex pt-32">
+        <section className="absolute top-0 left-0 w-full flex justify-center pr-32 pt-32">
 
             {/* LEFT SIDEBAR SPACING */}
             <div className='stupid-centering-agent w-1/3'/>
@@ -197,7 +172,7 @@ const HomePageDesktopNoIntro = () => {
                     pointerEvents: bioPointerEvents
                 }}
                 id="bio-section"
-                className="w-1/2 bg-gray-50 shadow-lg p-8 mt-[84vh]"
+                className="w-1/2  p-8 mt-[84vh]"
             >
                 <HomeBioSection />
             </motion.div>

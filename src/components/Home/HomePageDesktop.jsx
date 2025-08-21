@@ -2,7 +2,7 @@
 
 import React from 'react'
 import { motion, useAnimation, useScroll, useTransform, useMotionValueEvent } from "framer-motion";
-import { useEffect} from "react";
+import { useEffect, useState} from "react";
 import HomeHeader from './HomeHeader';
 import HomeSocialsSection from './HomeSocialsSection';
 import HomeBioSection from './HomeBiosSection';
@@ -36,7 +36,7 @@ const HomePageDesktop = () => {
 
     const headerDefaultY = "-80%";
     const headerX = useTransform(scrollYProgress, [headerScrollBreakpoint, headerScrollBreakpoint + headerScrollDistance], ["-50%", "-200%"]);
-    const headerY = useTransform(scrollYProgress, [headerScrollBreakpoint, headerScrollBreakpoint + headerScrollDistance], [headerDefaultY, "-70%"]);
+    const headerY = useTransform(scrollYProgress, [headerScrollBreakpoint, headerScrollBreakpoint + headerScrollDistance], [headerDefaultY, "-90%"]);
     const headerScale = useTransform(scrollYProgress, [headerScrollBreakpoint, headerScrollBreakpoint + headerScrollDistance], [1, 0.7]);
     const titleScale = useTransform(scrollYProgress, [headerScrollBreakpoint, headerScrollBreakpoint + headerScrollDistance], [1.4, 1.1]);
 
@@ -80,6 +80,7 @@ const HomePageDesktop = () => {
                 y : "110%",
                 opacity : 1,
                 pointerEvents : "auto",
+                ariaHidden : false,
                 transition : {duration : 0.6}
             });
         }
@@ -96,6 +97,7 @@ const HomePageDesktop = () => {
             buttonControls.start({
                 opacity : 0,
                 pointerEvents : "none",
+                ariaHidden : true,
                 transition : {duration : 0.3}
             })
         } else {
@@ -103,6 +105,7 @@ const HomePageDesktop = () => {
             buttonControls.start({
                 opacity : 1,
                 pointerEvents : "auto",
+                ariaHidden : false,
                 transition : {duration : 0.5}
             });
         }
@@ -113,15 +116,16 @@ const HomePageDesktop = () => {
             socialsControls.start({
                 opacity : 1,
                 transition : { duration : 0.3 },
-                pointerEvents : "auto"
+                pointerEvents : "auto",
+                ariaHidden : false,
             });
 
         } else {
             socialsControls.start({
                 opacity : 0,
                 transition : {duration : 0.1},
-                pointerEvents : "none"
-
+                pointerEvents : "none",
+                ariaHidden : true,
             });
 
         }
@@ -155,9 +159,10 @@ const HomePageDesktop = () => {
                 </div>
 
                 <motion.div
-                    initial={{opacity : 0}}
+                    initial={{opacity : 0, ariaHidden : true}}
                     animate={socialsControls}
-                    className="text-gray-700 mt-8 w-full text-center text-2xl"
+                    ariaHidden={socialsControls}
+                    className="text-gray-700 mt-5 w-full text-center text-2xl"
                     style={{
                         position : "absolute",
                         top : "100%"
@@ -178,7 +183,7 @@ const HomePageDesktop = () => {
         </motion.div>
 
         {/* MAIN CONTENT AFTER SCROLL -- BIO SECTION */}
-        <section className="absolute top-0 left-0 w-full flex pt-32">
+        <section className="absolute top-0 left-0 w-full flex justify-center pr-32 pt-32">
 
             {/* LEFT SIDEBAR SPACING */}
             <div className='stupid-centering-agent w-1/3'/>
@@ -190,7 +195,7 @@ const HomePageDesktop = () => {
                     pointerEvents: bioPointerEvents
                 }}
                 id="bio-section"
-                className="w-1/2 bg-gray-50 shadow-lg p-8 mt-[80vh]"
+                className="w-1/2 p-8 mt-[84vh]"
             >
                 <HomeBioSection />
             </motion.div>
