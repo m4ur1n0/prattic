@@ -2,7 +2,7 @@
 
 
 import DesktopHome from "@/components/Home/DesktopHome";
-import DesktopMobile from "@/components/Home/DesktopMobile";
+import MobileHome from "@/components/Home/MobileHome";
 import { useMediaQuery } from "@react-hook/media-query";
 
 export default function Home() {
@@ -19,7 +19,7 @@ export default function Home() {
 
         // <HomePageDesktop />
         isMobile ?
-        <DesktopMobile />
+        <MobileHome />
         :
         <DesktopHome />
     );

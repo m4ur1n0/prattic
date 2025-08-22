@@ -24,6 +24,11 @@ const HomePageDesktop = () => {
     const bioOpacityDistance = 0.05;
     const scrollingBuffer = 0.02;
 
+    // store aria-hidden states
+    const [socialsHidden, setSocialsHidden] = useState(true);
+    const [headerButtonsHidden, setHeaderButtonsHidden] = useState(false);
+    const [bottomButtonsHidden, setBottomButtonsHidden] = useState(true);
+
 
 
     // init controls for diff parts of the page
@@ -161,7 +166,8 @@ const HomePageDesktop = () => {
                 <motion.div
                     initial={{opacity : 0, ariaHidden : true}}
                     animate={socialsControls}
-                    ariaHidden={socialsControls}
+                    aria-hidden={socialsHidden}
+                    inert={socialsHidden}
                     className="text-gray-700 mt-5 w-full text-center text-2xl"
                     style={{
                         position : "absolute",
@@ -177,6 +183,8 @@ const HomePageDesktop = () => {
         <motion.div
             initial={{opacity : 0, y : "100%", pointerEvents : "none"}}
             animate={buttonControls}
+            aria-hidden={headerButtonsHidden}
+            inert={headerButtonsHidden}
             className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 transform-gpu will-change-transform z-30"
         >
             <HomeButtonsSection />

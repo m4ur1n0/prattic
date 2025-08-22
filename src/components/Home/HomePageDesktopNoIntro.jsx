@@ -27,6 +27,7 @@ const HomePageDesktopNoIntro = () => {
     // store aria-hidden states
     const [socialsHidden, setSocialsHidden] = useState(true);
     const [headerButtonsHidden, setHeaderButtonsHidden] = useState(false);
+    const [bottomButtonsHidden, setBottomButtonsHidden] = useState(true);
 
 
 
@@ -69,6 +70,7 @@ const HomePageDesktopNoIntro = () => {
                 pointerEvents : "none",
                 transition : {duration : 0.3}
             })
+            setHeaderButtonsHidden(true);
         } else {
             // might want to make this an else if latest < headerScrollBreakpoint + little_wiggle_room
             buttonControls.start({
@@ -76,6 +78,8 @@ const HomePageDesktopNoIntro = () => {
                 pointerEvents : "auto",
                 transition : {duration : 0.5}
             });
+
+            setHeaderButtonsHidden(false);
         }
 
 
@@ -88,6 +92,8 @@ const HomePageDesktopNoIntro = () => {
 
             });
 
+            setSocialsHidden(false);
+
         } else {
             socialsControls.start({
                 opacity : 0,
@@ -95,6 +101,8 @@ const HomePageDesktopNoIntro = () => {
                 pointerEvents : "none",
 
             });
+
+            setSocialsHidden(true);
 
         }
 
@@ -133,7 +141,8 @@ const HomePageDesktopNoIntro = () => {
                 <motion.div
                     initial={{opacity : 0,  }}
                     animate={socialsControls}
-                    ariaHidden={socialsControls}
+                    aria-hidden={socialsHidden}
+                    inert={socialsHidden} 
                     className="text-gray-700 mt-5 w-full text-center text-2xl"
                     style={{
                         position : "absolute",
@@ -154,6 +163,8 @@ const HomePageDesktopNoIntro = () => {
                 pointerEvents : "auto",
             }}
             animate={buttonControls}
+            aria-hidden={headerButtonsHidden}
+            inert={headerButtonsHidden} 
             className="fixed flex flex-col items-center   top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 transform-gpu will-change-transform z-30"
         >
             <HomeButtonsSection />
@@ -178,10 +189,6 @@ const HomePageDesktopNoIntro = () => {
             </motion.div>
 
         </section>
-
-
-
-
         
       </main>
     )
