@@ -7,28 +7,29 @@ import HomeBioSection from './HomeBiosSection';
 
 const MobileHome = () => {
 
-    
-
-    const {scrollY} = useScroll();
-
     const cardControls = useAnimationControls();
     const bioControls = useAnimationControls();
 
     const [locked, setLocked] = useState(false);
     const [mounted, setMounted] = useState(false);
-    const [viewportHeight, setViewportHeight] = useState(0);
+    // const [viewportHeight, setViewportHeight] = useState(0);
 
 
     const triggerPoint = 200; // px to scroll b4 trigger anim
     const triggered = useRef(false);
+    const scrollRef= useRef(null);
+
+    const {scrollY} = useScroll({container : scrollRef});
 
     useEffect(() => {
         setMounted(true);
-        setViewportHeight(window.innerHeight);
+        // setViewportHeight(window.innerHeight);
 
     }, []);
 
     useEffect(() => {
+
+        if (!scrollY) return;
 
         const unsubscribe = scrollY.on("change", async (y) => {
 
@@ -39,7 +40,7 @@ const MobileHome = () => {
                 // do the scroll locking
                 triggered.current = true;
                 setLocked(true);
-                document.body.style.overflow = "hidden";
+                // document.body.style.overflow = "hidden";
                 // window.scrollTo({top : triggerPoint, behavior : "auto"}); // freeze
 
                 await cardControls.start({
@@ -55,7 +56,7 @@ const MobileHome = () => {
                 });
 
                 // unlock the scroll
-                document.body.style.overflow="";
+                // document.body.style.overflow="";
                 // window.scrollTo({top : (2 * viewportHeight) + (viewportHeight * 0.2)});
                 setLocked(false);
             }
@@ -65,7 +66,7 @@ const MobileHome = () => {
 
                 triggered.current = false;
                 setLocked(true);
-                document.body.style.overflow = "hidden";
+                // document.body.style.overflow = "hidden";
                 // window.scrollTo({top : triggerPoint, behavior : "auto"});
 
                 await bioControls.start({
@@ -82,17 +83,17 @@ const MobileHome = () => {
 
 
                 // 8unlok
-                document.body.style.overflow = "";
+                // document.body.style.overflow = "";
                 // window.scrollTo({top : 0, behavior : "smooth"});
                 setLocked(false);
 
             }
 
-        })
+        });
 
         return () => {
             unsubscribe();
-            document.body.style.overflow = "";
+            // document.body.style.overflow = "";
             // setLocked(false);
         }
 
@@ -111,26 +112,33 @@ const MobileHome = () => {
 
 
     return (
-        <main className='home-main relative flex flex-col'>
+        <main className='home-main relative flex flex-col overflow-hidden h-dvh'>
 
-            <motion.div className="card-slide fixed top-0 left-0 w-full h-dvh items-center justify-center"
-                style={{boxShadow : '8px 8px 8px rgb(0, 0, 0, 0.3)'}}
-                initial={{y : "0%", opacity : 1}}
-                animate={cardControls}
+            <motion.div
+                className='scroll-container w-full h-full overflow-y-scroll'
+                ref={scrollRef}
             >
-                <HomePageMobile />
+
+                <motion.div className="card-slide fixed top-0 left-0 w-full h-dvh flex items-center justify-center"
+                    style={{boxShadow : '8px 8px 8px rgb(0, 0, 0, 0.3)'}}
+                    initial={{y : "0%", opacity : 1}}
+                    animate={cardControls}
+                >
+                    <HomePageMobile />
+                </motion.div>
+
+                <div className="h-[55vh]" />
+
+                <motion.section className='bio-section relative z-10 w-full min-h-dvh overflow-auto'
+                    // style={{opacity : bioOpacity, scale : bioScale}}
+                    initial={{opacity : 0, scale : 0.9}}
+                    animate={bioControls}
+
+                >
+                    <HomeBioSection />
+                </motion.section>
+
             </motion.div>
-
-            <div className="h-[55vh]" />
-
-            <motion.section className='bio-section z-10 '
-                // style={{opacity : bioOpacity, scale : bioScale}}
-                initial={{opacity : 0, scale : 0.9}}
-                animate={bioControls}
-
-            >
-                <HomeBioSection />
-            </motion.section>
 
 
         </main>
