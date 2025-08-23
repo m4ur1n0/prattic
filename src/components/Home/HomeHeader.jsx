@@ -4,19 +4,26 @@ import React from 'react'
 
 const HomeHeader = ({titleScale=null}) => {
   return (
-    <header className='home-page-icon mt-8 md:mt-12 mb-5 w-full flex flex-col items-center'>
+    <header className='home-page-icon mb-2 md:mt-12 lg:mb-5 w-full flex flex-col items-center'>
 
         {/* <img src="https://placehold.co/200x200" alt="The Prattic Logo" className='' /> */}
         <img src="/images/prattic-line-drawing-v1-opt.png" alt="The Prattic House" className='w-[250px] h-[250px] no-select' />
 
-        <motion.h1 className='text-8xl font-bold no-select'
-            initial={{scaleX : 1.4, scaleY : 0.8}}
-            style={{
-                scaleX : titleScale
-            }}
-        >
-            THE PRATTIC
-        </motion.h1>
+        {titleScale ? (
+            <motion.h1 className='text-8xl font-bold no-select'
+                initial={{scaleX : 1.4, scaleY : 0.8}}
+                style={{
+                    scaleX : titleScale
+                }}
+            >
+                THE PRATTIC
+            </motion.h1>
+        ) : (
+            // mobile below
+            <h1 className='text-8xl font-bold no-select scale-x-[120%] scale-y-[80%]'>
+                THE PRATTIC
+            </h1>
+        )}
 
         <p className='text-lg mb-1 no-select'>Est. 2024</p>
 

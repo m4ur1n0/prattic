@@ -1,7 +1,7 @@
 "use client"
 
 import React from 'react'
-import { motion, useAnimation, useScroll, useTransform, useMotionValueEvent } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useState} from "react";
 import HomeHeader from './HomeHeader';
 import HomeSocialsSection from './HomeSocialsSection';
@@ -10,105 +10,80 @@ import HomeButtonsSection from './HomeButtonsSection';
 
 const HomePageMobile = () => {
 
-    // init controls for diff parts of the page
-    const headerControls = useAnimation();
-    const buttonControls = useAnimation();
-    const socialsControls = useAnimation();
+    const [shouldAnimate, setShouldAnimate] = useState(null);
+    const [animationComplete, setAnimationComplete] = useState(false);
 
-    // scroll behaviors
-    const {scrollYProgress} = useScroll();
-    const headerDefaultY = "-80%";
-
-
-    // always reload to page top
+    // keep track of animation status
     useEffect(() => {
-        // always mount at top of page
-        // it's possible this logic should go in another element
-        window.scrollTo({top : 0, behavior : "auto"});
-
+        const hasAnimated = sessionStorage.getItem("hasAnimated") === "true";
+        
+        if (!hasAnimated) {
+            sessionStorage.setItem("hasAnimated", "true");
+            setShouldAnimate(true);
+        } else {
+            setShouldAnimate(false);
+            setAnimationComplete(true);
+        }
     }, []);
 
+    if (shouldAnimate === null) return null;
 
-    // INTRO ANIMATION
-    useEffect(() => {
-        async function runIntro() {
-            // start with only header visible, centered
-            await headerControls.start({
-                scale : 0.8,
-                opacity : 1,
-                x : "-50%",
-                y : "-50%",
-                transition : {duration : 0}
-            });
-
-            // grow header to full size
-            await headerControls.start({
-                scale : 1,
-                y : headerDefaultY,
-                transition : {duration : 0.8, ease : "easeInOut", delay : 0.5}
-            });
-
-
-            // fade buttons in
-            await buttonControls.start({
-                scale : 1,
-                y : "110%",
-                opacity : 1,
-                pointerEvents : "auto",
-                ariaHidden : false,
-                transition : {duration : 0.6}
-            });
-        }
-
-
-        runIntro();
-    }, [headerControls]);
-
-    return (
-        <main className='relative w-screen h-[500vh] flex flex-col'>
-            {/* HEADER */}
-            <div className='relative'>
-                <motion.div
-                    animate={headerControls}
-                    style={{
-                        position : "fixed",
-                        top : "50%",
-                        left : "50%",
-                    }}
-                    className="z-30 transform-gpu will-change-transform"
-                >
-                    <div className='actual-header flex items-center justify-center cursor-pointer'>
-                        <HomeHeader  />
-                    </div>
-
-                    {/* <motion.div
-                        initial={{opacity : 0, ariaHidden : true}}
-                        animate={socialsControls}
-                        aria-hidden={socialsHidden}
-                        inert={socialsHidden}
-                        className="text-gray-700 mt-5 w-full text-center text-2xl"
-                        style={{
-                            position : "absolute",
-                            top : "100%"
-                        }}
-                    >
-                        <HomeSocialsSection />
-                    </motion.div> */}
-
-                </motion.div>
-            </div>
-
+    return (shouldAnimate ? (
+        <motion.section className="home-content-full w-full h-dvh max-h-dvh relative flex flex-col items-center justify-center pb-[5%] border-b-gray-800 rounded-[2vh]"  
+            transition={{duration: 0.5, ease: "easeInOut"}} // maybe delete
+          >
+    
+            {/* ANIMATE HEADER */}
+            
             <motion.div
-                initial={{opacity : 0, y : "100%", pointerEvents : "none"}}
-                animate={buttonControls}
-                // aria-hidden={headerButtonsHidden}
-                // inert={headerButtonsHidden}
-                className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 transform-gpu will-change-transform z-30"
+              layout
+              initial={{scale : 0.8}}
+              animate={{scale : 0.9}}
+              transition={{duration : 0.8, ease : "easeInOut", delay : 0.5}}
+              className="z-10 "
+              onAnimationComplete={() => setAnimationComplete(true)}
             >
-                <HomeButtonsSection />
+              <HomeHeader />
             </motion.div>
-        </main>
-    )
+    
+            {/* Animate presence allows us to animate the introduction of new DOM trees */}
+            <AnimatePresence>
+    
+              {animationComplete && (
+                
+                <motion.div
+                    layout
+                    initial={{y : "5%", opacity : 0}}
+                    animate={{y : "0%", opacity : 1}}
+                    transition={{duration : 0.5, delay : 1.3}}
+                    className="z-10"
+                >
+                    <HomeButtonsSection />
+                </motion.div>
+    
+              )}
+    
+            </AnimatePresence>
+    
+    
+    
+          </motion.section>
+      ) : (
+        <section className="home-content-full relative w-full max-h-dvh h-dvh flex flex-col items-center justify-center pb-[5%] border-b border-gray-800 rounded-b-[2vh]">
+          <HomeHeader />
+    
+          {/* <section className="flex flex-col gap-8 md:gap-8 mt-5 h-full">
+            <StaticSketchedButton vectorFile={"sharpButton0.svg"} label="SIGN UP" width={200} href="/sign-up" />
+            <StaticSketchedButton vectorFile={"sharpButton1.svg"} label="SCHEDULE" width={200} href="/schedule" />
+          </section> */}
+          {/* <HomeButtonSection /> */}
+          {/* <StaticHomeButtonSection /> */}
+          <HomeButtonsSection />
+    
+        </section>
+      )  
+        
+    );
 }
 
 export default HomePageMobile
