@@ -121,9 +121,9 @@ const MobileHome = () => {
                 <HomePageMobile />
             </motion.div>
 
-            <div className="h-[55vh]" />
+            <div className="h-[70vh]" />
 
-            <motion.section className='bio-section z-10 '
+            <motion.section className='bio-section z-10 mb-5'
                 // style={{opacity : bioOpacity, scale : bioScale}}
                 initial={{opacity : 0, scale : 0.9}}
                 animate={bioControls}

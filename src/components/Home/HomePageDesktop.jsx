@@ -17,6 +17,9 @@ const HomePageDesktop = () => {
     // const bioOpacityDistance = 0.05;
     // const scrollingBuffer = 0.02;
 
+
+    // MAKE SURE YOU FIX ARIA HIDING HEREE
+
     const headerScrollBreakpoint = 0.03;
     const headerScrollDistance = 0.15;
 
