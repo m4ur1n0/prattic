@@ -88,7 +88,6 @@ const HomePageDesktop = () => {
                 y : "110%",
                 opacity : 1,
                 pointerEvents : "auto",
-                ariaHidden : false,
                 transition : {duration : 0.6}
             });
         }
@@ -105,17 +104,22 @@ const HomePageDesktop = () => {
             buttonControls.start({
                 opacity : 0,
                 pointerEvents : "none",
-                ariaHidden : true,
                 transition : {duration : 0.3}
             })
+
+            setHeaderButtonsHidden(true);
+            setBottomButtonsHidden(false);
+
         } else {
             // might want to make this an else if latest < headerScrollBreakpoint + little_wiggle_room
             buttonControls.start({
                 opacity : 1,
                 pointerEvents : "auto",
-                ariaHidden : false,
                 transition : {duration : 0.5}
             });
+
+            setHeaderButtonsHidden(false);
+            setBottomButtonsHidden(true);
         }
 
 
@@ -125,16 +129,18 @@ const HomePageDesktop = () => {
                 opacity : 1,
                 transition : { duration : 0.3 },
                 pointerEvents : "auto",
-                ariaHidden : false,
             });
+
+            setSocialsHidden(false);
 
         } else {
             socialsControls.start({
                 opacity : 0,
                 transition : {duration : 0.1},
                 pointerEvents : "none",
-                ariaHidden : true,
             });
+
+            setSocialsHidden(true);
 
         }
 
@@ -208,7 +214,7 @@ const HomePageDesktop = () => {
                 id="bio-section"
                 className="w-1/2 p-8 mt-[84vh]"
             >
-                <HomeBioSection />
+                <HomeBioSection buttonsHidden={bottomButtonsHidden} />
             </motion.div>
 
         </section>

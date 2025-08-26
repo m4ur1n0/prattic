@@ -71,6 +71,8 @@ const HomePageDesktopNoIntro = () => {
                 transition : {duration : 0.3}
             })
             setHeaderButtonsHidden(true);
+            setBottomButtonsHidden(false);
+
         } else {
             // might want to make this an else if latest < headerScrollBreakpoint + little_wiggle_room
             buttonControls.start({
@@ -185,7 +187,7 @@ const HomePageDesktopNoIntro = () => {
                 id="bio-section"
                 className="w-1/2  p-8 mt-[84vh]"
             >
-                <HomeBioSection />
+                <HomeBioSection buttonsHidden={bottomButtonsHidden} />
             </motion.div>
 
         </section>

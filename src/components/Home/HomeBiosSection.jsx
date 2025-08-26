@@ -1,22 +1,23 @@
 import React from 'react'
 import StaticSketchedButton from '../StaticSketchedButton'
 
-const HomeBioSection = ({bioHidden=null}) => {
+
+const HomeBioSection = ({buttonsHidden=null}) => {
 
     const prattic_bios_info = [
         {
             name : "MATEO GARCIA-BRYCE",
-            bio : "is a rising senior at Northwestern University studying Political Science and International Studies. As a child he turned heads with an irresistible personality and a flair for the dramatic. Instead of rising to the top of the comedy world, he was drawn towards politics, working for multiple political campaigns and on Capitol Hill. He now studies International Aid and Development practices throughout the world, and is looking for a job. He wears Uggs inside the house, and enjoys climbing trees. ",
+            bio : "(right) is a rising senior at Northwestern University studying Political Science and International Studies. As a child he turned heads with an irresistible personality and a flair for the dramatic. Instead of rising to the top of the comedy world, he was drawn towards politics, working for multiple political campaigns and on Capitol Hill. He now studies International Aid and Development practices throughout the world, and is looking for a job. He wears Uggs inside the house, and enjoys climbing trees. ",
             image : "https://placehold.co/200x250"
         },
         {
             name : "LUCA HIRSCH",
-            bio : "is a rising senior at Northwestern University studying Radio/Television/Film and International Studies. After realizing at a young age that he may not be a professional soccer player, he became passionate about the film industry, marketing, and the strange rabbit holes of Wikipedia. His favorite color is green, and somehow, he's never been to Applebee's.",
+            bio : "(left) is a rising senior at Northwestern University studying Radio/Television/Film and International Studies. After realizing at a young age that he may not be a professional soccer player, he became passionate about the film industry, marketing, and the strange rabbit holes of Wikipedia. His favorite color is green, and somehow, he's never been to Applebee's.",
             image : "https://placehold.co/200x250"
         },
         {
             name : "JACKSON HELLER",
-            bio : "could be known as many superlatives: visionary, pioneer, forefather, legend. After doing consistent standup while studying abroad in Prague (shoutout Metro Comedy Club), a bright-eyed Jackson came back to the motherland with a singular dream: to bring the magic of a great standup venue to Northwestern. A savant of the stupid, silly, and surreal, his standup idols include Mitch Hedberg, Hannibal Burress, Sheng Wang, and Mateo Garcia-Bryce.",
+            bio : "(center) is known by many names: visionary, pioneer, forefather, legend. After doing consistent standup while studying abroad in Prague (shoutout Metro Comedy Club), a bright-eyed Jackson came back to the motherland with a singular dream: to bring the magic of a great standup venue to Northwestern. A savant of the stupid, silly, and surreal, his standup idols include Mitch Hedberg, Hannibal Burress, Sheng Wang, and Mateo Garcia-Bryce.",
             image : "https://placehold.co/200x250"
         }
     ]
@@ -88,7 +89,7 @@ const HomeBioSection = ({bioHidden=null}) => {
                 Join in the fun!
             </h1>
 
-            <div className='cta-buttons flex justify-center gap-8'>
+            <div className='cta-buttons flex justify-center gap-8 mb-8' aria-hidden={buttonsHidden} inert={buttonsHidden}>
                 <StaticSketchedButton vectorFile={"sharpButton1.svg"} label="SIGN-UP" width={200} href="/sign-up" />
                 <StaticSketchedButton vectorFile={"sharpButton0.svg"} label="SCHEDULE" width={200} href="/schedule" />
             </div>
