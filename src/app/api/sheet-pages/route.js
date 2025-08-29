@@ -1,3 +1,4 @@
+// import { withCors } from "@/app/lib/cors";
 import { getCreds } from "@/app/lib/GoogleSheets";
 import { google } from "googleapis";
 
@@ -20,6 +21,8 @@ export async function GET() {
         });
 
         const pages = response.data.sheets.map((sheet) => sheet.properties.title);
+
+        
 
         return new Response(
             JSON.stringify({

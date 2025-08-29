@@ -1,5 +1,5 @@
 "use client"
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, useMemo} from 'react'
 import {
     Table,
     TableBody,
@@ -10,6 +10,8 @@ import {
   } from "@/components/ui/table"
 import { useShow } from '@/app/context/ShowContext'
 import { useScramble } from 'use-scramble';
+import { AnimatePresence } from 'framer-motion';
+import {motion} from 'framer-motion'
 
 const NUM_SCRAMBLE_ROWS = 6;
 
@@ -22,77 +24,54 @@ function timeFromIndex(i, startHour=9) {
     return `${h}:${m.toString().padStart(2, '0')} PM`;
 }
 
-// function ScrambleCell({ finalText}) {
-//     const {ref} = useScramble({
-//         text : finalText || "XXXXXXXXXXXXXX",
-//         speed : 0.5,
-//         tick : 1,
-//         seed : 1,
-//         overdrive : !finalText
-//     })
-
-//     return <span ref={ref} />
-// }
-  
-function ScrambleCell({
-finalText,
-length = 30,
-chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()-_=+[]{}<>?/|',
-}) {
-const [displayText, setDisplayText] = useState('');
-
-useEffect(() => {
-    if (finalText) {
-    setDisplayText(finalText);
-    return; // stop scrambling
-    }
-
-    let animationFrame;
-    const scramble = () => {
-    const scrambled = Array.from({ length })
-        .map(() => chars[Math.floor(Math.random() * chars.length)])
-        .join('');
-    setDisplayText(scrambled);
-    animationFrame = requestAnimationFrame(scramble);
-    };
-
-    scramble();
-
-    return () => cancelAnimationFrame(animationFrame);
-}, [finalText, length, chars]);
-
-return <span className='overflow-hidden'>{displayText}</span>;
+function timeStringToHour(str) {
+    // expects format "H:MM" (24HOUR TIME -- but we just throw PM at the end anyway lol)
+    const [h, m] = str.split(":").map(Number);
+    return h + (m / 60);
 }
+
+
+
+const ScrambleText = ({ text, loading }) => {
+    const { ref } = useScramble({
+      text: text,
+      speed: 1,           
+      tick: 1, // smooth updates
+      step: 3, // slow resolve
+      overflow: 2,          
+      scramble: loading ? 9999 : 5, // 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()-_=+[]{}<>?/|'
+      chance: 1,
+      range: [65, 125], // allow wider scramble spread
+      overdrive: false
+    });
+  
+    return <span ref={ref} />;
+};
 
 const ScheduleTable = () => {
 
-    const {nextShowData, nextPerformersInOrder} = useShow();
+    const {nextShowData} = useShow();
+    const [actualStartTime, setActualStartTime] = useState(9);
 
-    const loading = !nextPerformersInOrder || nextPerformersInOrder.length === 0;
+    // const [nextPerformersInOrder, setNextPerformersInOrder] = useState([]);    
+    const loading = !nextShowData;
 
-    const [stoppedRows, setStoppedRows] = useState([]);
-
+    const tableList = useMemo(() => {
+        if (nextShowData) {
+            return nextShowData.performers?.map(p => p["name"]) || [];
+        }
+        else { 
+            return Array.from({length : NUM_SCRAMBLE_ROWS}, () => "LOADING");
+        }
+    }, [nextShowData, loading]);
 
     useEffect(() => {
-
-        if (!loading) {
-            setStoppedRows([]);
-            return;
+        if (nextShowData) {
+            if (nextShowData.startTime !== "9:00") {
+                setActualStartTime(timeStringToHour(nextShowData.startTime));
+            }
         }
-
-        const timers = [];
-
-        for (let i = 0; i < NUM_SCRAMBLE_ROWS; i++) {
-
-            timers.push(setTimeout(() => {
-                setStoppedRows(prev => [...prev, i]);
-            }, 700));
-
-        }
-
-        return () => timers.forEach(clearTimeout);
-
-    }, [loading])
+    })
 
   return (
     <div className='flex flex-col '>
@@ -100,58 +79,85 @@ const ScheduleTable = () => {
         {/* ACTUAL TABLE OF PERFORMERS */}
         <div className='relative max-h-[250px] overflow-y-auto no-scrollbar'>
             <Table className="table-fixed ">
-                <TableHeader className="sticky !bg-background top-0 z-10">
+                <TableHeader className="sticky !bg-background top-0 z-10 thead-shadow"
+                >
                     <TableRow className="" >
-                        <TableHead className=" font-bold text-xl">Estimated Time</TableHead>
-                        <TableHead className=" font-bold text-xl md:min-w-[200px] ">Name</TableHead>
+                        <TableHead className=" font-bold text-2xl">Estimated Time</TableHead>
+                        <TableHead className=" font-bold text-2xl md:min-w-[200px] ">Name</TableHead>
                     </TableRow>
                 </TableHeader>
                 <TableBody >
+
                     {
-                        loading ? (
-
-                            // show scramble
-                            Array.from({length : NUM_SCRAMBLE_ROWS}).map((_, i) => (
-                                <TableRow key={i}>
-                                    <TableCell className="text-xl">
-                                        <ScrambleCell finalText={stoppedRows.includes(i) ? `${i === 0 ? "Opener" : timeFromIndex(i)}` : undefined} />
-                                    </TableCell>
-
-                                    <TableCell className="text-xl md:min-w-[300px] whitespace-nowrap overflow-hidden text-ellipsis">
-                                        <ScrambleCell finalText={stoppedRows.includes(i) ? nextPerformersInOrder["name"] : undefined} />
-                                        
-                                    </TableCell>
-                                </TableRow>
-                            ))
-
-                        ) : (
-                            // data is ready -- show actual data
-                            nextPerformersInOrder.slice(1).map((performer, i) => (
-                                <TableRow key={i}>
-                                    <TableCell className='text-xl'
-                                    >
-                                        {i === 0 ? "Opener" : timeFromIndex(i)}
-                                    </TableCell>
-                                    <TableCell className='text-xl md:min-w-[300px] whitespace-nowrap overflow-hidden text-ellipsis'>
-                                        {performer["name"]}
-                                    </TableCell>
-                                </TableRow>
-                            ))
-                        )
-                        
+                        tableList.map((text, i) => (
+                            <TableRow key={i}>
+                                <TableCell className="text-xl ">
+                                    <ScrambleText text={loading ? "XXX" : (i === 0 ? "Opener" : timeFromIndex(i, actualStartTime))} loading={loading} />
+                                </TableCell>
+                                <TableCell className='text-xl '>
+                                    <ScrambleText text={text} loading={loading} />
+                                </TableCell>
+                            </TableRow>
+                        ))
                     }
 
                 </TableBody>
             </Table>
         </div>
 
-        <p className='self-center text-[1.4rem] text-gray-600 mt-5'>
-            {nextShowData ? (
-                    nextShowData["finalized"] ? "This is the official schedule." : "This schedule is still subject to change."
-                ) : (
-                    ""
-                )}
-        </p>
+
+        {
+            nextShowData &&
+            (
+                nextShowData["finalized"] ?
+
+                <motion.p className='self-center text-[0.8rem] font-merri text-gray-700 mt-5 md:mt-8 rounded-full px-6 py-1'
+                    style={{
+                        border : "2px solid rgb(42, 161, 74, 0.6)",
+                        backgroundColor : "rgb(42, 161, 74, 0.2)"
+                    }}
+                    initial={{
+                        opacity : 0,
+                        scale : 0.8
+                    }}
+                    animate={{
+                        opacity : 1,
+                        scale : 1,
+                    }}
+                    transition={{
+                        duration : 0.3,
+                        ease : "easeInOut"
+                    }}
+                >
+                    This is the official schedule.
+                </motion.p>
+
+                :
+
+                <motion.p className='self-center text-[0.8rem] font-merri text-gray-700 mt-5 md:mt-8 border-2 rounded-full px-6 py-1'
+                    style={{
+                        border : "2px solid rgb(179, 59, 50, 0.6)",
+                        backgroundColor : "rgb(179, 59, 50, 0.2)"
+                    }}
+                    initial={{
+                        opacity : 0,
+                        scale : 0.8
+                    }}
+                    animate={{
+                        opacity : 1,
+                        scale : 1,
+                    }}
+                    transition={{
+                        duration : 0.3,
+                        ease : "easeInOut"
+                    }}
+                >
+                    This schedule is still subject to change.
+                </motion.p>
+                        
+
+            )
+        }
     </div>
   )
 }

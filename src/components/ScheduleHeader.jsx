@@ -4,7 +4,7 @@ import React from 'react'
 
 const ScheduleHeader = () => {
 
-  const {nextShowData} = useShow();
+  const {nextShowNameAndDate, nextShowData} = useShow();
   
 
   return (
@@ -17,8 +17,8 @@ const ScheduleHeader = () => {
 
           <hr className='w-5/6 mt-3 mb-2' />
 
-          <p className='text-gray-700 text-[20px] font-[700]'>
-            Next show : {nextShowData["next_date"]}
+          <p className='text-gray-700 text-[1rem] font-[700] font-merri'>
+            Next show : {nextShowNameAndDate ? `${nextShowNameAndDate["next_date"]} - ${nextShowData["startTime"]} PM` : ""}
           </p>
 
         </header>

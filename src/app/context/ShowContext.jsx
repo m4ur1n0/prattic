@@ -1,7 +1,7 @@
 // theo maurino
 
 import { createContext, useContext, useState, useEffect } from "react"
-import { getAllFutureShows, getNextShow, getNextShowData } from "../lib/GetInfo";
+import { getAllFutureShows, getNextShowData, getNextShowNameAndDate } from "../lib/GetInfo";
 
 const ShowContext = createContext({});
 
@@ -9,28 +9,32 @@ const ShowProvider = ({children}) => {
 
     // gives information about all the shows known to us via the spreadsheet.
 
-    const [nextShowData, setNextShowData] = useState({});
-    const [nextPerformersInOrder, setNextPerformersInOrder] = useState([]);
-    const [allFutureShows, setAllFutureShows] = useState([]);
+    const [nextShowNameAndDate, setNextShowNameAndDate] = useState(null);
+    const [nextShowData, setNextShowData] = useState(null);
+    const [allFutureShows, setAllFutureShows] = useState(null);
   
     useEffect(() => {
   
       async function loadUp() {
 
-        const nextP = getNextShow();
+        const nextP = getNextShowNameAndDate();
         const allP = getAllFutureShows();
 
         const [next, futureShows] = await Promise.all([nextP, allP]);
+        // console.log(`nextP : ${JSON.stringify(next)}`);
+        // console.log(`futureshows : ${JSON.stringify(futureShows)}`);
+
 
         if (next) {
-            const {performers} = await getNextShowData(next.sheetName)
+            const nextShow = await getNextShowData(next.sheetName, next.finalized)
             // console.log(`received ${JSON.stringify(next)}`)
-            setNextShowData(next);
-            setNextPerformersInOrder(performers);
+            setNextShowNameAndDate(next);
+            setNextShowData(nextShow);
+            console.log(`NEXT SHOW : ${JSON.stringify(nextShow)}`);
         }
 
         if (futureShows) {
-            console.log(`LOADED FUTURES:\n ${JSON.stringify(futureShows)}`);
+            // console.log(`LOADED FUTURES:\n ${JSON.stringify(futureShows)}`);
 
             setAllFutureShows(futureShows);
         } else {
@@ -45,10 +49,10 @@ const ShowProvider = ({children}) => {
 
     // really shouldn't ever use these setters on the client...
     const val = {
+        nextShowNameAndDate,
+        setNextShowNameAndDate,
         nextShowData,
         setNextShowData,
-        nextPerformersInOrder,
-        setNextPerformersInOrder,
         allFutureShows,
     };
 

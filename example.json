@@ -6,9 +6,14 @@
             "spreadsheetId": "1EZterrRxT5opuyu5eyyik9gW6kf7pqzcNk5uAn3qNYY",
             "valueRanges": [
                 {
-                    "range": "'schedule_08/31/2025'!A1:Z1000",
+                    "range": "'schedule_08/31/2025'!A1:F1000",
                     "majorDimension": "ROWS",
                     "values": [
+                        ["Eventbrite Link (blank = profile link)"],
+                        ["Maximum Performers (blank = 15)"],
+                        ["Start Time (blank = 9:00PM)", "10:00"],
+                        ["Show Name (blank = 'Standup')", "Custom Show Name"],
+                        [],
                         [
                             "Sign-Up Date",
                             "Performance Date",
@@ -28,7 +33,7 @@
                         [
                             "Wed Jul 30 2025 20:20:00 GMT-0500 (Central Daylight Time)",
                             "Mon Aug 4 2025 21:00 GMT-0500 (Central Daylight Time)",
-                            "Theo Maurino",
+                            "Bugs Gentleman",
                             "thjmaurino@gmail.com",
                             "(413) 717-8751",
                             "No notes today!! :)"
@@ -36,7 +41,7 @@
                         [
                             "",
                             "Mon Aug 4 2025 21:00 GMT-0500 (Central Daylight Time)",
-                            "Theo Maurino",
+                            "Bobby Dazzler",
                             "thjmaurino@gmail.com",
                             "(413) 717-8751",
                             "No notes today!! :)"
@@ -44,7 +49,7 @@
                         [
                             "Wed Jul 30 2025",
                             "Mon Aug 4 2025 21:00 GMT-0500 (Central Daylight Time)",
-                            "Theo Maurino",
+                            "Lauren Hilarious",
                             "thjmaurino@gmail.com",
                             "(413) 717-8751",
                             "No notes today!! :)"
@@ -52,7 +57,7 @@
                         [
                             "8:31:49 PM",
                             "Mon Aug 4 2025 21:00 GMT-0500 (Central Daylight Time)",
-                            "Theo Maurino",
+                            "James Terrible",
                             "thjmaurino@gmail.com",
                             "(413) 717-8751",
                             "No notes today!! :)"
@@ -60,7 +65,7 @@
                         [
                             "7/30/2025, 8:32:13 PM",
                             "Mon Aug 4 2025 21:00 GMT-0500 (Central Daylight Time)",
-                            "Theo Maurino",
+                            "Smug Norman",
                             "thjmaurino@gmail.com",
                             "(413) 717-8751",
                             "No notes today!! :)"

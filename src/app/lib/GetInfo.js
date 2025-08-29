@@ -12,7 +12,7 @@ export function convertMmDdYyyyToDate(dateStr) {
 }
 
 
-export async function getNextShow() {
+export async function getNextShowNameAndDate() {
 
     try {
 
@@ -22,6 +22,7 @@ export async function getNextShow() {
         });
 
         const data = await res.json();
+        console.log(`RESPONSE IN GETNEXTSHOW : ${JSON.stringify(data)}`);
 
         const pages = data["pages"];
         const today = new Date();
@@ -32,9 +33,10 @@ export async function getNextShow() {
         // console.log(pages);
         for (let p of pages) {
             let parts = p.split('_');
+            let d;
 
             // the thing about times is garbage and should never exist...
-            let d = (parts.length === 2) ? parts[1] : parts[2]; // expects type_date OR type_date_time and NOTHING else.
+            if (parts.length === 2) {d = parts[1]} else continue; // needs the format we've specified
 
             if (convertMmDdYyyyToDate(d) > today) {
                 nextKnown = convertMmDdYyyyToDate(d); // more efficient ways to do this but lets be honest
@@ -48,21 +50,7 @@ export async function getNextShow() {
             throw new Error("Received pages, but none are properly dated later than today.")
         }
 
-        if (ps.length > 2) {
-            // then we also have a time that isn't the default.
-            let timeStr = ps[2];
-            let timeP = timeStr.split(':');
-
-            // set hour and minute of next known date
-            nextKnown.setHours(parseInt(timeP[0]));
-            nextKnown.setMinutes(parseInt(timeP[1]));
-        } else {
-            // set time to 9:00 PM
-            nextKnown.setHours(21);
-            nextKnown.setMinutes(0);
-        }
-
-        // now we have MM:DD:YYYY:HH:mm
+        // now we have MM:DD:YYYY
         // we return as string, along with date object
 
         if (pages.includes(["schedule", ps[1]].join("_"))) {
@@ -72,9 +60,10 @@ export async function getNextShow() {
             ps = ["schedule", ps[1]]; // all else stays the same
         }
 
+
+        // fixed -- no longer looks at time here
         return {
             "next_date" : ps[1],
-            "next_time" : String(nextKnown.getHours()) + ":" + String(nextKnown.getMinutes()),
             "date_obj" : nextKnown,
             "finalized" : (ps[0].toLowerCase() === "schedule"),
             "sheetName" : ps.join('_')
@@ -83,10 +72,9 @@ export async function getNextShow() {
 
 
     } catch (e) {
-        console.error("AN ERROR OCURRED WHILE TRYING TO GET NEXT SHOW DATE : ", e)
+        console.error("AN ERROR OCCURRED WHILE TRYING TO GET NEXT SHOW DATE : ", e)
         return {
             "next_date" : "",
-            "next_time" : "",
             "date_obj" : new Date(),
             "finalized" : false,
             "sheet_name" : ""
@@ -95,7 +83,7 @@ export async function getNextShow() {
 
 }
 
-export async function getNextShowData(sheetName) {
+export async function getNextShowData(sheetName, finalized=false) {
 
     try {
 
@@ -104,8 +92,6 @@ export async function getNextShowData(sheetName) {
             headers : {'Content-Type': 'application/json'},
 
         });
-
-        console.log(JSON.stringify(res));
         
 
         const sheetData = await res.json();
@@ -115,14 +101,16 @@ export async function getNextShowData(sheetName) {
             throw new Error(`Getting data from sheet named ${sheetName} failed.`)
         }
 
-        console.log(JSON.stringify(sheetData))
+        // console.log("THIS IS THE VALUE BEING USED IN GETNEXTSHOWDATA" , JSON.stringify(sheetData))
 
         // ok then this should work.
+        // GET THE PERFORMERS IN ORDER
+        const idxOfPerformerHeaders = 5; // hard code - change if we change schema
         const performersInOrder = [];
         // CAN ADD TIME COL HERE TOO IF WE WANT IT
-        const idxOfName = sheetData["body"]["data"]["valueRanges"][0]["values"][0].indexOf("Name");
+        const idxOfName = sheetData["body"]["data"]["valueRanges"][0]["values"][idxOfPerformerHeaders].indexOf("Name");
 
-        for (let row of sheetData["body"]["data"]["valueRanges"][0]["values"]) {
+        for (let row of sheetData["body"]["data"]["valueRanges"][0]["values"].slice(idxOfPerformerHeaders + 1)) {
             // as object we can include time too if different
             // LATER
             performersInOrder.push({
@@ -130,9 +118,33 @@ export async function getNextShowData(sheetName) {
             });
         }
 
-        return {
-            performers : performersInOrder
+        // get show metadata
+        const idxEventbrite = 0;
+        const idxMaxPerformers = 1;
+        const idxStartTime = 2;
+        const idxShowName = 3;
+
+        const eventbrite = sheetData["body"]["data"]["valueRanges"][0]["values"][idxEventbrite][1] || "https://www.eventbrite.com";
+        const maxPerformers = sheetData["body"]["data"]["valueRanges"][0]["values"][idxMaxPerformers][1] || 15;
+        const startTime = sheetData["body"]["data"]["valueRanges"][0]["values"][idxStartTime][1] || "9:00";
+        const showName = sheetData["body"]["data"]["valueRanges"][0]["values"][idxShowName][1] || "Standup Tight 3";
+
+
+        const nextShow =  {
+
+            performers : performersInOrder,
+            showName,
+            eventbrite,
+            maxPerformers,
+            startTime,
+            finalized,
+            sheetName,
+
         };
+
+        console.log(`returning next show : ${JSON.stringify(nextShow)}`);
+
+        return nextShow;
 
         
 
@@ -165,7 +177,7 @@ export async function getAllFutureShows() {
                 let parts = page.split('_');
 
                 // the thing about times is garbage and should never exist...
-                let d = (parts.length === 2) ? parts[1] : parts[2]; // expects type_date OR type_date_time and NOTHING else.
+                let d = (parts.length === 2) ? parts[1] : parts[0]; // expects [ type_date ] but will work with just [ date ], though it won't know what kind it is .
 
                 if (convertMmDdYyyyToDate(d) > today) {
                     // return page;
@@ -188,7 +200,7 @@ export async function getAllFutureShows() {
 
 
     } catch (e) {
-        console.error("AN ERROR OCURRED WHILE TRYING TO ACCESS ALL NEXT SHOWS : ", e)
+        console.error("AN ERROR OCCURRED WHILE TRYING TO ACCESS ALL NEXT SHOWS : ", e)
         return []
     }
 
