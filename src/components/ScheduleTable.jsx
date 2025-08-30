@@ -73,11 +73,11 @@ const ScheduleTable = () => {
     })
 
   return (
-    <section className='flex flex-col '>
+    <section className='flex-1 max-h-[65dvh] w-full flex flex-col justify-between overflow-hidden'>
 
         {/* ACTUAL TABLE OF PERFORMERS */}
-        <div className='relative max-h-[250px] overflow-y-auto no-scrollbar'>
-            <Table className="table-fixed">
+        <div className='relative overflow-y-auto max-h-[40dvh] no-scrollbar'>
+            <Table className="table-fixed w-full">
                 <TableHeader className="sticky !bg-background top-0 z-20 thead-shadow"
                 >
                     <TableRow>
@@ -110,7 +110,7 @@ const ScheduleTable = () => {
             (
                 nextShowData["finalized"] ?
 
-                <motion.p className='self-center text-[0.8rem] font-merri text-gray-700 mt-5 md:mt-8 rounded-full px-6 py-1'
+                <motion.p className='self-center text-[0.8rem] font-merri text-gray-700 mt-8 rounded-full px-6 py-1'
                     style={{
                         border : "2px solid rgb(42, 161, 74, 0.6)",
                         backgroundColor : "rgb(42, 161, 74, 0.2)"
@@ -133,7 +133,7 @@ const ScheduleTable = () => {
 
                 :
 
-                <motion.p className='self-center text-[0.8rem] font-merri text-gray-700 mt-5 md:mt-8 border-2 rounded-full px-6 py-1'
+                <motion.p className='self-center text-[0.8rem] font-merri text-gray-700 mt-8 border-2 rounded-full px-6 py-1'
                     style={{
                         border : "2px solid rgb(179, 59, 50, 0.6)",
                         backgroundColor : "rgb(179, 59, 50, 0.2)"

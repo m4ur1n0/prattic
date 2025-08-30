@@ -98,11 +98,7 @@ const MobileHome = () => {
 
     }, [scrollY, cardControls, bioControls, locked]);
 
-    // useEffect(() => {
-    //     if (locked) {
-    //         document.body.
-    //     }
-    // })
+
 
     if (!mounted) return null;
 
@@ -118,7 +114,9 @@ const MobileHome = () => {
                 initial={{y : "0%", opacity : 1}}
                 animate={cardControls}
             >
-                <HomePageMobile />
+                <div>
+                    <HomePageMobile />
+                </div>
             </motion.div>
 
             <div className="h-[70vh]" />

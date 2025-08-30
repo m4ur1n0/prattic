@@ -6,9 +6,11 @@ import ShowProvider from '../context/ShowContext'
 const page = () => {
   return (
     <ShowProvider>
-      <main className="schedule-page-full w-screen h-screen md:px-[15%] lg:px-[30%] flex flex-col items-center overflow-hidden">
-
-        <ScheduleContent />
+        {/* md:px-[15%] lg:px-[30%] */}
+      <main className="schedule-page-full w-dvw h-dvh flex flex-col items-center justify-between overflow-hidden">
+        <div className="w-full max-w-md h-full flex flex-col items-center px-4">
+            <ScheduleContent />
+        </div>
         
       </main>
     </ShowProvider>
