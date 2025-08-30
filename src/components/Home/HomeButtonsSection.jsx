@@ -12,7 +12,7 @@ const HomeButtonsSection = () => {
     }
 
   return (
-    <div
+    <section
         className=" flex flex-col items-center gap-8 md:gap-8 mt-[3%] pt-[1vh]"
     >
 
@@ -26,7 +26,7 @@ const HomeButtonsSection = () => {
         </div>
 
       
-    </div>
+    </section>
   )
 }
 
