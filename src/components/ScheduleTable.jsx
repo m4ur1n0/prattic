@@ -10,7 +10,6 @@ import {
   } from "@/components/ui/table"
 import { useShow } from '@/app/context/ShowContext'
 import { useScramble } from 'use-scramble';
-import { AnimatePresence } from 'framer-motion';
 import {motion} from 'framer-motion'
 
 const NUM_SCRAMBLE_ROWS = 6;
@@ -38,7 +37,7 @@ const ScrambleText = ({ text, loading }) => {
       speed: 1,           
       tick: 1, // smooth updates
       step: 3, // slow resolve
-      overflow: 2,          
+      overflow: 5,          
       scramble: loading ? 9999 : 5, // 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()-_=+[]{}<>?/|'
       chance: 1,
       range: [65, 125], // allow wider scramble spread
@@ -74,14 +73,14 @@ const ScheduleTable = () => {
     })
 
   return (
-    <div className='flex flex-col '>
+    <section className='flex flex-col '>
 
         {/* ACTUAL TABLE OF PERFORMERS */}
         <div className='relative max-h-[250px] overflow-y-auto no-scrollbar'>
-            <Table className="table-fixed ">
-                <TableHeader className="sticky !bg-background top-0 z-10 thead-shadow"
+            <Table className="table-fixed">
+                <TableHeader className="sticky !bg-background top-0 z-20 thead-shadow"
                 >
-                    <TableRow className="" >
+                    <TableRow>
                         <TableHead className=" font-bold text-2xl">Estimated Time</TableHead>
                         <TableHead className=" font-bold text-2xl md:min-w-[200px] ">Name</TableHead>
                     </TableRow>
@@ -90,7 +89,7 @@ const ScheduleTable = () => {
 
                     {
                         tableList.map((text, i) => (
-                            <TableRow key={i}>
+                            <TableRow key={i} className="hover:bg-app-hover">
                                 <TableCell className="text-xl ">
                                     <ScrambleText text={loading ? "XXX" : (i === 0 ? "Opener" : timeFromIndex(i, actualStartTime))} loading={loading} />
                                 </TableCell>
@@ -158,7 +157,7 @@ const ScheduleTable = () => {
 
             )
         }
-    </div>
+    </section>
   )
 }
 

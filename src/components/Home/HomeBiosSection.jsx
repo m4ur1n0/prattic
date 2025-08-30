@@ -59,20 +59,13 @@ const HomeBioSection = ({buttonsHidden=null}) => {
 
         </div>
 
-        <div className='prattic-bios mt-18'>
+        <article className='prattic-bios mt-18'>
 
-            <h1 className='font-bold text-[4.6rem]'>Meet The Founders</h1>
+            <h2 className='font-bold text-[4.6rem]'>Meet The Founders</h2>
 
             {
                 prattic_bios_info.map((person, i) => (
-                    // eventually <PratticBioCard>
                     <div className='flex flex-col gap-4 my-18 font-merri' key={i}>
-
-                        {/* <div className='prattic-main-photo w-full flex justify-center max-h-[40vh] object-scale-down'>
-
-                            <img src={person.image} className='' alt={`Image of Prattic oficionado ${person.name}`} />
-
-                        </div> */}
                         <h3 className='text-[2.2rem] font-[400]'>{person.name}</h3>
                         <p className=' text-[1.3rem]'>
                             {person.bio}
@@ -81,9 +74,9 @@ const HomeBioSection = ({buttonsHidden=null}) => {
                 ))
             }
 
-        </div>
+        </article>
 
-        <div className='call-to-action flex flex-col gap-8 w-full'>
+        <section className='call-to-action flex flex-col gap-8 w-full'>
 
             <h1 className='text-[4rem] font-bold'>
                 Join in the fun!
@@ -96,7 +89,7 @@ const HomeBioSection = ({buttonsHidden=null}) => {
 
 
 
-        </div>
+        </section>
       
     </section>
 

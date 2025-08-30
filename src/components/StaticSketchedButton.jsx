@@ -41,12 +41,12 @@
 import { useRouter } from 'next/navigation'
 import React from 'react'
 
-const StaticSketchedButton = ({ vectorFile, width, href, label, height = 60 }) => {
+const StaticSketchedButton = ({ vectorFile, width, href, label, height = 60, fontSize=null, onHit=null}) => {
   const nav = useRouter()
 
   return (
     <button
-      onClick={() => nav.push(href)}
+      onClick={onHit === null ? () => nav.push(href) : onHit}
       className="static-render-sketch-button relative cursor-pointer button-shadow hover:bg-black/5 transition-colors duration-200 ease-in-out focus:outline-2 focus:outline-offset-2 focus:outline-app-black"
       style={{
         width: `${width}px`,
@@ -63,7 +63,7 @@ const StaticSketchedButton = ({ vectorFile, width, href, label, height = 60 }) =
 
       {/* label - stay centered */}
       <p
-        className="absolute inset-0 flex items-center justify-center font-bold text-center leading-none"
+        className={`absolute inset-0 flex items-center justify-center font-bold text-center leading-none ${fontSize ? `text-${fontSize}` : ""}`}
         style={{
           padding: 0,
           margin: 0

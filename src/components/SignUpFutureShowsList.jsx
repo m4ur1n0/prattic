@@ -1,32 +1,49 @@
 "use client"
 import { useShow } from '@/app/context/ShowContext'
-import React from 'react'
+import { getNextShowData } from '@/app/lib/GetInfo';
+import React, { useEffect, useState } from 'react'
 import { Grid } from 'react-loader-spinner';
+import SignUpShowCard from './SignUpShowCard';
 
 const SignUpFutureShowsList = () => {
 
     const {allFutureShows} = useShow();
 
+    const [showsData, setShowsData] = useState(null);
+
+    useEffect(() => {
+
+        async function loadFutureShows() {
+            // only if there's data in allFutureShows (inits as null)
+
+            // we are going to ignore 'finalized' because what matters more here is whether the show is FULL
+            let promArr = allFutureShows.map((fs) => getNextShowData(fs));
+            let futureShows = await Promise.all(promArr);
+
+            // now we should have all the data
+            setShowsData(futureShows);
+        }
+
+        if (allFutureShows) {
+            loadFutureShows();
+        }
+
+
+    }, [allFutureShows])
+
 
     return (
-      <div className='px-8 md:px-16'>
-        <div className='list-of-future-shows flex flex-col items-center overflow-scroll min-h-[150px] max-h-[250px] md:max-h-[300px] w-full border border-gray-200 rounded-lg py-8 px-3 mt-5 gap-2'
+      <section className='px-8 md:px-16'>
+
+        <div className='list-of-future-shows no-scrollbar flex flex-col items-center overflow-scroll h-[250px] md:h-[300px] w-full border border-gray-200 rounded-lg py-8 px-3 mt-5 gap-2'
           style={{
             justifyContent : allFutureShows ? (allFutureShows.length > 0 ? "start" : "center") : "center"
           }}
         >
             {  
-              (allFutureShows && allFutureShows.length > 0) ? (
-                allFutureShows.map((futureShow, i) => (
-                    <div className='future-show-card w-full h-[60px] cursor-pointer flex items-center gap-4 px-3 border border-gray-200 rounded-md shadow-md hover:scale-1.1 hover:bg-gray-100 transition-all duration-200 ease-in-out' key={i}>
-                      <p className='font-bold'>
-                        ({(futureShow.split('_')[1].split('/').slice(0,2)).join('/')})
-                      </p>
-                      <p>
-                        Standup
-                      </p>
-                    </div>
-
+              (showsData && showsData.length > 0) ? (
+                showsData.map((futureShow, i) => (
+                    <SignUpShowCard show={futureShow} key={i} />
                 ))
               ) : (
                 <Grid
@@ -44,7 +61,7 @@ const SignUpFutureShowsList = () => {
 
 
         </div>
-      </div>
+      </section>
     )
 }
 

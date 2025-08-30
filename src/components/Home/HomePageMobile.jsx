@@ -18,6 +18,7 @@ const HomePageMobile = () => {
         const hasAnimated = sessionStorage.getItem("hasAnimated") === "true";
         
         if (!hasAnimated) {
+            console.log("ANIMATING");
             sessionStorage.setItem("hasAnimated", "true");
             setShouldAnimate(true);
         } else {

@@ -11,7 +11,7 @@ export async function POST(req) {
     try {
         const body = await req.json();
         // const {name, post_time, performance_date, email, phone, notes} = body;
-        const {post_time, performance_date, name, email, phone, notes, sheetName } = body;
+        const {post_time, performance_name, name, email, phone, notes, sheetName } = body;
 
         const {sheetId, credentials} = getCreds();
 
@@ -39,7 +39,7 @@ export async function POST(req) {
             requestBody: {
                 values: [[
                     post_time,
-                    performance_date,
+                    performance_name,
                     name,
                     email,
                     phone,

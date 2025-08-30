@@ -83,6 +83,25 @@ export async function getNextShowNameAndDate() {
 
 }
 
+export function getPerformersFromRawSheetData(rawSheetData) {
+    // ok then this should work.
+    // GET THE PERFORMERS IN ORDER
+    const idxOfPerformerHeaders = 5; // hard code - change if we change schema
+    const performersInOrder = [];
+    // CAN ADD TIME COL HERE TOO IF WE WANT IT
+    const idxOfName = rawSheetData["body"]["data"]["valueRanges"][0]["values"][idxOfPerformerHeaders].indexOf("Name");
+
+    for (let row of rawSheetData["body"]["data"]["valueRanges"][0]["values"].slice(idxOfPerformerHeaders + 1)) {
+        // as object we can include time too if different
+        // LATER
+        performersInOrder.push({
+            name : row[idxOfName],
+        });
+    }
+
+    return performersInOrder;
+}
+
 export async function getNextShowData(sheetName, finalized=false) {
 
     try {
@@ -103,20 +122,7 @@ export async function getNextShowData(sheetName, finalized=false) {
 
         // console.log("THIS IS THE VALUE BEING USED IN GETNEXTSHOWDATA" , JSON.stringify(sheetData))
 
-        // ok then this should work.
-        // GET THE PERFORMERS IN ORDER
-        const idxOfPerformerHeaders = 5; // hard code - change if we change schema
-        const performersInOrder = [];
-        // CAN ADD TIME COL HERE TOO IF WE WANT IT
-        const idxOfName = sheetData["body"]["data"]["valueRanges"][0]["values"][idxOfPerformerHeaders].indexOf("Name");
-
-        for (let row of sheetData["body"]["data"]["valueRanges"][0]["values"].slice(idxOfPerformerHeaders + 1)) {
-            // as object we can include time too if different
-            // LATER
-            performersInOrder.push({
-                name : row[idxOfName],
-            });
-        }
+        const performersInOrder = getPerformersFromRawSheetData(sheetData);
 
         // get show metadata
         const idxEventbrite = 0;
@@ -124,7 +130,7 @@ export async function getNextShowData(sheetName, finalized=false) {
         const idxStartTime = 2;
         const idxShowName = 3;
 
-        const eventbrite = sheetData["body"]["data"]["valueRanges"][0]["values"][idxEventbrite][1] || "https://www.eventbrite.com";
+        const eventbrite = sheetData["body"]["data"]["valueRanges"][0]["values"][idxEventbrite][1] || "https://www.eventbrite.com/o/the-prattic-115453600301";
         const maxPerformers = sheetData["body"]["data"]["valueRanges"][0]["values"][idxMaxPerformers][1] || 15;
         const startTime = sheetData["body"]["data"]["valueRanges"][0]["values"][idxStartTime][1] || "9:00";
         const showName = sheetData["body"]["data"]["valueRanges"][0]["values"][idxShowName][1] || "Standup Tight 3";
@@ -203,5 +209,26 @@ export async function getAllFutureShows() {
         console.error("AN ERROR OCCURRED WHILE TRYING TO ACCESS ALL NEXT SHOWS : ", e)
         return []
     }
+
+}
+
+export async function PostSignUp(signUpEvent) {
+
+    // signupevent --> {post_time, performance_name, name, email, phone, notes, sheetName } 
+    const res = await fetch('../api/schedule', {
+        method : 'POST',
+        headers : {'Content-Type': 'application/json'},
+        body: JSON.stringify(signUpEvent),
+    });
+
+    const data = res.json();
+
+    // console.log(JSON.stringify(data));
+    if (data.status === 200) {
+        console.log("Success");
+    } else if (data.status === 500) {
+        console.log("Failure")
+    }
+
 
 }
