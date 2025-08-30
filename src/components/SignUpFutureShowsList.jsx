@@ -33,9 +33,8 @@ const SignUpFutureShowsList = () => {
 
 
     return (
-      <section className='px-8 md:px-16'>
 
-        <div className='list-of-future-shows no-scrollbar flex flex-col items-center overflow-scroll h-[250px] md:h-[300px] w-full border border-gray-200 rounded-lg py-8 px-3 mt-5 gap-2'
+        <section className='list-of-future-shows no-scrollbar flex-1 h-[50dvh] flex flex-col items-center overflow-y-auto w-full border border-gray-200 rounded-lg p-4 gap-2'
           style={{
             justifyContent : allFutureShows ? (allFutureShows.length > 0 ? "start" : "center") : "center"
           }}
@@ -60,8 +59,8 @@ const SignUpFutureShowsList = () => {
             }
 
 
-        </div>
-      </section>
+        </section>
+
     )
 }
 

@@ -76,7 +76,7 @@ const ScheduleTable = () => {
     <section className='flex-1 max-h-[65dvh] w-full flex flex-col justify-between overflow-hidden'>
 
         {/* ACTUAL TABLE OF PERFORMERS */}
-        <div className='relative overflow-y-auto max-h-[40dvh] no-scrollbar'>
+        <div className='relative overflow-y-auto h-[40dvh] no-scrollbar'>
             <Table className="table-fixed w-full">
                 <TableHeader className="sticky !bg-background top-0 z-20 thead-shadow"
                 >
