@@ -61,7 +61,7 @@ const HomeBioSection = ({buttonsHidden=null}) => {
 
         <article className='prattic-bios mt-18'>
 
-            <h2 className='font-bold text-[4.6rem]'>Meet The Founders</h2>
+            <h2 className='font-bold text-[4rem] md:text-[4.6rem]'>Meet The Founders</h2>
 
             {
                 prattic_bios_info.map((person, i) => (
@@ -78,11 +78,11 @@ const HomeBioSection = ({buttonsHidden=null}) => {
 
         <section className='call-to-action flex flex-col gap-8 w-full'>
 
-            <h1 className='text-[4rem] font-bold'>
+            <h2 className='text-[3rem] md:text-[4rem] font-bold'>
                 Join in the fun!
-            </h1>
+            </h2>
 
-            <div className='cta-buttons flex justify-center gap-8 mb-8' aria-hidden={buttonsHidden} inert={buttonsHidden}>
+            <div className='cta-buttons flex flex-col md:flex-row justify-center items-center gap-8 mb-8' aria-hidden={buttonsHidden} inert={buttonsHidden}>
                 <StaticSketchedButton vectorFile={"sharpButton1.svg"} label="SIGN-UP" width={200} href="/sign-up" />
                 <StaticSketchedButton vectorFile={"sharpButton0.svg"} label="SCHEDULE" width={200} href="/schedule" />
             </div>

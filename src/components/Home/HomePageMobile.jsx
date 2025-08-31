@@ -30,7 +30,8 @@ const HomePageMobile = () => {
     if (shouldAnimate === null) return null;
 
     return (shouldAnimate ? (
-        <motion.section className="home-content-full w-full h-dvh max-h-dvh relative flex flex-col items-center justify-center pb-[5%] border-b-gray-800 rounded-[2vh]"  
+        // border-b-gray-800 rounded-[2vh]
+        <motion.section className="home-content-full w-full h-dvh max-h-dvh relative flex flex-col items-center justify-center pb-[5%] bg-background"  
             layout
             transition={{duration: 0.5, ease: "easeInOut"}} // maybe delete
           >
