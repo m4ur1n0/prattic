@@ -41,13 +41,13 @@ const SignUpFutureShowsList = () => {
             <section className='list-of-future-shows no-scrollbar border border-gray-200 rounded-md h-[45dvh] w-full overflow-y-scroll'
             >
 
-                <div className='flex flex-col gap-2 p-2'>
+                <div className='flex flex-col gap-2 p-2 w-full'>
                     {(showsData && showsData.length > 0) ? (
                         showsData.map((futureShow, i) => (
                             <SignUpShowCard show={futureShow} key={i} />
                         ))
                     ) : (
-                        <div className='w-full h-full flex items-center justify-center'>
+                        <div className='w-full h-[45dvh] flex items-center justify-center'>
                             <Grid
                             visible={true}
                             height="50"
