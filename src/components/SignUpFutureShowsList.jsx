@@ -38,7 +38,7 @@ const SignUpFutureShowsList = () => {
 
         // border border-gray-200 h-[45dvh] w-full 
         // <SketchedBorder>
-            <section className='list-of-future-shows no-scrollbar border border-gray-200 rounded-md h-[45dvh] w-full overflow-y-scroll'
+            <section className='list-of-future-shows no-scrollbar border border-gray-200 rounded-md h-[43dvh] w-full overflow-y-scroll'
             >
 
                 <div className='flex flex-col gap-2 p-2 w-full'>
@@ -47,7 +47,7 @@ const SignUpFutureShowsList = () => {
                             <SignUpShowCard show={futureShow} key={i} />
                         ))
                     ) : (
-                        <div className='w-full h-[45dvh] flex items-center justify-center'>
+                        <div className='w-full h-[43dvh] flex items-center justify-center'>
                             <Grid
                             visible={true}
                             height="50"
