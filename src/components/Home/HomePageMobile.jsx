@@ -68,7 +68,8 @@ const HomePageMobile = () => {
     
           </motion.section>
       ) : (
-        <section className="home-content-full relative w-full max-h-dvh h-dvh flex flex-col items-center justify-center pb-[5%] border-b border-gray-800 rounded-b-[2vh]">
+        // border-gray-800 rounded-b-[2vh] ----> useful to see if it is still only rendering this part
+        <section className="home-content-full relative w-full max-h-dvh h-dvh flex flex-col items-center justify-center pb-[5%] border-b ">
           <HomeHeader />
     
 

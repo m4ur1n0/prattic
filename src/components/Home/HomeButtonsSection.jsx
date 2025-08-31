@@ -11,6 +11,11 @@ const HomeButtonsSection = () => {
         });
     }
 
+    function mobileScrollDown() {
+        console.log("XXXX")
+        window.scrollTo({top : 61, behavior : "auto"});
+    }
+
   return (
     <section
         className=" flex flex-col items-center gap-8 md:gap-8 mt-[3%] pt-[1vh]"
@@ -24,6 +29,16 @@ const HomeButtonsSection = () => {
         <div className="hidden lg:block absolute bottom-[6%] pt-14 lg:pt-0 h-[5%] lg:-bottom-16 lg:h-[20%] cursor-pointer" onClick={scrollDown}>
             <img className='mb-0 h-[40px] lg:h-[100%]' src="vectors/down-chevron.svg" alt="downward-pointing chevron" />
         </div>
+
+        {/* <button className='> */}
+
+            <p className='text-[1.1rem] absolute lg:hidden bottom-[2%] text-gray-500 font-merri border-none z-20' onClick={mobileScrollDown}>
+
+                More &darr;
+
+            </p>
+
+        {/* </button> */}
 
       
     </section>

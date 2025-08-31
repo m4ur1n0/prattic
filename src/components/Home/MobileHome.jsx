@@ -9,7 +9,8 @@ const MobileHome = () => {
 
     
 
-    const {scrollYProgress} = useScroll();
+    // const {scrollYProgress} = useScroll();
+    const {scrollY} = useScroll();
 
     const cardControls = useAnimationControls();
     const bioControls = useAnimationControls();
@@ -18,11 +19,12 @@ const MobileHome = () => {
     const [mounted, setMounted] = useState(false);
     const [bioPinned, setBioPinned] = useState(false);
 
+    // const triggerProportion = 0.05;
+    const triggerPix = 60;
 
-    const triggerPoint = 200; // px to scroll b4 trigger anim
-    const triggerProportion = 0.05;
     const triggered = useRef(false);
     const bioRef = useRef(null);
+    const animating = useRef(false);
 
     const lockBodyScroll = () => {
         const scrollY = window.scrollY;
@@ -42,17 +44,24 @@ const MobileHome = () => {
     useEffect(() => {
         setMounted(true);
 
+        // full reset in case of weird reload
+        triggered.current = false;
+        unlockBodyScroll();
+        setBioPinned(false);
+
     }, []);
+    
 
     useEffect(() => {
 
-        const unsubscribe = scrollYProgress.on("change", async (y) => {
+        const unsubscribe = scrollY.on("change", async (y) => {
+
+            // console.log(y);
 
             // scrolling down
-            if (y >= triggerProportion && !triggered.current) {
+            if (y >= triggerPix && !triggered.current && !animating.current) {
                 // do the scroll locking
-                triggered.current = true;
-                // document.body.style.overflow = "hidden";
+                animating.current = true;
                 lockBodyScroll();
 
                 await cardControls.start({
@@ -61,6 +70,8 @@ const MobileHome = () => {
                     transition : {duration : 0.5, ease : "easeInOut"}
                 });
                 
+
+
                 // now pin the bio (switch from normal flow -> fixed)
                 setBioPinned(true);
 
@@ -68,9 +79,10 @@ const MobileHome = () => {
                 await new Promise(requestAnimationFrame);
 
                 // lock body scroll and reset bio internal scroll to top
-                // document.body.style.overflow = "hidden";
                 lockBodyScroll();
-                if (bioRef.current) bioRef.current.scrollTop = 0;
+
+
+                
 
                 await bioControls.start({
                     opacity : 1,
@@ -79,22 +91,26 @@ const MobileHome = () => {
                 });
 
                 // unlock the scroll
-                // document.body.style.overflow = "";
                 unlockBodyScroll();
+                triggered.current = true;
+                animating.current = false;
+
+                // console.log("forcing");
+                window.scrollTo({ top: 10, behavior: "auto" });
+
             }
 
 
-
-            if (y < triggerProportion && triggered.current) {
+            if (y < 5 && triggered.current && !animating.current) {
                 // going back up
 
-                // document.body.style.overflow = "hidden";
+                animating.current = true;
                 lockBodyScroll();
 
                 bioControls.start({
                     opacity : 0,
                     scale : 0.9,
-                    transition : {duration : 0.4, ease : "easeIn"}
+                    transition : {duration : 0.2, ease : "easeIn"}
                 });
 
                 setBioPinned(false)
@@ -103,14 +119,13 @@ const MobileHome = () => {
                 await cardControls.start({
                     opacity : 1,
                     y : "0%",
-                    transition : {duration : 0.5, ease : "easeInOut"}
+                    transition : {duration : 0.4, ease : "easeInOut"}
                 });
 
 
-                // 8unlok
-                // document.body.style.overflow = "";
                 unlockBodyScroll();
                 triggered.current = false;
+                animating.current = false;
 
 
             }
@@ -119,11 +134,10 @@ const MobileHome = () => {
 
         return () => {
             unsubscribe();
-            // document.body.style.overflow = "";
             unlockBodyScroll();
         }
 
-    }, [scrollYProgress, cardControls, bioControls]);
+    }, [scrollY, cardControls, bioControls]);
       
 
 
@@ -146,8 +160,6 @@ const MobileHome = () => {
                     <HomePageMobile />
                 </div>
             </motion.div>
-
-            {/* <div className="h-[70vh]" /> */}
 
             <motion.section className='bio-section-mobile z-10'
                 style={

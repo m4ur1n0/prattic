@@ -24,7 +24,9 @@ const HomeBioSection = ({buttonsHidden=null}) => {
 
 
   return (
-    <section className='home-bio-section flex flex-col items-center overflow-y-scroll gap-10 p-10 md:p-0'>
+    <section className='home-bio-section flex flex-col items-center overflow-y-scroll lg:gap-10 px-3 lg:px-0 pb-10 md:p-10'>
+
+        <img className='lg:hidden w-[10%] object-fit my-0 my-4' alt="up chevron arrow" src="/vectors/up-chevron.svg" />
 
         <div className='about-prattic '>
 
@@ -35,11 +37,11 @@ const HomeBioSection = ({buttonsHidden=null}) => {
 
             </div>
 
-            <h2 className='font-bold text-[4.6rem]'>
+            <h1 className='font-bold text-[4.6rem] text-center lg:text-left my-8 lg:my-0'>
                 The Prattic?
-            </h2>
+            </h1>
 
-            <article className='prattic-copy text-[1.2rem] font-merri flex flex-col gap-4'>
+            <article className='prattic-copy text-[1.2rem] font-merri flex flex-col gap-4 px-4 lg:px-0'>
                 <p className=''>
                     The Prattic was founded in 2025 when three Northwestern students turned their off-campus attic into a stage. What began as late-night joke swaps quickly grew into one of Chicagoland's most exciting underground comedy spots. Today, The Prattic packs its 100-plus seat space every week, drawing a mix of rising comics and established performers for high-energy shows that keep audiences coming back.
                 </p>
@@ -61,12 +63,12 @@ const HomeBioSection = ({buttonsHidden=null}) => {
 
         <article className='prattic-bios mt-18'>
 
-            <h2 className='font-bold text-[4rem] md:text-[4.6rem]'>Meet The Founders</h2>
+            <h2 className='font-bold text-[4rem] md:text-[4.6rem] text-center lg:text-left'>Meet The Founders</h2>
 
             {
                 prattic_bios_info.map((person, i) => (
                     <div className='flex flex-col gap-4 my-18 font-merri' key={i}>
-                        <h3 className='text-[2.2rem] font-[400]'>{person.name}</h3>
+                        <h3 className='text-[1.8rem] md:text-[2rem] lg:text-[2.2rem] font-[400]'>{person.name}</h3>
                         <p className=' text-[1.3rem]'>
                             {person.bio}
                         </p>
@@ -78,7 +80,7 @@ const HomeBioSection = ({buttonsHidden=null}) => {
 
         <section className='call-to-action flex flex-col gap-8 w-full'>
 
-            <h2 className='text-[3rem] md:text-[4rem] font-bold'>
+            <h2 className='text-[3rem] md:text-[4rem] font-bold text-center lg:text-left'>
                 Join in the fun!
             </h2>
 
