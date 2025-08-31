@@ -161,7 +161,7 @@ const MobileHome = () => {
                 </div>
             </motion.div>
 
-            <motion.section className='bio-section-mobile z-10'
+            <motion.section className='bio-section-mobile'
                 style={
                     bioPinned ?
                     {
@@ -174,7 +174,8 @@ const MobileHome = () => {
                     }
                     :
                     {
-                        position : "relative"
+                        position : "relative",
+                        pointerEvents : "none"
                     }
                 }
                 ref={bioRef}

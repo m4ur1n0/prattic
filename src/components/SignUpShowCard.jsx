@@ -13,7 +13,7 @@ const SignUpShowCard = ({show}) => {
 
         <Dialog className="">
             <DialogTrigger asChild>
-                <div className='future-show-card w-full  cursor-pointer flex items-center gap-4 px-3 py-6 border border-gray-200 rounded-md shadow-md hover:scale-1.1 bg-app-background hover:bg-app-hover transition-all duration-200 ease-in-out text-nowrap overflow-hidden'>
+                <div className='future-show-card w-full cursor-pointer flex items-center gap-4 px-3 py-2 border border-gray-200 rounded-md shadow-md hover:scale-1.1 bg-app-background hover:bg-app-hover transition-all duration-200 ease-in-out text-nowrap overflow-hidden'>
                     <p className='font-bold'>
                         ({dateStr})
                     </p>
@@ -23,7 +23,7 @@ const SignUpShowCard = ({show}) => {
                 </div>
             </DialogTrigger>
 
-            <DialogContent className="">
+            <DialogContent className="dialog-content sm:max-w-[425px] animate-in fade-in-0 zoom-in-95 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95">
                 <DialogHeader>
                     <DialogTitle className='font-bold text-3xl'>
                         {show.showName}

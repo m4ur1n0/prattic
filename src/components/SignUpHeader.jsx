@@ -2,7 +2,7 @@ import React from 'react'
 
 const SignUpHeader = () => {
   return (
-    <header className='schedule-header flex flex-col items-center w-full overflow-x-hidden h-[30dvh] text-center'>
+    <header className='schedule-header flex flex-col items-center w-full overflow-x-hidden h-[35dvh] text-center overflow-hidden'>
 
         <h1 className=' text-8xl font-bold scale-y-[80%] scale-x-[140%] w-[8ch] text-wrap no-select'>
             TAKE THE STAGE
