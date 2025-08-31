@@ -34,11 +34,21 @@ const SignUpFutureShowsList = () => {
 
     return (
 
-        <section className='list-of-future-shows no-scrollbar flex-1 h-[50dvh] flex flex-col items-center overflow-y-auto w-full border border-gray-200 rounded-lg p-4 gap-2'
+        // border border-gray-200
+        <section className='list-of-future-shows relative no-scrollbar flex-1 h-[45dvh] flex flex-col items-center overflow-y-auto w-full  rounded-lg p-4 gap-2'
           style={{
             justifyContent : allFutureShows ? (allFutureShows.length > 0 ? "start" : "center") : "center"
           }}
         >
+
+            {/* <img
+                src="/vectors/bigBox.svg"
+                alt="sketched border"
+                className="fixed inset-0 min-w-full h-[45dvh] pointer-events-none"
+            /> */}
+
+            
+
             {  
               (showsData && showsData.length > 0) ? (
                 showsData.map((futureShow, i) => (
