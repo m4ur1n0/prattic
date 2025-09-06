@@ -43,7 +43,7 @@ const HomePageDesktop = () => {
     const {scrollYProgress} = useScroll();
 
     const headerDefaultY = "-80%";
-    const headerX = useTransform(scrollYProgress, [headerScrollBreakpoint, headerScrollBreakpoint + headerScrollDistance], ["-50%", "-200%"]);
+    const headerX = useTransform(scrollYProgress, [headerScrollBreakpoint, headerScrollBreakpoint + headerScrollDistance], ["-50%", "-175%"]);
     const headerY = useTransform(scrollYProgress, [headerScrollBreakpoint, headerScrollBreakpoint + headerScrollDistance], [headerDefaultY, "-90%"]);
     const headerScale = useTransform(scrollYProgress, [headerScrollBreakpoint, headerScrollBreakpoint + headerScrollDistance], [1, 0.7]);
     const titleScale = useTransform(scrollYProgress, [headerScrollBreakpoint, headerScrollBreakpoint + headerScrollDistance], [1.4, 1.1]);
@@ -152,7 +152,7 @@ const HomePageDesktop = () => {
 
 
     return (
-      <main className='relative w-screen h-[500vh] overflow-hidden flex flex-col'>
+      <main className='relative w-screen flex flex-col'>
 
         {/* HEADER */}
         <div className='relative'>

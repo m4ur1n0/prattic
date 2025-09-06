@@ -20,7 +20,7 @@ const MobileHome = () => {
     const [bioPinned, setBioPinned] = useState(false);
 
     // const triggerProportion = 0.05;
-    const triggerPix = 60;
+    const triggerPix = 10;
 
     const triggered = useRef(false);
     const bioRef = useRef(null);

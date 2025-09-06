@@ -18,11 +18,20 @@ const HomeButtonsSection = () => {
 
   return (
     <section
-        className=" flex flex-col items-center gap-8 md:gap-8 mt-[3%] pt-[1vh]"
+        className="relative flex flex-col items-center  gap-8 md:gap-8 mt-[3%] pt-[1vh] lg:pt-0"
     >
+        <div className='hidden lg:flex flex-row flex-wrap justify-center gap-8 max-w-[500px]'>
+            <StaticSketchedButton vectorFile={"sharpButton1.svg"} label="LINEUP" width={200} href="/schedule" />
+            <StaticSketchedButton vectorFile={"sharpButton0.svg"} label="SIGNUP" width={200} href="/sign-up" />
+            <StaticSketchedButton vectorFile={"sharpButton0.svg"} label="TICKETS" width={200} href="/sign-up" />
+        </div>
 
-        <StaticSketchedButton vectorFile={"sharpButton1.svg"} label="NEXT SHOW" width={200} href="/schedule" />
-        <StaticSketchedButton vectorFile={"sharpButton0.svg"} label="FUTURE SHOWS" width={200} href="/sign-up" />
+        <div className='lg:hidden w-full flex flex-col gap-8 items-center'>
+            <StaticSketchedButton vectorFile={"sharpButton0.svg"} label="SIGNUP" width={200} href="/sign-up" />
+            <StaticSketchedButton vectorFile={"sharpButton0.svg"} label="TICKETS" width={200} href="/sign-up" />
+        </div>
+
+
 
         {/* seems like te down arrow has to go here.... */}
 
@@ -32,11 +41,11 @@ const HomeButtonsSection = () => {
 
         {/* <button className='> */}
 
-            <p className='text-[1.1rem] absolute lg:hidden bottom-[2%] text-gray-500 font-merri border-none z-20' onClick={mobileScrollDown}>
+        <p className='text-[1.1rem] absolute lg:hidden -bottom-[35%] text-gray-500 font-merri border-none z-20' onClick={mobileScrollDown}>
 
-                More &darr;
+            More &darr;
 
-            </p>
+        </p>
 
         {/* </button> */}
 

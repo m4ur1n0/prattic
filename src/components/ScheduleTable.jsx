@@ -81,18 +81,20 @@ const ScheduleTable = () => {
                 <TableHeader className="sticky !bg-background top-0 z-20 thead-shadow"
                 >
                     <TableRow>
-                        <TableHead className=" font-bold text-2xl">Estimated Time</TableHead>
-                        <TableHead className=" font-bold text-2xl md:min-w-[200px] ">Name</TableHead>
+                        {(loading || nextShowData.finalized) && <TableHead className=" font-bold text-2xl">Estimated Time</TableHead>}
+                        <TableHead className=" font-bold text-2xl md:min-w-[200px] ">{(loading || nextShowData.finalized) ? "Name" : "Current Signups"}</TableHead>
                     </TableRow>
                 </TableHeader>
                 <TableBody >
 
                     {
                         tableList.map((text, i) => (
-                            <TableRow key={i} className="hover:bg-app-hover">
-                                <TableCell className="text-xl ">
-                                    <ScrambleText text={loading ? "XXX" : (i === 0 ? "Opener" : timeFromIndex(i, actualStartTime))} loading={loading} />
-                                </TableCell>
+                            <TableRow key={i} className="hover:bg-app-hover !bg-background px-1">
+                                { (loading || nextShowData.finalized) && 
+                                    <TableCell className="text-xl ">
+                                        <ScrambleText text={loading ? "XXX" : (i === 0 ? "Opener" : timeFromIndex(i, actualStartTime))} loading={loading} />
+                                    </TableCell>
+                                }
                                 <TableCell className='text-xl '>
                                     <ScrambleText text={text} loading={loading} />
                                 </TableCell>

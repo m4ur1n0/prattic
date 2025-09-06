@@ -47,7 +47,7 @@ const StaticSketchedButton = ({ vectorFile, width, href, label, height = 60, fon
   return (
     <button
       onClick={onHit === null ? () => nav.push(href) : onHit}
-      className="static-render-sketch-button relative cursor-pointer button-shadow hover:bg-black/5 transition-colors duration-200 ease-in-out focus:outline-2 focus:outline-offset-2 focus:outline-app-black"
+      className="static-render-sketch-button relative cursor-pointer button-shadow bg-background hover:bg-app-hover transition-colors duration-200 ease-in-out focus:outline-2 focus:outline-offset-2 focus:outline-app-black"
       style={{
         width: `${width}px`,
         height: `${height}px`

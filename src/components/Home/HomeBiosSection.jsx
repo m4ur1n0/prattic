@@ -28,6 +28,13 @@ const HomeBioSection = ({buttonsHidden=null}) => {
 
         <img className='lg:hidden w-[10%] object-fit my-0 my-4' alt="up chevron arrow" src="/vectors/up-chevron.svg" />
 
+        <div className='w-full flex flex-col gap-8 my-[10%] lg:hidden items-center'>
+            <p className='text-[1.2rem] text-center font-merri '>
+                Just wondering who's performing next? See the lineup.
+            </p>
+            <StaticSketchedButton vectorFile={"sharpButton1.svg"} label="LINEUP" width={75} href="/schedule" />
+        </div>
+
         <div className='about-prattic '>
 
             <div className='prattic-main-photo w-full flex justify-center max-h-[60vh] object-scale-down'>
@@ -69,7 +76,7 @@ const HomeBioSection = ({buttonsHidden=null}) => {
                 prattic_bios_info.map((person, i) => (
                     <div className='flex flex-col gap-4 my-18 font-merri' key={i}>
                         <h3 className='text-[1.8rem] md:text-[2rem] lg:text-[2.2rem] font-[400]'>{person.name}</h3>
-                        <p className=' text-[1.3rem]'>
+                        <p className=' text-[1.3rem] px-4'>
                             {person.bio}
                         </p>
                     </div>

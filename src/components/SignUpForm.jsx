@@ -139,10 +139,11 @@ const SignUpForm = ({show}) => {
 
                         {/* label - stay centered */}
                         <p
-                            className={`absolute inset-0 flex items-center justify-center font-bold text-center leading-none text-sm`}
+                            className={`absolute inset-0 flex items-center justify-center font-bold text-center leading-none text-lg lg:text-xl font-amatic`}
                             style={{
                                 padding: 0,
-                                margin: 0
+                                margin: 0,
+                                fontFamily : "var(--font-amatic)"
                             }}
                         >
                             Sign Up

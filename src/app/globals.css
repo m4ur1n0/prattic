@@ -40,7 +40,7 @@
 
   --app-black : #0b12157c;
   --background: rgb(246, 247, 240);
-  --hover-color: rgb(239, 240, 231);
+  --hover-color: rgb(229, 231, 221);
 
 
 
@@ -92,10 +92,32 @@
 }
 
 body {
-  /* font-family: Arial, Helvetica, sans-serif; */
-  /* @apply "font-amatic" */
-  font-family: var(--font-amatic);
-  font-size: xx-large;
+    /* font-family: Arial, Helvetica, sans-serif; */
+    /* @apply "font-amatic" */
+    font-family: var(--font-amatic);
+    font-size: xx-large;
+
+
+
+    /* background-image: url('/images/faint-grunge-brick-texture.png'); */
+    /* background :
+        linear-gradient(rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.4)),
+        url('/images/faint-grunge-brick-texture.png');
+        
+    background-repeat: repeat; ensures the texture tiles smoothly */
+    /* background-color: #f5f5f5; fallback solid color */
+
+    background: url('/images/faint-grunge-brick-texture.png') repeat;
+  position: relative;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.9);
+  pointer-events: none; /* don’t block clicks */
+  z-index: 0;
 }
 
 .font-merri {
