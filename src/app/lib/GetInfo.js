@@ -225,9 +225,11 @@ export async function PostSignUp(signUpEvent) {
 
     // console.log(JSON.stringify(data));
     if (data.status === 200) {
-        console.log("Success");
+        // console.log("Success");
+        return 200;
     } else if (data.status === 500) {
-        console.log("Failure")
+        // console.log("Failure")
+        return 500;
     }
 
 

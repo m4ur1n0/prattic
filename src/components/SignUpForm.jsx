@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useForm } from 'react-hook-form';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormDescription } from './ui/form';
 import { Input } from './ui/input';
@@ -30,6 +30,8 @@ const SignUpForm = ({show}) => {
         },
     });
 
+    const [loading, setLoading] = useState(0); // 0 === form open, 1 === loading, 2 === success, 3 = failure?
+
     async function onSubmit(values) {
 
         // before submitting, if this takes us over the cap, make sure we demonstrate the WAITLIST of it all
@@ -60,10 +62,28 @@ const SignUpForm = ({show}) => {
             sheetName : show.sheetName
         }
 
-        PostSignUp(submissionEvent);
+        setLoading(1); // actively loading
+        let r = await PostSignUp(submissionEvent);
+
+        if (r === 200) {
+            setLoading(2); // got a success
+        } else {
+            setLoading(3); // got a failure
+        }
 
         form.reset();
     }
+
+    // if (loading === 1) {
+    //     // if we're currently loading
+    //     return (
+    //         <div className='w-full h-full flex items-center justify-center'>
+
+    //         </div>
+    //     )
+    // }
+
+
 
     return (
         <Form {...form} >

@@ -11,7 +11,7 @@ const TicketsHeader = () => {
         <hr className='w-5/6 mt-2 md:mt-3 mb-2' />
 
         <p className='text-[1rem] md:text-[1.2rem] font-merri font-semibold text-gray-700'>
-            The Prattic takes full responsibility for any and all cachinnation.
+            Casual comedy in classy quarters.
         </p>
 
     </header>
