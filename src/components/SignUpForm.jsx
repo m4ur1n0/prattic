@@ -31,13 +31,28 @@ const SignUpForm = ({show}) => {
     });
 
     async function onSubmit(values) {
-        // {post_time, performance_name, name, email, phone, notes, sheetName } 
-        // {"name":"theo m","email":"thjmaurino@gmail.com","phone":"4137178751","notes":""}
 
-        // console.log(JSON.stringify(values));
+        // before submitting, if this takes us over the cap, make sure we demonstrate the WAITLIST of it all
+        // if (show.performers.length === show.maxPerformers) {
+        //     // so this should happen just the first time. if we see double-counts (people signing up at the same time)
+        //     // then we can add a check here on each submission, but it might be faster to have a recheck on the list itself every min or so
+
+        //     const waitlistNotifier = {
+        //         post_time : new Date().toLocaleString(),
+        //         performance_name : "WAITLIST",
+        //         name : "WAITLIST",
+        //         email : "WAITLIST",
+        //         phone : "WAITLIST",
+        //         notes : "WAITLIST",
+        //         sheetName : show.sheetName
+        //     }
+
+        //     await PostSignUp(waitlistNotifier);
+        // }
+
         const submissionEvent = {
             post_time : new Date().toLocaleString(),
-            performance_name : show.showName,
+            performance_name : (show.performers.length >= show.maxPerformers) ? "WAITLIST" : show.showName,
             name : values["name"],
             email : values["email"],
             phone : values["phone"],

@@ -1,57 +1,25 @@
-// "use client"
-
-// import { useRouter } from 'next/navigation'
-// import React from 'react'
-
-// const StaticSketchedButton = ({vectorFile, width, href, label, height=60}) => {
-//     // i'm not renaming all this shit again -- just gonna have to remember this only does links
-
-//     const nav = useRouter();
-
-//   return (
-//     <div onClick={() => nav.push(href)} className="static-render-sketch-button flex justify-center items-center relative cursor-pointer button-shadow hover:bg-black/5 transition-colors duration-200 ease-in-out p-0 m-0"
-//         style={{
-//             width : `${width}px`,
-//             height : `${height}px`
-//         }}
-//     >
-
-//         <img src={`vectors/${vectorFile}`} alt={`rough sketch button with label`} width={width} height={height} className="absolute top-0 left-0"/>
-
-//         {/* <p className={`font-bold p-0 m-0 h-[${height}px] w-[${width}px] absolute top-0 left-0 text-center justify-center`}>{label}</p> */}
-//         <p
-//           className={`font-bold p-0 m-0 absolute top-0 left-0 flex justify-center items-center text-center`}
-//           style={{
-//             width: `${width}px`,
-//             height: `${height}px`
-//           }}
-//         >
-//           {label}
-//         </p>
-      
-//     </div>
-//   )
-// }
-
-// export default StaticSketchedButton
-
-
 "use client"
 
 import { useRouter } from 'next/navigation'
-import React from 'react'
+import React, { useEffect } from 'react'
 
-const StaticSketchedButton = ({ vectorFile, width, href, label, height = 60, fontSize=null, onHit=null}) => {
+const StaticSketchedButton = ({ vectorFile, width, href, label, height = 60, fontSize=null, onHit=null, bgColor="#f6f7f0", hoverColor="#e5e7dd"}) => {
   const nav = useRouter()
 
+
+  // `bg-[${bgColor}] hover:bg-[${hoverColor}]`
+  // ${(bgColor && hoverColor) ? "bg-[#7ab3d6] bg-[#689bba]" : "bg-background hover:bg-app-hover"}
   return (
     <button
-      onClick={onHit === null ? () => nav.push(href) : onHit}
-      className="static-render-sketch-button relative cursor-pointer button-shadow bg-background hover:bg-app-hover transition-colors duration-200 ease-in-out focus:outline-2 focus:outline-offset-2 focus:outline-app-black"
-      style={{
-        width: `${width}px`,
-        height: `${height}px`
-      }}
+        onClick={onHit === null ? () => nav.push(href) : onHit}
+        className={`static-render-sketch-button relative cursor-pointer button-shadow transition-colors duration-200 ease-in-out focus:outline-2 focus:outline-offset-2 focus:outline-app-black`}
+        style={{
+            width: `${width}px`,
+            height: `${height}px`,
+            backgroundColor : bgColor, 
+        }}
+        onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = hoverColor }}
+        onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = bgColor }}
     >
       {/* bg sketch image */}
       <img

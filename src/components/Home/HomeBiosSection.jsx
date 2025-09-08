@@ -23,16 +23,28 @@ const HomeBioSection = ({buttonsHidden=null}) => {
     ]
 
 
+    const colorA = "#db8c8c";
+    const colorB = "#a8dbed";
+
+    const aPrime = "#c47474";
+    const bPrime = "#8bbbcc";
+
+    function mobileScrollUp() {
+        // console.log("XXXX")
+        window.scrollTo({top : 0, behavior : "auto"});
+    }
+
+
   return (
     <section className='home-bio-section flex flex-col items-center overflow-y-scroll lg:gap-10 px-3 lg:px-0 pb-10 md:p-10'>
 
-        <img className='lg:hidden w-[10%] object-fit my-0 my-4' alt="up chevron arrow" src="/vectors/up-chevron.svg" />
+        <img className='lg:hidden w-[10%] object-fit my-0 my-4' alt="up chevron arrow" src="/vectors/up-chevron.svg" onClick={mobileScrollUp}/>
 
         <div className='w-full flex flex-col gap-8 my-[10%] lg:hidden items-center'>
-            <p className='text-[1.2rem] text-center font-merri '>
-                Just wondering who's performing next? See the lineup.
+            <p className='text-[1rem] text-center font-merri '>
+                Just wondering who's performing next? Check out the lineup.
             </p>
-            <StaticSketchedButton vectorFile={"sharpButton1.svg"} label="LINEUP" width={75} href="/schedule" />
+            <StaticSketchedButton vectorFile={"sharpButton1.svg"} label="LINEUP" width={200} href="/schedule" bgColor={colorB} hoverColor={bPrime} />
         </div>
 
         <div className='about-prattic '>
@@ -92,8 +104,8 @@ const HomeBioSection = ({buttonsHidden=null}) => {
             </h2>
 
             <div className='cta-buttons flex flex-col md:flex-row justify-center items-center gap-8 mb-8' aria-hidden={buttonsHidden} inert={buttonsHidden}>
-                <StaticSketchedButton vectorFile={"sharpButton1.svg"} label="SIGN-UP" width={200} href="/sign-up" />
-                <StaticSketchedButton vectorFile={"sharpButton0.svg"} label="SCHEDULE" width={200} href="/schedule" />
+                <StaticSketchedButton vectorFile={"sharpButton1.svg"} label="SIGN-UP" width={200} href="/sign-up" bgColor={colorA} hoverColor={aPrime} />
+                <StaticSketchedButton vectorFile={"sharpButton0.svg"} label="TICKETS" width={200} href="/tickets" bgColor={colorA} hoverColor={aPrime} />
             </div>
 
 

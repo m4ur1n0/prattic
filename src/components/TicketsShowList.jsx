@@ -4,9 +4,9 @@ import { getNextShowData } from '@/app/lib/GetInfo';
 import React, { useEffect, useState } from 'react'
 import { Grid } from 'react-loader-spinner';
 import SignUpShowCard from './SignUpShowCard';
+import TicketShowCard from './TicketShowCard';
 
-const SignUpFutureShowsList = () => {
-
+const TicketsShowList = () => {
     const {allFutureShows} = useShow();
 
     const [showsData, setShowsData] = useState(null);
@@ -42,7 +42,7 @@ const SignUpFutureShowsList = () => {
                 <div className='flex flex-col gap-2 p-2 w-full'>
                     {(showsData && showsData.length > 0) ? (
                         showsData.map((futureShow, i) => (
-                            <SignUpShowCard show={futureShow} key={i} />
+                            <TicketShowCard show={futureShow} key={i} />
                         ))
                     ) : (
                         <div className='w-full h-[43dvh] flex items-center justify-center'>
@@ -66,4 +66,4 @@ const SignUpFutureShowsList = () => {
     )
 }
 
-export default SignUpFutureShowsList
+export default TicketsShowList

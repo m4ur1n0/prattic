@@ -12,23 +12,30 @@ const HomeButtonsSection = () => {
     }
 
     function mobileScrollDown() {
-        console.log("XXXX")
+        // console.log("XXXX")
         window.scrollTo({top : 61, behavior : "auto"});
     }
+
+    const colorA = "#db8c8c";
+    const colorB = "#a8dbed";
+
+    const aPrime = "#c47474";
+    const bPrime = "#8bbbcc";
 
   return (
     <section
         className="relative flex flex-col items-center  gap-8 md:gap-8 mt-[3%] pt-[1vh] lg:pt-0"
     >
         <div className='hidden lg:flex flex-row flex-wrap justify-center gap-8 max-w-[500px]'>
-            <StaticSketchedButton vectorFile={"sharpButton1.svg"} label="LINEUP" width={200} href="/schedule" />
-            <StaticSketchedButton vectorFile={"sharpButton0.svg"} label="SIGNUP" width={200} href="/sign-up" />
-            <StaticSketchedButton vectorFile={"sharpButton0.svg"} label="TICKETS" width={200} href="/sign-up" />
+            <StaticSketchedButton vectorFile={"sharpButton0.svg"} label="SIGNUP" width={200} href="/sign-up" bgColor={colorA}  hoverColor={aPrime}/>
+            <StaticSketchedButton vectorFile={"sharpButton0.svg"} label="TICKETS" width={200} href="/tickets" bgColor={colorA}  hoverColor={aPrime}/>
+            <StaticSketchedButton vectorFile={"sharpButton1.svg"} label="LINEUP" width={200} href="/schedule" bgColor={colorB}  hoverColor={bPrime} />
+
         </div>
 
         <div className='lg:hidden w-full flex flex-col gap-8 items-center'>
-            <StaticSketchedButton vectorFile={"sharpButton0.svg"} label="SIGNUP" width={200} href="/sign-up" />
-            <StaticSketchedButton vectorFile={"sharpButton0.svg"} label="TICKETS" width={200} href="/sign-up" />
+            <StaticSketchedButton vectorFile={"sharpButton0.svg"} label="SIGNUP" width={200} href="/sign-up" bgColor={colorA}  hoverColor={aPrime}/>
+            <StaticSketchedButton vectorFile={"sharpButton0.svg"} label="TICKETS" width={200} href="/tickets" bgColor={colorA}  hoverColor={aPrime}/>
         </div>
 
 
