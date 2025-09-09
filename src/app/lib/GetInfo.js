@@ -221,13 +221,13 @@ export async function PostSignUp(signUpEvent) {
         body: JSON.stringify(signUpEvent),
     });
 
-    const data = res.json();
+    const data = await res.json();
 
     // console.log(JSON.stringify(data));
-    if (data.status === 200) {
+    if (data.success) {
         // console.log("Success");
         return 200;
-    } else if (data.status === 500) {
+    } else {
         // console.log("Failure")
         return 500;
     }

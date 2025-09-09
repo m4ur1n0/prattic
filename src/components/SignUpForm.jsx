@@ -1,12 +1,13 @@
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form';
-import { Form, FormControl, FormField, FormItem, FormLabel, FormDescription } from './ui/form';
+import { Form, FormControl, FormField, FormItem, FormLabel } from './ui/form';
 import { Input } from './ui/input';
-
 import { z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Textarea } from './ui/textarea';
 import { PostSignUp } from '@/app/lib/GetInfo';
+import { Oval } from 'react-loader-spinner';
+import BadgeMessage from './BadgeMessage';
 
 
 const signUpSchema = z.object({
@@ -74,14 +75,39 @@ const SignUpForm = ({show}) => {
         form.reset();
     }
 
-    // if (loading === 1) {
-    //     // if we're currently loading
-    //     return (
-    //         <div className='w-full h-full flex items-center justify-center'>
+    if (loading === 1) {
+        // if we're currently loading
+        return (
+            <div className='w-full h-full flex items-center justify-center'>
+                <Oval 
+                    visible={true}
+                    height="20%"
+                    width="20%"
+                    color="#353535"
+                    secondaryColor='#cfcfcf'
+                    ariaLabel="oval-loading"
+                    wrapperStyle={{}}
+                    wrapperClass="flex justify-center"
+                />
+            </div>
+        )
+    }
 
-    //         </div>
-    //     )
-    // }
+    if (loading === 2) {
+        return (
+            <div className='w-full h-full flex items-center justify-center py-2'>
+                <BadgeMessage message={"Success. All signed up."} isGreen={true} />
+            </div>
+        )
+    }
+
+    if (loading === 3) {
+        return (
+            <div className='w-full h-full flex items-center justify-center py-2'>
+                <BadgeMessage message={"There was an error. Please try again in a minute."} isGreen={false} />
+            </div>
+        )
+    }
 
 
 
