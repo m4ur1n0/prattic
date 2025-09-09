@@ -70,7 +70,7 @@ const ScheduleTable = () => {
                 setActualStartTime(timeStringToHour(nextShowData.startTime));
             }
         }
-    })
+    }, [nextShowData]);
 
   return (
     <section className='flex-1 max-h-[65dvh] w-full flex flex-col justify-between overflow-hidden'>
@@ -89,7 +89,7 @@ const ScheduleTable = () => {
 
                     {
                         tableList.map((text, i) => (
-                            <TableRow key={i} className="hover:bg-app-hover !bg-background px-1">
+                            <TableRow key={i} className=" !bg-background hover:!bg-app-hover px-1">
                                 { (loading || nextShowData.finalized) && 
                                     <TableCell className="text-xl ">
                                         <ScrambleText text={loading ? "XXX" : (i === 0 ? "Opener" : timeFromIndex(i, actualStartTime))} loading={loading} />
@@ -97,6 +97,24 @@ const ScheduleTable = () => {
                                 }
                                 <TableCell className='text-xl '>
                                     <ScrambleText text={text} loading={loading} />
+                                </TableCell>
+                            </TableRow>
+                        ))
+                    }
+
+                    {
+                        (!loading && tableList.length < 6) &&
+                        Array.from({length : (6 - tableList.length)}).map((e, i) => (
+                            <TableRow key={i} className=" !bg-background hover:!bg-app-hover px-1">
+                                { (loading || nextShowData.finalized) && 
+                                    <TableCell className="text-xl ">
+                                        {/* <ScrambleText text={loading ? "XXX" : (i === 0 ? "Opener" : timeFromIndex(i, actualStartTime))} loading={loading} /> */}
+                                        <p>...</p>
+                                    </TableCell>
+                                }
+                                <TableCell className='text-xl '>
+                                    {/* <ScrambleText text={text} loading={loading} /> */}
+                                    <p>...</p>
                                 </TableCell>
                             </TableRow>
                         ))
