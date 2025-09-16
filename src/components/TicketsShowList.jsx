@@ -1,35 +1,24 @@
 "use client"
 import { useShow } from '@/app/context/ShowContext'
-import { getNextShowData } from '@/app/lib/GetInfo';
 import React, { useEffect, useState } from 'react'
 import { Grid } from 'react-loader-spinner';
-import SignUpShowCard from './SignUpShowCard';
 import TicketShowCard from './TicketShowCard';
 
 const TicketsShowList = () => {
-    const {allFutureShows} = useShow();
+    const {futureShowsData} = useShow();
 
     const [showsData, setShowsData] = useState(null);
 
     useEffect(() => {
 
-        async function loadFutureShows() {
-            // only if there's data in allFutureShows (inits as null)
+        if (futureShowsData) {
+            // console.log(futureShowsData);
+            setShowsData(futureShowsData);
 
-            // we are going to ignore 'finalized' because what matters more here is whether the show is FULL
-            let promArr = allFutureShows.map((fs) => getNextShowData(fs));
-            let futureShows = await Promise.all(promArr);
-
-            // now we should have all the data
-            setShowsData(futureShows);
-        }
-
-        if (allFutureShows) {
-            loadFutureShows();
         }
 
 
-    }, [allFutureShows])
+    }, [futureShowsData])
 
 
     return (

@@ -22,7 +22,7 @@ export async function getNextShowNameAndDate() {
         });
 
         const data = await res.json();
-        console.log(`RESPONSE IN GETNEXTSHOW : ${JSON.stringify(data)}`);
+        // console.log(`RESPONSE IN GETNEXTSHOW : ${JSON.stringify(data)}`);    
 
         const pages = data["pages"];
         const today = new Date();
@@ -148,7 +148,7 @@ export async function getNextShowData(sheetName, finalized=false) {
 
         };
 
-        console.log(`returning next show : ${JSON.stringify(nextShow)}`);
+        // console.log(`returning next show : ${JSON.stringify(nextShow)}`);
 
         return nextShow;
 
@@ -161,7 +161,7 @@ export async function getNextShowData(sheetName, finalized=false) {
     }
 }
 
-export async function getAllFutureShows() {
+export async function getAllFutureSignups() {
 
     try {
 
@@ -200,8 +200,58 @@ export async function getAllFutureShows() {
         
             // right now futures === a list of dates
 
-        console.log(`RETURNING ${futures}`)
+        // console.log(`RETURNING ${futures}`)
         return futures;
+
+
+
+    } catch (e) {
+        console.error("AN ERROR OCCURRED WHILE TRYING TO ACCESS ALL NEXT SHOWS : ", e)
+        return []
+    }
+
+}
+
+export async function getAllFutureShowNameAndDate() {
+
+    try {
+
+        const res = await fetch('../api/sheet-pages', {
+            method : "GET",
+            headers : {'Content-Type' : 'application/json'}
+        });
+
+        const data = await res.json();
+
+        const pages = data["pages"];
+        const today = new Date();
+
+        // we are looking for all possible 'signup' pages in the FUTURE
+
+        let futures = {};
+        
+        for (let page of pages) {
+            // for every existing page add the date once (this is O(2n) in a pretty nasty way but this whole api could use a rehaul so i'll leave for now
+            let parts = page.split('_');
+            // the thing about times is garbage and will never exist...
+            let d = (parts.length === 2) ? parts[1] : parts[0]; // expects [ type_date ] but will work with just [ date ], though it won't know what kind it is .
+
+
+            // if (!futures.hasO(d)) {
+
+                if (convertMmDdYyyyToDate(d) > today) {
+
+                    futures[d] = page; // so futures looks like {"MM/DD/YYYY" : schedule_MM/DD/YYYY}
+                }
+                
+            // }
+        }
+
+        // now we actually need to grab all their key info
+        let promises = Object.values(futures).map((f) => getNextShowData(f));
+        let futureShows = await Promise.all(promises);
+
+        return futureShows; // returning more info than we need cause fuck it
 
 
 

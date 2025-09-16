@@ -36,7 +36,9 @@ export default function RootLayout({ children }) {
         className={`${amatic.variable} ${merriweather.variable} antialiased`}
       >
         <AnimationProvider>
-          {children}
+
+            {children}
+            
         </AnimationProvider>
         {/* <PratticFooter /> */}
       </body>

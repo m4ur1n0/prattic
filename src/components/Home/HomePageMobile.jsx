@@ -31,7 +31,7 @@ const HomePageMobile = () => {
 
     return (shouldAnimate ? (
         // border-b-gray-800 rounded-[2vh]
-        <motion.section className="home-content-full w-full h-dvh max-h-dvh relative flex flex-col items-center justify-center pb-[5%] bg-background"  
+        <motion.section className="home-content-full relative w-full h-dvh max-h-dvh  flex flex-col items-center justify-center pb-[5%]"  
             layout
             transition={{duration: 0.5, ease: "easeInOut"}} // maybe delete
           >
@@ -69,7 +69,7 @@ const HomePageMobile = () => {
           </motion.section>
       ) : (
         // border-gray-800 rounded-b-[2vh] ----> useful to see if it is still only rendering this part
-        <section className="home-content-full relative w-full max-h-dvh h-dvh flex flex-col items-center justify-center pb-[5%] border-b ">
+        <section className="home-content-full relative w-full max-h-dvh h-dvh flex flex-col items-center justify-center pb-[5%] ">
           <HomeHeader />
     
 

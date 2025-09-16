@@ -170,3 +170,25 @@ hr {
     overscroll-behavior: contain;
     -webkit-overflow-scrolling: touch;
 } */
+
+.fc .fc-button {
+    font-size: 1.8rem;
+    padding: 2px 6px;
+    margin: 0px 2px 0px 2px
+}
+
+.fc-daygrid-day-frame {
+    background-color: var(--background);
+}
+
+.fc-toolbar {
+    margin-bottom: 0 !important;
+}
+
+.fc-col-header {
+    background-color: var(--hover-color);
+}
+
+/* .fc-scrollgrid {
+    width: 100%;
+} */

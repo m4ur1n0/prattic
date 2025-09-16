@@ -1,7 +1,7 @@
 // theo maurino
 
 import { createContext, useContext, useState, useEffect } from "react"
-import { getAllFutureShows, getNextShowData, getNextShowNameAndDate } from "../lib/GetInfo";
+import { getAllFutureSignups, getNextShowData, getNextShowNameAndDate, getAllFutureShowNameAndDate } from "../lib/GetInfo";
 
 const ShowContext = createContext({});
 
@@ -11,38 +11,47 @@ const ShowProvider = ({children}) => {
 
     const [nextShowNameAndDate, setNextShowNameAndDate] = useState(null);
     const [nextShowData, setNextShowData] = useState(null);
-    const [allFutureShows, setAllFutureShows] = useState(null);
+    const [allFutureSignups, setAllFutureSignups] = useState(null);
+    const [futureShowsData, setFutureShowsData] = useState(null);
   
     useEffect(() => {
   
-      async function loadUp() {
+        async function loadUp() {
 
-        const nextP = getNextShowNameAndDate();
-        const allP = getAllFutureShows();
+            const nextP = getNextShowNameAndDate();
+            const allP = getAllFutureSignups();
+            const fShowData = getAllFutureShowNameAndDate();
 
-        const [next, futureShows] = await Promise.all([nextP, allP]);
-        // console.log(`nextP : ${JSON.stringify(next)}`);
-        // console.log(`futureshows : ${JSON.stringify(futureShows)}`);
+            const [next, futureSignups] = await Promise.all([nextP, allP]);
+            // console.log(`nextP : ${JSON.stringify(next)}`);
+            // console.log(`futureSignups : ${JSON.stringify(futureSignups)}`);
 
 
-        if (next) {
-            const nextShow = await getNextShowData(next.sheetName, next.finalized)
-            // console.log(`received ${JSON.stringify(next)}`)
-            setNextShowNameAndDate(next);
-            setNextShowData(nextShow);
-            console.log(`NEXT SHOW : ${JSON.stringify(nextShow)}`);
+            if (next) {
+                const nextShow = await getNextShowData(next.sheetName, next.finalized)
+                // console.log(`received ${JSON.stringify(next)}`)
+                setNextShowNameAndDate(next);
+                setNextShowData(nextShow);
+                // console.log(`NEXT SHOW : ${JSON.stringify(nextShow)}`);
+            }
+
+            if (futureSignups) {
+                // console.log(`LOADED FUTURES:\n ${JSON.stringify(futureSignups)}`);
+
+                setAllFutureSignups(futureSignups);
+            } else {
+                console.log("No future shows identified.")
+            }
+
+            let realShowsFuture = await fShowData;
+            if (realShowsFuture) {
+                setFutureShowsData(realShowsFuture);
+            } else {
+                console.log("No future shows identified.")
+            }
         }
-
-        if (futureShows) {
-            // console.log(`LOADED FUTURES:\n ${JSON.stringify(futureShows)}`);
-
-            setAllFutureShows(futureShows);
-        } else {
-            console.log("No future shows identified.")
-        }
-      }
   
-      loadUp();
+        loadUp();
       
     }, [])
 
@@ -53,7 +62,8 @@ const ShowProvider = ({children}) => {
         setNextShowNameAndDate,
         nextShowData,
         setNextShowData,
-        allFutureShows,
+        allFutureSignups,
+        futureShowsData
     };
 
 

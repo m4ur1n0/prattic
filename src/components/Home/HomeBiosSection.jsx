@@ -1,8 +1,11 @@
 import React from 'react'
+import CalendarSection from '../CalendarSection';
 import StaticSketchedButton from '../StaticSketchedButton'
 
 
 const HomeBioSection = ({buttonsHidden=null}) => {
+
+    
 
     const prattic_bios_info = [
         {
@@ -30,7 +33,6 @@ const HomeBioSection = ({buttonsHidden=null}) => {
     const bPrime = "#8bbbcc";
 
     function mobileScrollUp() {
-        // console.log("XXXX")
         window.scrollTo({top : 0, behavior : "auto"});
     }
 
@@ -39,6 +41,9 @@ const HomeBioSection = ({buttonsHidden=null}) => {
     <section className='home-bio-section flex flex-col items-center overflow-y-scroll lg:gap-10 px-3 lg:px-0 pb-10 md:p-10'>
 
         <img className='lg:hidden w-[10%] object-fit my-0 my-4' alt="up chevron arrow" src="/vectors/up-chevron.svg" onClick={mobileScrollUp}/>
+
+        {/* the fated calendar  */}
+        <CalendarSection />
 
         <div className='w-full flex flex-col gap-8 my-[10%] lg:hidden items-center'>
             <p className='text-[1rem] text-center font-merri '>

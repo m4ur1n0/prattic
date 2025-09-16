@@ -32,6 +32,7 @@ const MobileHome = () => {
         document.body.style.top = `-${scrollY}px`;
         document.body.style.width = "100%";
     };
+    lockBodyScroll();
     
     const unlockBodyScroll = () => {
         const scrollY = Math.abs(parseInt(document.body.style.top || "0", 10));

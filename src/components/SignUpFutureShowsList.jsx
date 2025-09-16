@@ -7,29 +7,29 @@ import SignUpShowCard from './SignUpShowCard';
 
 const SignUpFutureShowsList = () => {
 
-    const {allFutureShows} = useShow();
+    const {allFutureSignups} = useShow();
 
     const [showsData, setShowsData] = useState(null);
 
     useEffect(() => {
 
         async function loadFutureShows() {
-            // only if there's data in allFutureShows (inits as null)
+            // only if there's data in allFutureSignups (inits as null)
 
             // we are going to ignore 'finalized' because what matters more here is whether the show is FULL
-            let promArr = allFutureShows.map((fs) => getNextShowData(fs));
+            let promArr = allFutureSignups.map((fs) => getNextShowData(fs));
             let futureShows = await Promise.all(promArr);
 
             // now we should have all the data
             setShowsData(futureShows);
         }
 
-        if (allFutureShows) {
+        if (allFutureSignups) {
             loadFutureShows();
         }
 
 
-    }, [allFutureShows])
+    }, [allFutureSignups])
 
 
     return (
