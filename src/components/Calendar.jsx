@@ -4,11 +4,14 @@ import dayGridPlugin from '@fullcalendar/daygrid'
 import interactionPlugin from "@fullcalendar/interaction"
 import React, { useEffect, useRef, useState } from 'react'
 import { useShow } from '@/app/context/ShowContext';
+import { useRouter } from 'next/navigation'
 
 const Calendar = () => {
     const {futureShowsData} = useShow();
 
     const [events, setEvents] = useState([]);
+
+    const router = useRouter();
 
     useEffect(() => {
         if (futureShowsData) {
@@ -33,11 +36,7 @@ const Calendar = () => {
         const today = new Date();
         const dayOfMonth = today.getDate();
 
-        // const calendarEl = document.querySelector(".fc-scroller");
-        // if (dayOfMonth >= 15) {
 
-        //     calendarEl.scrollTop = calendarEl.scrollHeight;
-        // }
         const todayCell = document.querySelector(".fc-day-today");
         if (todayCell) {
             todayCell.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -54,9 +53,9 @@ const Calendar = () => {
 
             events={events}
             eventContent={(arg) => (
-                <div 
+                <div onClick={() => router.push("/sign-up")}
                     // style={{ fontFamily: "Georgia, serif", fontSize: "0.85rem" }}
-                    className='bg-gray-800 py-2 px-1 overflow-hidden'
+                    className='bg-gray-800 py-2 px-1 overflow-hidden cursor-pointer'
                 >
                     <p className='font-merri !text-white !text-[0.5rem] text-wrap'>
                         {arg.event.title}

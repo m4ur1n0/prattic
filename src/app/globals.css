@@ -192,3 +192,8 @@ hr {
 .fc {
     width: 100% !important;
 }
+
+.fc-day-today .fc-daygrid-day-frame {
+    background-color: var(--hover-color) !important;
+    border : 2px solid #a8dbed;
+}
