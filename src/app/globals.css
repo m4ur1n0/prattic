@@ -189,6 +189,6 @@ hr {
     background-color: var(--hover-color);
 }
 
-/* .fc-scrollgrid {
-    width: 100%;
-} */
+.fc {
+    width: 100% !important;
+}

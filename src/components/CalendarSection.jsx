@@ -6,7 +6,7 @@ import Calendar from './Calendar'
 const CalendarSection = () => {
   return (
     <ShowProvider>
-        <div className='w-full px-[2%] h-full '>
+        <div className='w-full px-0 lg:px-[2%] h-full '>
 
             <Calendar /> 
 
