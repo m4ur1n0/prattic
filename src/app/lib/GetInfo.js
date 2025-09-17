@@ -213,6 +213,7 @@ export async function getAllFutureSignups() {
 }
 
 export async function getAllFutureShowNameAndDate() {
+    // this function gets all SHOWS --> even when they're non-sign-upable
 
     try {
 
@@ -241,17 +242,31 @@ export async function getAllFutureShowNameAndDate() {
 
                 if (convertMmDdYyyyToDate(d) > today) {
 
-                    futures[d] = page; // so futures looks like {"MM/DD/YYYY" : schedule_MM/DD/YYYY}
+                    // futures[d] = page; // so futures looks like {"MM/DD/YYYY" : schedule_MM/DD/YYYY}
+
+                    // we want to distinguish between open-mics and scheduled shows.
+                        // this is sort of a hacky solution that will evolve when I rebuild this API
+                    if ((!page.startsWith("signup")) && !futures.hasOwnProperty(d)) {
+                        // so if this ISN'T a signup page, and we haven't stored this date yet, then this is a schedule page that is coming in BEFORE the signup. 
+                        futures[d] = [page, false]; // becomes "MM/DD/YYYY" : [pageID, isOpenMicNight]
+                    } else {
+                        futures[d] = [page, true];
+                    }
                 }
                 
             // }
         }
 
         // now we actually need to grab all their key info
-        let promises = Object.values(futures).map((f) => getNextShowData(f));
+        let promises = Object.values(futures).map((f) => getNextShowData(f[0]));
         let futureShows = await Promise.all(promises);
 
-        return futureShows; // returning more info than we need cause fuck it
+        return futureShows.map((fs) => {
+            return {
+                ...fs,
+                isOpenMic : (futures[fs.sheetName.split("_")[1]][1])
+            }
+        }); // returning more info than we need cause fuck it
 
 
 

@@ -53,7 +53,7 @@ const Calendar = () => {
 
             events={events}
             eventContent={(arg) => (
-                <div onClick={() => router.push("/sign-up")}
+                <div onClick={() => router.push("/tickets")}
                     // style={{ fontFamily: "Georgia, serif", fontSize: "0.85rem" }}
                     className='bg-gray-800 py-2 px-1 overflow-hidden cursor-pointer'
                 >

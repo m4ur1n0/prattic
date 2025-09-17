@@ -7,7 +7,7 @@ const TicketShowCard = ({show}) => {
 
     return (
 
-        <div className='future-show-card w-full cursor-pointer flex items-center justify-between max-h-[15%] gap-4 px-3 py-2 border border-gray-200 rounded-md shadow-md hover:scale-1.1 bg-app-background transition-all duration-200 ease-in-out text-nowrap overflow-hidden'>
+        <div className={`future-show-card w-full cursor-pointer flex items-center justify-between max-h-[15%] gap-4 px-3 py-2  rounded-md shadow-md hover:scale-1.1 bg-app-background transition-all duration-200 ease-in-out text-nowrap overflow-hidden border ${show.isOpenMic ? "border-gray-200" : "border-blue-300"}`}>
             <p className='font-bold'>
                 ({dateStr})
             </p>
