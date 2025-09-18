@@ -1,8 +1,8 @@
 import { getCreds } from "@/app/lib/GoogleSheets";
 import { google } from "googleapis";
-import { parseUrl } from "next/dist/shared/lib/router/utils/parse-url";
 
 
+export const revalidate = 60; // only call fetchers once every 60 sec
 
 
 export async function POST(req) {
@@ -147,13 +147,23 @@ export async function GET(req) {
 
             // console.log(JSON.stringify(vals));
 
-            return new Response(
-                JSON.stringify({
-                    success : true,
-                    body : vals
-                }),
+            // return new Response(
+            //     JSON.stringify({
+            //         success : true,
+            //         body : vals
+            //     }),
+            //     {
+            //         status : 200
+            //     }
+            // );
+
+            return Response.json(
+                { success : true, body : vals},
                 {
-                    status : 200
+                    status : 200,
+                    headers : {
+                        "Cache-Control" : "s-maxage=60, stale-while-revalidate=59"
+                    }
                 }
             );
 

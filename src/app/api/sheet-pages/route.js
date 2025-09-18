@@ -2,6 +2,7 @@
 import { getCreds } from "@/app/lib/GoogleSheets";
 import { google } from "googleapis";
 
+export const revalidate = 60; // only call fetchers once every 60 sec
 
 export async function GET() {
 
@@ -24,12 +25,22 @@ export async function GET() {
 
         
 
-        return new Response(
-            JSON.stringify({
-                pages
-            }),
+        // return new Response(
+        //     JSON.stringify({
+        //         pages
+        //     }),
+        //     {
+        //         status : 200
+        //     }
+        // );
+
+        return Response.json(
+            {pages : pages},
             {
-                status : 200
+                status : 200,
+                headers : {
+                    "Cache-Control" : "s-maxage=60, stale-while-revalidate=59"
+                }
             }
         );
 
