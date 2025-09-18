@@ -6,6 +6,7 @@ import { Merriweather } from "next/font/google";
 import AnimationProvider from "./context/AnimationContext";
 import Script from "next/script";
 import Analytics from "@/components/Analytics";
+import { Suspense } from "react";
 // import PratticFooter from "@/components/PratticFooter";
 
 
@@ -109,7 +110,9 @@ export default function RootLayout({ children }) {
                             `}
                         </Script>
 
-                        <Analytics />
+                        <Suspense fallback={null}>
+                            <Analytics />
+                        </Suspense>
                     </>
                 )}
             </body>
