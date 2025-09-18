@@ -82,7 +82,7 @@ const ScheduleTable = () => {
                 >
                     <TableRow>
                         {(loading || nextShowData.finalized) && <TableHead className=" font-bold text-2xl">Estimated Time</TableHead>}
-                        <TableHead className=" font-bold text-2xl md:min-w-[200px] ">{(loading || nextShowData.finalized) ? "Name" : "Current Signups"}</TableHead>
+                        <TableHead className=" font-bold text-2xl md:min-w-[200px] ">{(loading || nextShowData.finalized) ? "Name" : "Current Performers"}</TableHead>
                     </TableRow>
                 </TableHeader>
                 <TableBody >
