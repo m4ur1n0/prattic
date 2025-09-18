@@ -70,7 +70,7 @@ export default function RootLayout({ children }) {
         "@type" : "Organization",
         name : "The Prattic",
         url : process.env.NEXT_PUBLIC_SITE_URL || "https://prattic.org",
-        logo : (process.env.NEXT_PUBLIC_SITE_URL || "https://prattic.org") + "/vectors/prattic-house-v1.svg";
+        logo : (process.env.NEXT_PUBLIC_SITE_URL || "https://prattic.org") + "/vectors/prattic-house-v1.svg"
     };
 
     return (
@@ -87,7 +87,7 @@ export default function RootLayout({ children }) {
                     
                 </AnimationProvider>
 
-                
+                <script type="application/ld+json" dangerouslySetInnerHTML={{__html : JSON.stringify(jsonLd)}} />
 
                 {GA_ID && process.env.NODE_ENV === 'production' && (
                     <>
@@ -100,7 +100,12 @@ export default function RootLayout({ children }) {
                                 window.dataLayer = window.dataLayer || [];
                                 function gtag(){dataLayer.push(arguments);}
                                 gtag('js', new Date());
-                                gtag('config', '${GA_ID}', { page_path: window.location.pathname });
+
+                                gtag('config', '${GA_ID}', {
+                                    send_page_view : false,
+                                    page_path: window.location.pathname,
+                                    linker : {domains : ${JSON.stringify(linkerDomains)}}
+                                });
                             `}
                         </Script>
 

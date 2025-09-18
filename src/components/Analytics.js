@@ -14,9 +14,15 @@ export default function Analytics() {
         // if gtag is not immediately ready
         if (typeof window === 'undefined' || typeof window.gtag !== 'function') return;
 
-        const page_path = pathname + (searchParams ? `?${searchParams.toString()}` : '');
+        const page_path = pathname + ((searchParams && searchParams.toString()) ? `?${searchParams.toString()}` : '');
+        const page_location = window.location.href;
+        const page_title = document.title;
 
-        window.gtag('event', 'page_view', {page_path});
+        window.gtag('event', 'page_view', {
+            page_location,
+            page_path,
+            page_title
+        });
     }, [pathname, searchParams])
 
     return null;
