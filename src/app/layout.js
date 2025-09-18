@@ -4,6 +4,8 @@ import "./globals.css";
 import { Amatic_SC } from 'next/font/google'
 import { Merriweather } from "next/font/google";
 import AnimationProvider from "./context/AnimationContext";
+import Script from "next/script";
+import Analytics from "@/components/Analytics";
 // import PratticFooter from "@/components/PratticFooter";
 
 
@@ -19,29 +21,98 @@ const merriweather = Merriweather({
     variable : '--font-merri'
 })
 
+export const metadataBase = new URL(
+    process.env.NEXT_PUBLIC_SITE_URL || "https://prattic.org"
+);
+
 export const metadata = {
   title: "The Prattic",
-  description: "The Prattic hosts weekly nights of myrth for fans of comedy and their friends.",
+  description: "Evanston's newest and fastest-growing comedy club, The Prattic hosts weekly nights of mirth for fans of comedy and their friends.",
   icons: {
     icon: [
-      { url: '/vectors/prattic-house-v1.svg', type: 'image/svg+xml' },
+      { url: '/vectors/prattic-house-v1.svg', type: 'image/svg+xml' }, // i should create a favicon
     ],
-  }
+  },
+  alternates : {canonical: "./"},
+  openGraph : {
+    title : "The Prattic",
+    description : "The Prattic hosts weekly nights of mirth for fans of comedy and their friends.",
+    url : process.env.NEXT_PUBLIC_SITE_URL,
+    images : [`${process.env.NEXT_PUBLIC_SITE_URL || "https://prattic.org"}/images/prattic-thumbnail.png`],
+    siteName : "The Prattic",
+    type : "website",
+  },
+  twitter: {
+    card : 'summary_large_image', 
+    images : [
+        `${process.env.NEXT_PUBLIC_SITE_URL || "https://theprattic.com"}/images/prattic-thumbnail.png`
+    ]
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+    },
+  },
+
 };
 
 export default function RootLayout({ children }) {
-  return (
-    <html lang="en">
-      <body
-        className={`${amatic.variable} ${merriweather.variable} antialiased`}
-      >
-        <AnimationProvider>
+    const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
+    const linkerDomainsEnv = process.env.NEXT_PUBLIC_GA_LINKER_DOMAINS || "";
+    const linkerDomains = linkerDomainsEnv.split(",").map((s) => s.trim()).filter(Boolean);
 
-            {children}
-            
-        </AnimationProvider>
-        {/* <PratticFooter /> */}
-      </body>
-    </html>
-  );
+    const jsonLd = {
+        "@context" : "https://schema.org",
+        "@type" : "Organization",
+        name : "The Prattic",
+        url : process.env.NEXT_PUBLIC_SITE_URL || "https://prattic.org",
+        logo : (process.env.NEXT_PUBLIC_SITE_URL || "https://prattic.org") + "/vectors/prattic-house-v1.svg"
+    };
+
+    return (
+        <html lang="en">
+
+            <head />
+
+            <body
+                className={`${amatic.variable} ${merriweather.variable} antialiased`}
+            >
+                <AnimationProvider>
+
+                    {children}
+                    
+                </AnimationProvider>
+
+                <script type="application/ld+json" dangerouslySetInnerHTML={{__html : JSON.stringify(jsonLd)}} />
+
+                {GA_ID && process.env.NODE_ENV === 'production' && (
+                    <>
+                        <Script
+                            src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
+                            strategy={"afterInteractive"}
+                        />
+                        <Script id="gtag-init" strategy="afterInteractive">
+                            {`
+                                window.dataLayer = window.dataLayer || [];
+                                function gtag(){dataLayer.push(arguments);}
+                                gtag('js', new Date());
+
+                                gtag('config', '${GA_ID}', {
+                                    send_page_view : false,
+                                    page_path: window.location.pathname,
+                                    linker : {domains : ${JSON.stringify(linkerDomains)}}
+                                });
+                            `}
+                        </Script>
+
+                        <Analytics />
+                    </>
+                )}
+            </body>
+        </html>
+    );
 }
