@@ -189,8 +189,17 @@ hr {
     background-color: var(--hover-color);
 }
 
-.fc {
-    width: 100% !important;
+.fc,
+.fc-scrollgrid,
+.fc-scrollgrid-sync-table {
+  width: 100% !important;
+  table-layout: fixed !important;
+}
+
+/* make sure each day column takes equal width */
+.fc-daygrid-day,
+.fc-col-header-cell {
+  width: auto !important;
 }
 
 .fc-day-today .fc-daygrid-day-frame {

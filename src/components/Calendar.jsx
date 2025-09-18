@@ -1,7 +1,7 @@
 "use client"
 import FullCalendar from '@fullcalendar/react'
 import dayGridPlugin from '@fullcalendar/daygrid'
-import interactionPlugin from "@fullcalendar/interaction"
+
 import React, { useEffect, useRef, useState } from 'react'
 import { useShow } from '@/app/context/ShowContext';
 import { useRouter } from 'next/navigation'
@@ -10,6 +10,7 @@ const Calendar = () => {
     const {futureShowsData} = useShow();
 
     const [events, setEvents] = useState([]);
+    const calendarRef = useRef();
 
     const router = useRouter();
 
@@ -42,10 +43,29 @@ const Calendar = () => {
             todayCell.scrollIntoView({ behavior: "smooth", block: "start" });
         }
 
+    }, []);
+
+    useEffect(() => {
+        const handleResize = () => {
+            const api = calendarRef.current?.getApi();
+            if (api) {
+                api.updateSize();
+            }
+        }
+
+        window.addEventListener("resize", handleResize);
+        window.addEventListener("orientationchange", handleResize);
+
+        return () => {
+            window.removeEventListener("resize", handleResize);
+            window.removeEventListener("orientationchange", handleResize);
+        }
     }, [])
 
     return (
         <FullCalendar
+
+            ref={calendarRef}
             plugins={[dayGridPlugin]}
             initialView="dayGridMonth"
             fixedWeekCount={false}
