@@ -11,6 +11,9 @@ export function convertMmDdYyyyToDate(dateStr) {
     return new Date(year, month, day); // returns date at 00:00:00 hours
 }
 
+function normalizeDate(d) {
+    return new Date(d.getFullYear(), d.getMonth(), d.getDate());
+}
 
 export async function getNextShowNameAndDate() {
 
@@ -38,7 +41,7 @@ export async function getNextShowNameAndDate() {
             // the thing about times is garbage and should never exist...
             if (parts.length === 2) {d = parts[1]} else continue; // needs the format we've specified
 
-            if (convertMmDdYyyyToDate(d) > today) {
+            if (normalizeDate(convertMmDdYyyyToDate(d)) >= normalizeDate(today)) {
                 nextKnown = convertMmDdYyyyToDate(d); // more efficient ways to do this but lets be honest
                 ps = parts;
                 break;
@@ -185,7 +188,7 @@ export async function getAllFutureSignups() {
                 // the thing about times is garbage and should never exist...
                 let d = (parts.length === 2) ? parts[1] : parts[0]; // expects [ type_date ] but will work with just [ date ], though it won't know what kind it is .
 
-                if (convertMmDdYyyyToDate(d) > today) {
+                if (normalizeDate(convertMmDdYyyyToDate(d)) >= normalizeDate(today)) { // we want to be able to sign up TODAY for shows also TODAY
                     // return page;
                     // LATER --- RETURN FULL PAGE NAME IF NOT JUST A STANDUP NIGHT
                     return d;
@@ -240,7 +243,7 @@ export async function getAllFutureShowNameAndDate() {
 
             // if (!futures.hasO(d)) {
 
-                if (convertMmDdYyyyToDate(d) > today) {
+                if (normalizeDate(convertMmDdYyyyToDate(d)) >= normalizeDate(today)) { // we want to be able to look at shows That are TODAY
 
                     // futures[d] = page; // so futures looks like {"MM/DD/YYYY" : schedule_MM/DD/YYYY}
 

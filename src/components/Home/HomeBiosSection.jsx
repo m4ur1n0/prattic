@@ -67,7 +67,7 @@ const HomeBioSection = ({buttonsHidden=null}) => {
 
             <article className='prattic-copy text-[1.2rem] font-merri flex flex-col gap-4 px-4 lg:px-0'>
                 <p className=''>
-                    The Prattic was founded in 2025 when three Northwestern students turned their off-campus attic into a stage. What began as late-night joke swaps quickly grew into one of Chicagoland's most exciting underground comedy spots. Today, The Prattic packs its 100-plus seat space every week, drawing a mix of rising comics and established performers for high-energy shows that keep audiences coming back.
+                    The Prattic was founded in 2024 when three Northwestern students turned their off-campus attic into a stage. What began as late-night joke swaps quickly grew into one of Chicagoland's most exciting underground comedy spots. Today, The Prattic packs its 100-plus seat space every week, drawing a mix of rising comics and established performers for high-energy shows that keep audiences coming back.
                 </p>
 
                 <p>
