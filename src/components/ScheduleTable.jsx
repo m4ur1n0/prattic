@@ -17,7 +17,7 @@ const NUM_SCRAMBLE_ROWS = 6;
 
 function timeFromIndex(i, startHour=9) {
     const ESTIMATED_SET_LENGTH = 4
-    let mins = startHour * 60 + 10 + i * ESTIMATED_SET_LENGTH;
+    let mins = startHour * 60 + (i * ESTIMATED_SET_LENGTH);
     let h = Math.floor(mins / 60) % 24;
     let m = mins % 60;
     return `${h}:${m.toString().padStart(2, '0')} PM`;
