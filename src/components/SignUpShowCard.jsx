@@ -32,15 +32,15 @@ const SignUpShowCard = ({show}) => {
                         {show.showName} {atCapacity && "(WAITLIST)"}
                     </DialogTitle>
                     <DialogDescription className='text-gray-700 text-[1rem] font-merri '>
-                        Sign up {atCapacity && <span className="font-bold">for the waitlist </span>}to perform at The Prattic on <span className="font-bold">{dateStr}</span>. If you're just planning to watch, go to our tickets link:
+                        Sign up {atCapacity && <span className="font-bold">for the waitlist </span>}to perform at The Prattic on <span className="font-bold">{dateStr}</span>.
                     </DialogDescription>
                 </DialogHeader>
 
-                <div className='w-full h-full flex flex-col justify-center items-center'>
+                {/* <div className='w-full h-full flex flex-col justify-center items-center'>
 
                     <SketchButtonExternalLink vectorFile={"sharpButton1.svg"} width={100} href={show.eventbrite} label="Tickets" fontSize="[1.2rem]" height={30} />
 
-                </div>
+                </div> */}
 
                 <SignUpForm show={show} />
 

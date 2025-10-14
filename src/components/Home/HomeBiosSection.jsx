@@ -54,12 +54,12 @@ const HomeBioSection = ({buttonsHidden=null}) => {
         {/* the fated calendar  */}
         <CalendarSection />
 
-        <div className='w-full flex flex-col gap-8 my-[10%] lg:hidden items-center'>
+        {/* <div className='w-full flex flex-col gap-8 my-[10%] lg:hidden items-center'>
             <p className='text-[1rem] text-center font-merri '>
                 Just wondering who's performing next? Check out the lineup.
             </p>
             <StaticSketchedButton vectorFile={"sharpButton1.svg"} label="LINEUP" width={200} href="/schedule" bgColor={colorB} hoverColor={bPrime} />
-        </div>
+        </div> */}
 
         <div className='about-prattic '>
 
@@ -123,7 +123,9 @@ const HomeBioSection = ({buttonsHidden=null}) => {
 
             <div className='cta-buttons flex flex-col md:flex-row justify-center items-center gap-8 mb-8' aria-hidden={buttonsHidden} inert={buttonsHidden}>
                 <StaticSketchedButton vectorFile={"sharpButton1.svg"} label="SIGN-UP" width={200} href="/sign-up" bgColor={colorA} hoverColor={aPrime} />
-                <StaticSketchedButton vectorFile={"sharpButton0.svg"} label="TICKETS" width={200} href="/tickets" bgColor={colorA} hoverColor={aPrime} />
+                {/* <StaticSketchedButton vectorFile={"sharpButton0.svg"} label="TICKETS" width={200} href="/tickets" bgColor={colorA} hoverColor={aPrime} /> */}
+                <StaticSketchedButton vectorFile={"sharpButton1.svg"} label="LINEUP" width={200} href="/schedule" bgColor={colorB} hoverColor={bPrime} />
+
             </div>
 
 
