@@ -10,18 +10,27 @@ const HomeBioSection = ({buttonsHidden=null}) => {
     const prattic_bios_info = [
         {
             name : "MATEO GARCIA-BRYCE",
-            bio : "(right) is a rising senior at Northwestern University studying Political Science and International Studies. As a child he turned heads with an irresistible personality and a flair for the dramatic. Instead of rising to the top of the comedy world, he was drawn towards politics, working for multiple political campaigns and on Capitol Hill. He now studies International Aid and Development practices throughout the world, and is looking for a job. He wears Uggs inside the house, and enjoys climbing trees. ",
+            bio : "(far left) is a rising senior at Northwestern University studying Political Science and International Studies. As a child he turned heads with an irresistible personality and a flair for the dramatic. Instead of rising to the top of the comedy world, he was drawn towards politics, working for multiple political campaigns and on Capitol Hill. He now studies International Aid and Development practices throughout the world, and is looking for a job. He wears Uggs inside the house, and enjoys climbing trees. ",
             image : "https://placehold.co/200x250"
         },
         {
             name : "LUCA HIRSCH",
-            bio : "(left) is a rising senior at Northwestern University studying Radio/Television/Film and International Studies. After realizing at a young age that he may not be a professional soccer player, he became passionate about the film industry, marketing, and the strange rabbit holes of Wikipedia. His favorite color is green, and somehow, he's never been to Applebee's.",
+            bio : "(far right) is a rising senior at Northwestern University studying Radio/Television/Film and International Studies. After realizing at a young age that he may not be a professional soccer player, he became passionate about the film industry, marketing, and the strange rabbit holes of Wikipedia. His favorite color is green, and somehow, he's never been to Applebee's.",
             image : "https://placehold.co/200x250"
         },
         {
             name : "JACKSON HELLER",
             bio : "(center) is known by many names: visionary, pioneer, forefather, legend. After doing consistent standup while studying abroad in Prague (shoutout Metro Comedy Club), a bright-eyed Jackson came back to the motherland with a singular dream: to bring the magic of a great standup venue to Northwestern. A savant of the stupid, silly, and surreal, his standup idols include Mitch Hedberg, Hannibal Burress, Sheng Wang, and Mateo Garcia-Bryce.",
             image : "https://placehold.co/200x250"
+        },
+        {
+            name: "AINSLIE WILSON",
+            bio: "(center left) is a self-selecting only child (absorbed twin in womb) and has sought attention through many avenues, including sketch comedy, improv, and stand-up. Standing-up all across the rolling plains of Central/Southern Illinois, Ainslie is thrilled to bring the same wit and charm to Northern Illinois. She studies Radio/Television/Film and Psychology, and she lives on the second floor.",            
+            image : ""
+        },
+        {
+            name: "LIV SALITURO",
+            bio: "A hospitable and lovely host, Liv Salituro (center right) lives a life of mystery, doing something she describes as consulting, whatever that means."
         }
     ]
 
@@ -56,7 +65,11 @@ const HomeBioSection = ({buttonsHidden=null}) => {
 
             <div className='prattic-main-photo w-full flex justify-center max-h-[60vh] object-scale-down'>
 
-                <img src="/images/prattic-gentlemen.jpg" className='' alt={`Home image for the Prattic : The three founders`} />
+                {/* <img src="/images/prattic-gentlemen.jpg" className='' alt={`Home image for the Prattic : The three founders`} /> */}
+
+                <img src="/images/full_prattic-min.png" className='' alt={`Home image for the Prattic : The five residents`} />
+
+
 
 
             </div>
@@ -87,7 +100,7 @@ const HomeBioSection = ({buttonsHidden=null}) => {
 
         <article className='prattic-bios mt-18'>
 
-            <h2 className='font-bold text-[4rem] md:text-[4.6rem] text-center lg:text-left'>Meet The Founders</h2>
+            <h2 className='font-bold text-[4rem] md:text-[4.6rem] text-center lg:text-left'>Meet The Residents</h2>
 
             {
                 prattic_bios_info.map((person, i) => (
