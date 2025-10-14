@@ -56,7 +56,6 @@ const HomeButtonsSection = () => {
 
         {/* </button> */}
 
-      
     </section>
   )
 }
